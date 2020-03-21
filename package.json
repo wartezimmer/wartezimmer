@@ -1,0 +1,11 @@
+{
+  "name": "wartezimmer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wartezimmer/wartezimmer",
+  "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  }
+}
