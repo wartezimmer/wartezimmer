@@ -1,10 +1,10 @@
 import { setAutoFreeze } from "immer";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import { ExampleReduxReducer, ExampleState } from "./example";
-
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 import storage from "redux-persist/lib/storage";
+
+import { AppReduxReducer, AppState } from "./app";
 
 setAutoFreeze(false);
 
@@ -19,10 +19,10 @@ function persist(reducer: any, key: string, whitelist?: string[], blacklist?: st
 }
 
 export const rootReducer = combineReducers({
-    example: persist(ExampleReduxReducer, "example", ["counter"]),
+    app: persist(AppReduxReducer, "app"),
 });
 
 // tslint:disable-next-line: no-empty-interface
 export interface State {
-    example: ExampleState;
+    app: AppState;
 }
