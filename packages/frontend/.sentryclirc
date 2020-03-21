@@ -1,0 +1,4 @@
+[defaults]
+url=https://sentry-00.feinarbyte.de
+project=frontend-frontend
+org=feinarbyte

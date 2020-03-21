@@ -1,0 +1,19 @@
+overwrite: true
+schema: "-"
+documents: "src/**/*.ts"
+hooks:
+  afterOneFileWrite:
+    - ./node_modules/.bin/prettier --write
+    - ./node_modules/.bin/tslint --fix
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - add: "// tslint:disable max-line-length"
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      # withComponent: false
+      # withHOC: false
+      withHooks: true
+      # apolloReactHooksImportFrom: apollo/react-hooks
