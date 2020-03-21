@@ -1,8 +1,16 @@
+import { Welcome } from "../components/Welcome";
 import { Reducer } from "./reduxHelper";
 
 export enum Step {
     Welcome,
-
+    Search,
+    Facility,
+    SignUp,
+    Enqueue,
+    Queue,
+    Wait,
+    Treatment,
+    GoodBy,
 }
 
 export interface AppState {

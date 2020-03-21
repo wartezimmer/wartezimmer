@@ -6,14 +6,14 @@ import { ExampleApi } from "state/example";
 
 
 
-export const Welcome = () => {
+export const Arrive = () => {
 
     const dispatch = useDispatch();
     // const counter = useSelector((state: State) => state.example.counter);
 
     return <>
         <Layout>
-            <Layout.Header>WARTESCHLEIFE</Layout.Header>
+            <Layout.Header>Ankommen</Layout.Header>
             <Layout.Content>
                 <Button
                     onClick={() => dispatch(ExampleApi.increment())}

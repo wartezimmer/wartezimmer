@@ -6,7 +6,7 @@ import { ExampleApi } from "state/example";
 
 
 
-export const Welcome = () => {
+export const Search = () => {
 
     const dispatch = useDispatch();
     // const counter = useSelector((state: State) => state.example.counter);
