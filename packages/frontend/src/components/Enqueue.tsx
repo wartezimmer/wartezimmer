@@ -1,19 +1,17 @@
-import { Button, Layout } from "antd";
+import { Button, Layout, Typography } from "antd";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { ExampleApi } from "state/example";
 
-
-
+import { useThunkDispatch } from "../useThunkDispatch";
 
 export const Enqueue = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useThunkDispatch();
     // const counter = useSelector((state: State) => state.example.counter);
 
     return <>
         <Layout>
-            <Layout.Header>Anstellen</Layout.Header>
+            <Layout.Header><Typography.Title>Anstellen</Typography.Title></Layout.Header>
             <Layout.Content>
                 <Button
                     onClick={() => dispatch(ExampleApi.increment())}
