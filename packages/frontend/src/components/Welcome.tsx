@@ -3,6 +3,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { ExampleApi } from "state/example";
 
+import { fetchFacilities } from "../state/thunks/fetchFacilities";
+
 
 
 
@@ -21,7 +23,7 @@ export const Welcome = () => {
                     MEHR INFOS
         </Button>
                 <Button
-                    onClick={() => dispatch(ExampleApi.reset())}
+                    onClick={() => dispatch(fetchFacilities())}
                 >
                     ANMELDUNG
         </Button>
