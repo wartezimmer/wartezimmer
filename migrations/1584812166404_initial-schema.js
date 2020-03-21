@@ -16,6 +16,23 @@ exports.up = pgm => {
     },
   })
 
+  pgm.createTable('facilities', {
+    id: 'id',
+    externalId: { 
+      type: 'varchar(128)', 
+      notNull: true 
+    },
+    name: { 
+      type: 'varchar(128)', 
+      notNull: true 
+    },
+    createdAt: {
+      type: 'timestamp',
+      notNull: true,
+      default: pgm.func('current_timestamp'),
+    },
+  })
+
   pgm.createTable('queues', {
     id: 'id',
     userId: { 
@@ -35,23 +52,6 @@ exports.up = pgm => {
     travelTime: {
       type: 'integer',
       notNull: true
-    },
-    createdAt: {
-      type: 'timestamp',
-      notNull: true,
-      default: pgm.func('current_timestamp'),
-    },
-  })
-
-  pgm.createTable('facilities', {
-    id: 'id',
-    externalId: { 
-      type: 'varchar(128)', 
-      notNull: true 
-    },
-    name: { 
-      type: 'varchar(128)', 
-      notNull: true 
     },
     createdAt: {
       type: 'timestamp',

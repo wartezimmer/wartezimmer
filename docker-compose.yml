@@ -7,8 +7,8 @@ services:
     restart: always
     environment:
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: ideallösung
       POSTGRES_DB: db
+      POSTGRES_PASSWORD: idealloesung
       PGDATA: /data/postgres
     ports:
       - 5432:5432
