@@ -1,9 +1,10 @@
 import { ReduxDispatch } from "../../useThunkDispatch";
-import { AppApi, Step } from "../app";
+import { AppApi, Facility, Step } from "../app";
 
 export function fetchFacilities() {
-    return (dispatch: ReduxDispatch) => {
-        
-        dispatch(AppApi.gotoStep(Step.Search))
+    return async (dispatch: ReduxDispatch) => {
+        const result = await (await fetch("/backend/")).json();
+        dispatch(AppApi.setCurrentSearchResult(result as Facility[]));
+        dispatch(AppApi.gotoStep(Step.Search));
     };
 }

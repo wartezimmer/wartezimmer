@@ -1,14 +1,11 @@
 import { Button, Layout } from "antd";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { ExampleApi } from "state/example";
 
-
-
+import { useThunkDispatch } from "../useThunkDispatch";
 
 export const Wait = () => {
-
-    const dispatch = useDispatch();
+    const dispatch = useThunkDispatch();
     // const counter = useSelector((state: State) => state.example.counter);
 
     return <>
