@@ -8,6 +8,6 @@ app.get('/', (req, res) => {
     res.end('hello wartezimmer')
 })
 app.use("/facility", facility)
-app.use("/facilities", facilites)
+app.use("/facilities", facilities)
 app.use("/current-queue", currentQueue)
 app.listen(process.env.PORT || 3001)
