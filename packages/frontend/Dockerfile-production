@@ -1,0 +1,51 @@
+# --- build app in production mode ---
+
+FROM node:12-alpine AS BUILDER
+
+ARG SENTRY_UPLOAD=no
+ARG SENTRY_AUTH_TOKEN=0
+ARG SENTRY_DSN
+
+RUN apk update \
+    && apk upgrade \
+    && mkdir /app/
+
+WORKDIR /app/
+
+COPY package.json yarn.lock .npmrc .sentryclirc ./
+
+RUN yarn install
+
+COPY .babelrc webpack.config.js ./
+COPY tsconfig.json ./tsconfig.json
+COPY .git ./
+COPY src ./src/
+
+# SENTRY_UPLOAD has to be "yes" for an upload
+RUN SENTRY_DSN=$SENTRY_DSN SENTRY_UPLOAD=$SENTRY_UPLOAD SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN yarn run build --env prod
+
+# --- build production container ---
+
+FROM nginx:alpine
+
+RUN apk update \
+    && apk upgrade \
+    && apk add curl
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+
+# configure nginx
+COPY etc/nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=BUILDER /app/dist/ /srv/
+
+HEALTHCHECK \
+    --interval=30s \
+    --timeout=5s \
+    --start-period=5s\
+    --retries=3 \
+    CMD curl --fail --silent --show-error http://localhost:80/
+
+# vi: ft=dockerfile

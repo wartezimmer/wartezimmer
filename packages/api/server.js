@@ -1,4 +1,3 @@
-const express = require('express')
 const facility = require("./lib/controllers/facility");
 const facilities = require("./lib/controllers/facilities");
 const currentQueue = require("./lib/controllers/current_queue");
