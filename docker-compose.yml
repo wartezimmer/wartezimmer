@@ -7,12 +7,36 @@ services:
     restart: always
     environment:
       POSTGRES_USER: user
+      POSTGRES_DB: db
       POSTGRES_PASSWORD: idealloesung
       PGDATA: /data/postgres
     ports:
       - 5432:5432
     volumes:
       - postgres:/data/postgres
+  frontend:
+    build:
+      context: ./packages/frontend
+      dockerfile: Dockerfile 
+    ports: 
+      - 8080:8080
+    volumes:
+      - "./packages/frontend/src:/app/src:rw"
+      - "./packages/frontend/webpack.config.js:/app/webpack.config.js:ro"
+      - "./packages/frontend/tsconfig.json:/app/tsconfig.json:ro"
+      - "./packages/frontend/.babelrc:/app/.babelrc:ro"
+      - "./packages/frontend/package.json:/app/package.json:ro"
+  api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile 
+    ports: 
+      - 3001:3001
+      - 9229:9229
+    volumes:
+      - "./packages/api/lib:/app/lib:rw"
+      - "./packages/api/server.js:/app/server.js:rw"
+      - "./packages/api/package.json:/app/package.json:ro"
 
 volumes:
   postgres:
