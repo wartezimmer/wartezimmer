@@ -4566,7 +4566,7 @@
         "signature": "b6bb5ac6447c1f649d68e931921aa1bd3e79dc864ece48804aebcf204f44d304"
       },
       "./src/state/app.ts": {
-        "version": "de1557342fd08debcc4108a5f70e9c4f774e6a01412c07ea2de87e75f4117bef",
+        "version": "37915dd33b9ab2ab73534b2cbb2be372ff73f6cb07a73e25d567e1448e9cfe0a",
         "signature": "6f4777753d0b5ea026460eb39e6f84ef76f996d926f77b1826ce62bf6157307f"
       },
       "./src/state/index.ts": {
@@ -4582,7 +4582,7 @@
         "signature": "9642848bafbbb84be951239af312e286690b9f2344f4d3aacba391d720fed157"
       },
       "./src/components/Enqueue.tsx": {
-        "version": "59c5b248ca99f37270eab66e373d2c59a4a7c9cc03b6f74ffcea2eb04ded88c1",
+        "version": "b574d5cd2eda0c35206907229cd4d8f1b8b0a39885c5f5b635d3213b268b55d2",
         "signature": "ed0aba15470c93ee98626dae634786371b1173a5f2ebce2bfc6bc812f4abaf82"
       },
       "./src/state/thunks/alterCurrentQueue.ts": {
@@ -28447,7 +28447,6 @@
       "./node_modules/redux-thunk/index.d.ts",
       "./src/useThunkDispatch.ts",
       "./src/components/Welcome.tsx",
-      "./src/state/app.ts",
       "./src/state/index.ts",
       "./src/state/thunks/enqueue.ts",
       "./src/components/CurrentLoadChart.tsx",
@@ -28455,6 +28454,7 @@
       "./src/state/thunks/alterCurrentQueue.ts",
       "./src/components/Queue.tsx",
       "./src/components/Treatment.tsx",
+      "./src/components/Wait.tsx",
       "./node_modules/react-hot-loader/index.d.ts",
       "./src/components/GoodBye.tsx",
       "./src/components/Search.tsx",
@@ -28581,7 +28581,7 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/components/Wait.tsx"
+      "./src/state/app.ts"
     ]
   },
   "version": "3.8.3"

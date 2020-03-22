@@ -19,7 +19,7 @@ export const Enqueue = () => {
         <>
             <header>
                 <LeftOutlined onClick={() => dispatch(AppApi.back())} />
-                <h1>Account Anlegen</h1>
+                <h1>Anstehen</h1>
                 <div className="space"></div>
             </header>
             <main>
