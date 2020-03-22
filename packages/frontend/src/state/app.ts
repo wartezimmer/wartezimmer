@@ -58,14 +58,15 @@ class AppReducer extends Reducer<AppState> {
     public back() {
         while (this.state.history.length > 0) {
             const lastStep = this.state.history.pop()!;
-            if (this.state.currentUserId === null || (lastStep !== Step.SignIn && lastStep !== Step.SignUp)) {
-                this.state.activeStep = this.state.history.pop()!;
+            if (this.state.currentUserId === null 
+                || (lastStep !== Step.SignIn && lastStep !== Step.SignUp)) {
+                this.state.activeStep = lastStep;
             }
         }
     }
     public gotoStep(step: Step) {
+        this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
-        this.state.history.push(step);
     }
     public setCurrentFacility(currentFacility: Facility | null) {
         this.state.currentFacility = currentFacility;
