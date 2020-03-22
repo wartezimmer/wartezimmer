@@ -74,6 +74,7 @@ class AppReducer extends Reducer<AppState> {
         //     step = Step.Search;
         // }
         window.history.pushState({ step: step}, Step[step]);
+        console.log("History", this.state.activeStep)
         this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
     }
