@@ -1,6 +1,5 @@
-import { LeftOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { State } from "../state";
@@ -18,8 +17,8 @@ export const Enqueue = () => {
     return (
         <>
             <header>
-                <LeftOutlined onClick={() => dispatch(AppApi.back())} />
-                <h1>Anstehen</h1>
+                <div className="space"></div>
+                <h1>Anstellen</h1>
                 <div className="space"></div>
             </header>
             <main>
@@ -38,7 +37,7 @@ export const Enqueue = () => {
                     {facility ? facility.name : "kann später nicht mehr passieren"}
                     <Button onClick={() => dispatch(enqueue())}>Anstellen</Button>
                 </Form>
-                    <CurrentLoadChart />
+                <CurrentLoadChart />
             </main>
         </>
     );

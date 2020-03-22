@@ -13,6 +13,7 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - "./sql:/docker-entrypoint-initdb.d"
       - postgres:/data/postgres
   redis:
     image: redis:5.0.8
@@ -22,10 +23,13 @@ services:
   frontend:
     build:
       context: ./packages/frontend
-      dockerfile: Dockerfile
-    ports:
+      dockerfile: Dockerfile 
+    ports: 
+    #      - 3004:443
       - 8080:8080
     volumes:
+      # - "./packages/frontend/dist:/app/dist:rw" 
+      - "./packages/frontend/static:/app/static:rw"
       - "./packages/frontend/src:/app/src:rw"
       - "./packages/frontend/webpack.config.js:/app/webpack.config.js:ro"
       - "./packages/frontend/tsconfig.json:/app/tsconfig.json:ro"

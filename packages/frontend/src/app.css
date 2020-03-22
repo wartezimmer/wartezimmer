@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap');
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -49,6 +48,7 @@ table {
 body {
   font-family: 'Nunito', sans-serif;
   --blue: #1F30BA;
+  --red: #FC423F;
   --light-blue: #F0FCFC;
 }
 
@@ -66,12 +66,23 @@ body {
   text-transform: uppercase;
 }
 
+.ant-menu > .ant-menu-item-divider {
+  margin: 0;
+  background-color: #F7DFE7;
+  height: 4px;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
 
 /* Components */
 .ant-btn {
   font-weight: 700;
   font-size: 20px;
   height: 40px;
+  font-weight: 700;
   text-transform: uppercase;
   border-radius: 3px;
   border-width: 2px;
@@ -89,6 +100,12 @@ Button.primary-blue {
   color: white;
 }
 
+Button.primary-red {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
 
 
 header {
@@ -103,7 +120,7 @@ header {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-header .anticon {
+header .back {
   display: inline;
   font-size: 24px;
   margin-left: 4px;
@@ -111,7 +128,7 @@ header .anticon {
 }
 
 header h1 {
-  font-size: 18px;
+  font-size: 28px;
   line-height: 24px;
   font-weight: 700;
   margin: 0px;
@@ -134,6 +151,7 @@ header .space {
   background-color: var(--blue);
   color: white;
   padding-left: 16px;
+  padding-right: 16px;
   padding-bottom: 70px;
 }
 
@@ -160,9 +178,65 @@ header .space {
 
 #info {
   background-color: var(--light-blue);
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+
+}
+
+#info img {
+  left: 50%;
+  margin-left: -50px;
+  position: absolute;
+  margin-top: -50px;
+}
+
+#info .text {
+  padding-top: 64px;
+  font-size: 24px;
+  color: var(--blue)
+}
+
+#info .btn {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  display: flex;
+  justify-content: space-evenly;
+
 }
 
 
+/* Search */
+#search {
+  background-color: var(--blue);
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+#search h2 {
+  color: white;
+  text-align: center;
+  font-size: 26px;
+  padding-top: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+
+#search .ant-form-item {
+  margin-bottom: 24px;
+}
+
+#search .ant-input {
+  height: 40px;
+  border-radius: 4.75px;
+}
+
+#search .btn {
+  padding-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+}
 
 #signup {
   margin-top: 108px;
@@ -177,22 +251,20 @@ header .space {
 
 #signup .ext-login {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
 }
 
 #signup .ext-login button {
-  width: calc(50% - 8px);
+  width: 100%;
 }
 
 #signup .ext-login .google {
-  margin-right: 8px;
   color: white;
   background-color: #dd4c37;
 }
 
 #signup .ext-login .facebook {
-  margin-left: 8px;
   color: white;
   background-color: #3c5899;
 }
@@ -204,5 +276,102 @@ header .space {
 
 .ant-layout-header {
     background-color: var(--blue);
-    padding: 0 20px;
+    padding: 0 8px 0 20px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.my-2 {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.mt-5 {
+    margin-top: 2rem;
+}
+
+.ant-layout-sider {
+    color: white;
+    text-transform: uppercase;
+    height: 100vh;
+}
+
+.ant-layout-sider-children {
+  max-width: 300px;
+  min-width: 300px;
+  width: 300px;
+}
+
+.ant-layout-sider .ant-menu {
+  height: calc(100% - 176px);
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-layout-sider .user {
+  padding-bottom: 16px;
+}
+
+
+.impressum-btn {
+  margin-top: auto;
+    background-color: var(--blue);
+    color: white;
+    font-weight: 900;
+}
+
+.sider-banner {
+    color: var(--blue);
+    background-color: var(--light-blue);
+    padding-left: 1.5rem;
+    padding-top: 2rem;
+    line-height: 1;
+}
+
+.sider-banner h1 {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    font-weight: 900;
+    font-size: 2rem;
+}
+.sider-banner h2 {
+    font-size: .8rem;
+    font-weight: 700;
+    padding: 4px 6px 4px 6px;
+    background-color: var(--blue);
+    color: white;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.sider-banner .proj {
+  margin-top: 20px;
+  height: 3rem;
+  display: block;
+  margin-left: 135px;
+}
+
+
+.ant-btn-background-ghost {
+    border: none;
+    color: white;
+}
+
+.sider-banner .ant-menu .ant-menu-item:last-child() {
+    padding-bottom: 80px;
+}
+
+.sider-banner img.logo {
+    left: 50%;
+    margin-left: -40px;
+    position: absolute;
+    margin-top: -80px;
+    width: 80px;
+    height: 80px;
 }

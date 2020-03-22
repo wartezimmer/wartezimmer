@@ -6,11 +6,14 @@ export enum Step {
     Facility,
     SignIn,
     SignUp,
+    About,
+    Imprint,
+    // all following steps can only be accessed if a facility is set!
     Enqueue,
     Queue,
     Wait,
-    Treatment,
     GoodBye,
+    Treatment,
 }
 
 export interface Facility {
@@ -66,10 +69,14 @@ class AppReducer extends Reducer<AppState> {
         }
     }
     public gotoStep(step: Step) {
+        // if (step > Step.Imprint && this.state.currentFacility === null) {
+        //     step = Step.Search;
+        // }
         this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
     }
     public setCurrentFacility(currentFacility: Facility | null) {
+        this.state.activeStep = Step.Facility;
         this.state.currentFacility = currentFacility;
     }
     public setCurrentSearchResult(result: Facility[]) {

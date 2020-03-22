@@ -12,7 +12,7 @@ export const Arrive = () => {
     return (
         <>
             <header>
-                <LeftOutlined onClick={() => dispatch(AppApi.back())} />
+                <LeftOutlined className="back" onClick={() => dispatch(AppApi.back())} />
                 <h1>Account Anlegen</h1>
                 <div className="space"></div>
             </header>

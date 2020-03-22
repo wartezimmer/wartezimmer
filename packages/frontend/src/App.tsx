@@ -1,9 +1,11 @@
 import "./app.css";
 
 import { Layout } from "antd";
+import { About } from "components/About";
 import { Enqueue } from "components/Enqueue";
 import { NavBar } from "components/NavBar";
 import { Queue } from "components/Queue";
+import { Sider } from "components/Sider";
 import { Treatment } from "components/Treatment";
 import { Wait } from "components/Wait";
 import React from "react";
@@ -11,6 +13,7 @@ import { hot } from "react-hot-loader";
 import { useSelector } from "react-redux";
 import { Step } from "state/app";
 
+import { Facility } from "./components/Facility";
 import { GoodBye } from "./components/GoodBye";
 import { Search } from "./components/Search";
 import { SignIn } from "./components/SignIn";
@@ -20,7 +23,6 @@ import { State } from "./state";
 
 export const App = () => {
     const activeStep = useSelector((state: State) => state.app.activeStep);
-    const collapseSideBar = useSelector((state: State) => state.app.collapseSideBar);
 
     function renderContent() {
         switch (activeStep) {
@@ -34,6 +36,8 @@ export const App = () => {
                 return <SignUp />
             case Step.Enqueue:
                 return <Enqueue />
+            case Step.Facility:
+                return <Facility />
             case Step.Queue:
                 return <Queue />
             case Step.Wait:
@@ -42,6 +46,8 @@ export const App = () => {
                 return <Treatment />
             case Step.GoodBye:
                 return <GoodBye />
+            case Step.About:
+                return <About />
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
         }
@@ -52,14 +58,7 @@ export const App = () => {
             <NavBar />
             {renderContent()}
         </Layout>
-        <Layout.Sider
-            collapsible
-            collapsedWidth="0"
-            collapsed={collapseSideBar}
-            trigger={null}
-        >
-            Sider
-        </Layout.Sider>
+        <Sider />
     </Layout>
 };
 
