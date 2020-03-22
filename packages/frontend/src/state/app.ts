@@ -12,6 +12,7 @@ export enum Step {
     Treatment,
     GoodBye,
     About,
+    Imprint,
 }
 
 export interface Facility {

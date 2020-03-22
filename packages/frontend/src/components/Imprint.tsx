@@ -1,20 +1,21 @@
-import { LeftOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useState } from "react";
 
-import { AppApi } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
 
-export const About = () => {
+export const Imprint = () => {
     const dispatch = useThunkDispatch();
     // const counter = useSelector((state: State) => state.example.counter);
+    const [peopleBeforeMe, setPeopleBeforeMe] = useState(0)
+
     return (
         <>
             <header>
-                <LeftOutlined onClick={() => dispatch(AppApi.back())} />
-                <h1>So Funktioniert's</h1>
+                <div className="space"></div>
+                <h1>Impressum</h1>
                 <div className="space"></div>
             </header>
             <main>
+                <h2>Notwendigkeit</h2>
             </main>
         </>
     );
