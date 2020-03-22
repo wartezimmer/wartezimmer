@@ -26,8 +26,8 @@ module.exports = function(env) {
   let commitHash = "dev";
   let commitHashLong = "dev";
   if (env !== "dev") {
-    commitHash = execSync("git rev-parse --short HEAD").toString().trim();
-    commitHashLong = execSync("git rev-parse HEAD").toString().trim();
+    // commitHash = execSync("git rev-parse --short HEAD").toString().trim();
+    // commitHashLong = execSync("git rev-parse HEAD").toString().trim();
   }
 
   fs.writeFileSync(path.join(__dirname, "static/version.txt"), `${packageJson.version}-${commitHash}`);
