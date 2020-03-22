@@ -13,6 +13,7 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - "./sql:/docker-entrypoint-initdb.d"
       - postgres:/data/postgres
   redis:
     image: redis:5.0.8
@@ -36,10 +37,10 @@ services:
   api:
     build:
       context: ./packages/api
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     environment:
       DATABASE_URL: postgres://user:idealloesung@db:5432/db
-    ports: 
+    ports:
       - 3001:3001
       - 9229:9229
     volumes:
@@ -50,10 +51,10 @@ services:
   load-calculations:
     build:
       context: ./packages/load-calculations
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     environment:
       DATABASE_URL: postgres://user:idealloesung@db:5432/db
-    ports: 
+    ports:
       - 3002:3002
       - 9228:9228
     volumes:
@@ -64,10 +65,10 @@ services:
   admin-panel:
     build:
       context: ./packages/admin-panel
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     environment:
       DATABASE_URL: postgres://user:idealloesung@db:5432/db
-    ports: 
+    ports:
       - 3003:3003
       - 9227:9227
     volumes:
