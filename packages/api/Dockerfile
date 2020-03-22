@@ -14,4 +14,4 @@ RUN yarn install
 
 EXPOSE 3003
 
-CMD ["yarn", "run", "start"]
+CMD ["yarn", "run", "dev"]

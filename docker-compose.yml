@@ -49,6 +49,7 @@ services:
       - "./packages/api/tsconfig.json:/app/tsconfig.json:ro"
       - "./packages/api/package.json:/app/package.json:ro"
       - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
+      - "./packages/frontend/dist:/frontend/dist:ro"
   load-calculations:
     build:
       context: ./packages/load-calculations
