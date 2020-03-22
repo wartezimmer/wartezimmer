@@ -1,10 +1,13 @@
-const express = require('express')
+const { dataQueue } = require('shared-lib/lib/redis-queue')
+const pgClient = require('shared-lib/lib/pg-client')
 
-const app = express()
+const startup = async () => {
+  const { db } = await pgClient()
 
-app.get('/test', (req, res) => {
-    res.end('hello wartezimmer')
-})
+  dataQueue.process(10, async ({ data }) => {
+    await db.query('INSERT INTO test(stuff) VALUES($1) RETURNING *', [data.stuff])
+  });
 
-app.listen(process.env.PORT || 3002)
-console.log('WARTEZIMMER WORKER RUNNING')
+  console.log('WARTEZIMMER WORKER RUNNING')
+}
+startup()

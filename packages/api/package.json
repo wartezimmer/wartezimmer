@@ -25,6 +25,7 @@
     "url": "https://github.com/wartezimmer/wartezimmer/issues"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "shared-lib": "*"
   }
 }

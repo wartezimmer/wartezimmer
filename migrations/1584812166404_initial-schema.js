@@ -3,6 +3,19 @@
 exports.shorthands = undefined;
 
 exports.up = pgm => {
+  pgm.createTable('test', {
+    id: 'id',
+    stuff: { 
+      type: 'varchar(128)', 
+      notNull: true 
+    },
+    createdAt: {
+      type: 'timestamp',
+      notNull: true,
+      default: pgm.func('current_timestamp'),
+    },
+  })
+
   pgm.createTable('users', {
     id: 'id',
     userId: { 
