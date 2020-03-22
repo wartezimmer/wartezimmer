@@ -61,14 +61,19 @@ body {
 
 .bottom {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
-  left: 16px;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .actions {
   display: flex;
   justify-content: space-between;
+  background-color: white;
+  padding-bottom: 16px;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 8px;
 }
 
 .light {
@@ -400,6 +405,7 @@ header .space {
   padding-top: 8px;
   padding-bottom: 8px;
   width: calc(100% - 32px);
+  margin-bottom: 80px;
 }
 
 
@@ -462,7 +468,7 @@ header .space {
 }
 
 #enqueue .duration {
-  margin-bottom: 70px;
+  margin-bottom: 80px;
 }
 
 /* Queue */
@@ -497,7 +503,7 @@ header .space {
 }
 
 #queue .load {
-  padding-bottom: 70px;
+  padding-bottom: 80px;
 }
 
 /*Waiting Room*/
@@ -528,6 +534,7 @@ header .space {
   margin-left: 16px;
   text-align: center;
   background-color: var(--extra-light-red);
+  margin-bottom: 80px;
 }
 
 /* Treatment */
@@ -538,6 +545,10 @@ header .space {
 
 #treatment .doc-name {
   font-size: 20px;
+}
+
+#treatment .waiting-info {
+  margin-bottom: 80px;
 }
 
 /* GoodBye */
@@ -552,6 +563,7 @@ header .space {
   
   text-transform: uppercase;
   color: var(--blue);
+  margin-bottom: 80px;
 }
 
 

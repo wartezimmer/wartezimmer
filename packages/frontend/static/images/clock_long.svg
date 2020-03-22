@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="374.654" height="100" viewBox="0 0 374.654 386.116">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f0fcfc;
+      }
+
+      .cls-2 {
+        fill: #fceff3;
+      }
+
+      .cls-3 {
+        fill: #fc423f;
+      }
+
+      .cls-4, .cls-5 {
+        stroke: none;
+      }
+
+      .cls-5 {
+        fill: rgba(0,20,177,0.88);
+      }
+    </style>
+  </defs>
+  <g id="Gruppe_185" data-name="Gruppe 185" transform="translate(0 -226)">
+    <g id="Komponente_2_8" data-name="Komponente 2 – 8" transform="translate(0 226)">
+      <rect id="Rechteck_21" data-name="Rechteck 21" class="cls-1" width="374.654" height="386.116"/>
+    </g>
+    <g id="Gruppe_184" data-name="Gruppe 184">
+      <g id="Pfad_61" data-name="Pfad 61" class="cls-2" transform="translate(106 313)">
+        <path class="cls-4" d="M82,0A82,82,0,1,1,0,82,82,82,0,0,1,82,0Z"/>
+        <path class="cls-5" d="M 82 10 C 42.29906463623047 10 10 42.29906463623047 10 82 C 10 121.7009429931641 42.29906463623047 154 82 154 C 121.7009429931641 154 154 121.7009429931641 154 82 C 154 42.29906463623047 121.7009429931641 10 82 10 M 82 0 C 127.2873382568359 0 164 36.71265411376953 164 82 C 164 127.2873382568359 127.2873382568359 164 82 164 C 36.71265411376953 164 0 127.2873382568359 0 82 C 0 36.71265411376953 36.71265411376953 0 82 0 Z"/>
+      </g>
+      <g id="Gruppe_93" data-name="Gruppe 93" transform="translate(-1 -1)">
+        <path id="Pfad_67" data-name="Pfad 67" class="cls-3" d="M69.441,0V69.44A69.445,69.445,0,0,1,0,0Z" transform="translate(257.772 396.521) rotate(180)"/>
+        <path id="Pfad_68" data-name="Pfad 68" class="cls-3" d="M69.441,0V69.44A69.445,69.445,0,0,1,0,0Z" transform="translate(188.331 465.522) rotate(-90)"/>
+        <path id="Pfad_69" data-name="Pfad 69" class="cls-3" d="M69.441,0V69.44A69.445,69.445,0,0,1,0,0Z" transform="translate(119.331 396.081)"/>
+      </g>
+    </g>
+  </g>
+</svg>
