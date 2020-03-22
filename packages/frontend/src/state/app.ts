@@ -69,9 +69,9 @@ class AppReducer extends Reducer<AppState> {
         }
     }
     public gotoStep(step: Step) {
-        if (step > Step.Imprint && this.state.currentFacility === null) {
-            step = Step.Search;
-        }
+        // if (step > Step.Imprint && this.state.currentFacility === null) {
+        //     step = Step.Search;
+        // }
         this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
     }
