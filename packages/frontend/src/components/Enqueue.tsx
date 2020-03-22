@@ -35,7 +35,7 @@ export const Enqueue = () => {
                         <TimePicker />
                     </Form.Item>
                     <div className="label">Dauer meiner Anreise:</div>
-                    <Form.Item>
+                    <Form.Item className="duration">
                         <Input className ="duration-input"
                             type="number"
                             value={travelTime}

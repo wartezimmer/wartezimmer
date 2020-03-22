@@ -21,6 +21,12 @@ export const Queue = () => {
                 <div className="space"></div>
             </header>
             <main>
+                <div>
+                    <div>Ich bin verfügbar ab</div>
+                    <div>{availableTime}</div>
+                    <div>Dauer meiner Anreise</div>
+                    <div>{travelTime}</div>
+                </div>
                 <Form>
                     <Form.Item label={"Ich bin verfügbar ab"}>
                         {/* <TimePicker value={time} onChange={(e) => setTime(e.target.value)} /> */}
