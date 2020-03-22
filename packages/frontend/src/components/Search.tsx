@@ -16,7 +16,7 @@ export const Search = () => {
                 <div id="search">
                     <h2>Meine Einrichtung finden</h2>
                     <Form.Item>
-                        <Input value={search} onChange={(e) => e.target.value}/>
+                        <Input value={search} onChange={(e) => setSearch(e.target.value)}/>
                     </Form.Item>
                     <div className="btn">
                         <Button onClick={() => dispatch(AppApi.gotoStep(Step.SignIn))}>Anmeldung</Button>

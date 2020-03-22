@@ -110,7 +110,7 @@ header {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-header .anticon {
+header .back {
   display: inline;
   font-size: 24px;
   margin-left: 4px;
@@ -118,7 +118,7 @@ header .anticon {
 }
 
 header h1 {
-  font-size: 18px;
+  font-size: 24px;
   line-height: 24px;
   font-weight: 700;
   margin: 0px;
