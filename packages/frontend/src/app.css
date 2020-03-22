@@ -276,7 +276,7 @@ header .space {
 
 .ant-layout-header {
     background-color: var(--blue);
-    padding: 0 20px;
+    padding: 0 8px 0 20px;
 }
 
 .text-right {
@@ -309,9 +309,13 @@ header .space {
 }
 
 .ant-layout-sider .ant-menu {
-  height: calc(100% - 160px);
+  height: calc(100% - 176px);
   display: flex;
   flex-direction: column;
+}
+
+.ant-layout-sider .user {
+  padding-bottom: 16px;
 }
 
 

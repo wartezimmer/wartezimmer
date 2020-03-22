@@ -25,7 +25,7 @@ export const Sider = () => {
                 whiteSpace: "nowrap",
             }}
         >
-            <div>
+            <div className="user">
 
             <Row>
                 <Col className="text-right">
