@@ -26,6 +26,9 @@
   "dependencies": {
     "ejs": "^3.0.1",
     "express": "^4.17.1",
-    "shared-lib": "*"
+    "express-fileupload": "^1.1.6",
+    "fast-csv": "^4.1.3",
+    "shared-lib": "*",
+    "stream-buffers": "^3.0.2"
   }
 }
