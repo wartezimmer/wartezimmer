@@ -6,7 +6,7 @@ export type ActionCreators<T> = {
     [p in Exclude<keyof T, keyof Reducer>]: ReplaceReturnType<T[p], { type: string }>
 };
 
-type Action = { type: string, payload: any };
+type Action = { type: string; payload: any };
 export class Reducer<ReducerState extends {} = {}> {
     public state: ReducerState;
     public initialState: ReducerState;
@@ -25,7 +25,7 @@ export class Reducer<ReducerState extends {} = {}> {
             if (!Reducer.prototype.hasOwnProperty(key) &&
                 typeof (this as any)[key] === "function"
             ) {
-                result[key] = (...args: any): { type: string, payload: any } => ({
+                result[key] = (...args: any): { type: string; payload: any } => ({
                     payload: args,
                     type: key,
                 });

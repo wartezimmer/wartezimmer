@@ -1,6 +1,8 @@
 import "./app.css";
 
+import { Layout } from "antd";
 import { Enqueue } from "components/Enqueue";
+import { NavBar } from "components/NavBar";
 import { Queue } from "components/Queue";
 import { Treatment } from "components/Treatment";
 import { Wait } from "components/Wait";
@@ -17,8 +19,10 @@ import { Welcome } from "./components/Welcome";
 import { State } from "./state";
 
 export const App = () => {
-    const activeStep = useSelector((state: State) => state.app.activeStep)
-    {
+    const activeStep = useSelector((state: State) => state.app.activeStep);
+    const collapseSideBar = useSelector((state: State) => state.app.collapseSideBar);
+
+    function renderContent() {
         switch (activeStep) {
             case Step.Welcome:
                 return <Welcome />;
@@ -42,7 +46,21 @@ export const App = () => {
                 return <div>Page not found {Step[activeStep]}</div>;
         }
     }
-}
-    ;
+
+    return <Layout>
+        <Layout>
+            <NavBar />
+            {renderContent()}
+        </Layout>
+        <Layout.Sider
+            collapsible
+            collapsedWidth="0"
+            collapsed={collapseSideBar}
+            trigger={null}
+        >
+            Sider
+        </Layout.Sider>
+    </Layout>
+};
 
 export default hot(module)(App);
