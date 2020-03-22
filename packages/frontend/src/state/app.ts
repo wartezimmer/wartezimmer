@@ -85,7 +85,7 @@ class AppReducer extends Reducer<AppState> {
     public setCurrentSearchResult(result: Facility[]) {
         this.state.currentSearchResult = result;
     }
-    public setCurrentUserId(id: string) {
+    public setCurrentUserId(id: string | null) {
         this.state.currentUserId = id;
     }
     public setTravelTime(time: number) {

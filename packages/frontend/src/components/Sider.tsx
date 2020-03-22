@@ -6,6 +6,8 @@ import { State } from "state";
 import { AppApi, Step } from "state/app";
 import { useThunkDispatch } from "useThunkDispatch";
 
+import { signout } from "../state/thunks/signout";
+
 export const Sider = () => {
     const dispatch = useThunkDispatch();
     const collapseSideBar = useSelector((state: State) => state.app.collapseSideBar);
@@ -68,6 +70,10 @@ export const Sider = () => {
                 <Menu.Item
                     style={{
                         marginBottom: "50px",
+                    }}
+                    onClick={() => {
+                        dispatch(signout());
+                        dispatch(AppApi.setSideBarCollapsed(true));
                     }}
                 >
                     <LogoutOutlined />
