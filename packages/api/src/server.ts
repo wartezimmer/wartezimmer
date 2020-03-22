@@ -11,7 +11,7 @@ const app = express();
 
 const startup = async () => {
     const db = await pgClient();
-    const staticFileDir = path.resolve(process.cwd(), '../../frontend/dist');
+    const staticFileDir = path.resolve(process.cwd(), 'packages/frontend/dist');
     console.log(process.cwd(), staticFileDir)
     app.use(express.static(staticFileDir))
 
