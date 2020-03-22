@@ -58,6 +58,7 @@ export const defaultAppState: AppState = {
 class AppReducer extends Reducer<AppState> {
     constructor() {
         super(defaultAppState);
+
     }
     public back() {
         while (this.state.history.length > 0) {
@@ -72,6 +73,7 @@ class AppReducer extends Reducer<AppState> {
         // if (step > Step.Imprint && this.state.currentFacility === null) {
         //     step = Step.Search;
         // }
+        window.history.pushState({ step: step}, Step[step]);
         this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
     }
