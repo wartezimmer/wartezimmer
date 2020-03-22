@@ -19,6 +19,7 @@
     "@sentry/browser": "^5.15.0",
     "@sentry/integrations": "^5.15.0",
     "antd": "^4.0.3",
+    "google-map-react": "1.1.7",
     "immer": "^6.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -35,6 +36,7 @@
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.1.4",
     "@types/react": "^16.9.25",
+    "@types/google-map-react": "^1.1.5",
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "^7.1.7",
     "@types/redux-persist": "^4.3.1",
@@ -122,13 +124,5 @@
       "src/node_modules_dev"
     ],
     "preset": "ts-jest"
-  },
-  "husky": {
-    "hooks": {
-      "post-checkout": "yarnhook",
-      "post-merge": "yarnhook",
-      "post-rewrite": "yarnhook",
-      "pre-commit": "lint-staged"
-    }
   }
 }

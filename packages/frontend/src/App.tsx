@@ -1,6 +1,7 @@
 import "./app.css";
 
 import { Layout } from "antd";
+import { About } from "components/About";
 import { Enqueue } from "components/Enqueue";
 import { NavBar } from "components/NavBar";
 import { Queue } from "components/Queue";
@@ -42,8 +43,12 @@ export const App = () => {
                 return <Treatment />
             case Step.GoodBye:
                 return <GoodBye />
+            case Step.About:
+                return <About />
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
+
+
         }
     }
 

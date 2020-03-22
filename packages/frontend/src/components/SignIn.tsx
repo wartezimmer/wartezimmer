@@ -23,6 +23,11 @@ export const SignIn = () => {
                 oder [Signin Facebook] [Signin Google]
                 <Button onClick={() => dispatch(AppApi.back())}>Abbrechen</Button>
                 <Button onClick={() => dispatch(register(id, password))}>Registrieren</Button>
+                <hr/>
+                <div className="ext-login">
+                    <Button className="google" onClick={() => dispatch(ExampleApi.reset())}>Login with Google</Button>
+                    <Button className="facebook" onClick={() => dispatch(ExampleApi.reset())}>Login with Facebook</Button>
+                </div>
             </main>
         </>
     );
