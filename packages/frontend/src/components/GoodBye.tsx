@@ -11,14 +11,24 @@ export const GoodBye = () => {
 
     return (
         <>
-            <header>
-                <div className="space"></div>
-                <h1>Good Bye</h1>
-                <div className="space"></div>
-            </header>
             <main>
-            Vielen Dank und gute Besserung!
-                <Button onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Erneut Anmelden</Button>
+                <div id="banner" className="uppercase" >
+                    <div className="light">Die</div>
+                    <h1>WARTE<br />SCHLEIFE</h1>
+                    <h2>Warten im</h2>
+                    <h2>Wohnzimmer</h2>
+                </div>
+                <div id="info">
+                    <img src="/images/logo.svg" alt="" />
+                </div>
+                
+                <div id="thanks">
+                    Vielen Dank <br/> und gute <br/> Besserung!
+                </div>
+                <div className="bottom actions">
+                    <div></div>
+                    <Button className="primary-red" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Zurück zur Karte</Button>
+                </div>
             </main>
         </>
     );

@@ -500,6 +500,59 @@ header .space {
   padding-bottom: 70px;
 }
 
+/*Waiting Room*/
+#wait .doc-info {
+  text-align: center;
+  padding-bottom: 16px;
+}
+
+#wait .doc-name {
+  font-size: 20px;
+}
+#wait .people-text {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  margin-left: 16px;
+  color: var(--blue);
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+}
+#wait .people-input {
+  width: calc(100% - 32px);
+  display: block;
+  height: 40px;
+  margin-left: 16px;
+  text-align: center;
+  background-color: var(--extra-light-red);
+}
+
+/* Treatment */
+#treatment .doc-info {
+  text-align: center;
+  padding-bottom: 16px;
+}
+
+#treatment .doc-name {
+  font-size: 20px;
+}
+
+/* GoodBye */
+#thanks {
+  margin-top: 90px;
+  text-align: center;
+  background-color: var(--extra-light-red);
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-size: 44px;
+  font-weight: 700;
+  
+  text-transform: uppercase;
+  color: var(--blue);
+}
 
 
 /*Singup*/
