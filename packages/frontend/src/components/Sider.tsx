@@ -25,12 +25,11 @@ export const Sider = () => {
                 whiteSpace: "nowrap",
             }}
         >
+            <div>
+
             <Row>
                 <Col className="text-right">
-                    <Button
-                        ghost
-                        onClick={() => dispatch(AppApi.setSideBarCollapsed(true))}
-                    >
+                    <Button ghost onClick={() => dispatch(AppApi.setSideBarCollapsed(true))}>
                         <CloseOutlined />
                     </Button>
                 </Col>
@@ -46,10 +45,8 @@ export const Sider = () => {
             <Row className="text-center my-2">
                 <Col>email@example.com</Col>
             </Row>
-            <Menu
-                mode="inline"
-                inlineCollapsed={collapseSideBar}
-            >
+            </div>
+            <Menu mode="inline" inlineCollapsed={collapseSideBar}>
                 <Menu.Divider />
                 <Menu.Item key="1" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>
                     <PushpinOutlined />
@@ -59,27 +56,41 @@ export const Sider = () => {
                     <InfoCircleOutlined />
                     <span>So funktionierts</span>
                 </Menu.Item>
-                <Menu.Item key="3" style={{
-                    marginBottom: "50px",
-                }}>
+                <Menu.Item
+                    key="3"
+                    style={{
+                        marginBottom: "50px",
+                    }}
+                >
                     <LogoutOutlined />
                     <span>Abmelden</span>
                 </Menu.Item>
+                <div className="grow"></div>
                 <Menu.Divider />
                 <div className="sider-banner">
                     <img className="logo" src="/images/logo.svg" alt="" />
                     <div className="light">Die</div>
-                    <h1>WARTE-<br />SCHLEIFE</h1>
+                    <h1>
+                        WARTE-
+                        <br />
+                        SCHLEIFE
+                    </h1>
                     <h2>Warten im Wohnzimmer</h2>
-                    <div className="text-right">
-                        <img className="mt-5" src="/images/Logo_Projekt_02.svg" alt="" style={{
+                    {/* <div className="text-right"> */}
+                    <img
+                        className="proj"
+                        src="/images/Logo_Projekt_02.svg"
+                        alt=""
+                        style={{
                             height: "3rem",
-                        }} />
-                    </div>
+                        }}
+                    />
+                    {/* </div> */}
                 </div>
                 <Menu.Item key="4" className="text-center impressum-btn">
                     Impressum
                 </Menu.Item>
+
             </Menu>
         </Layout.Sider>
     );
