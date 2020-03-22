@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { State } from "../state";
@@ -37,7 +37,7 @@ export const Enqueue = () => {
                     {facility ? facility.name : "kann später nicht mehr passieren"}
                     <Button onClick={() => dispatch(enqueue())}>Anstellen</Button>
                 </Form>
-                    <CurrentLoadChart />
+                <CurrentLoadChart />
             </main>
         </>
     );
