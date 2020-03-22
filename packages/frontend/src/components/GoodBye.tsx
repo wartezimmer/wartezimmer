@@ -18,7 +18,7 @@ export const GoodBye = () => {
             </header>
             <main>
             Wie viele leute waren vor dir dran?
-                    <Input value={peopleBeforeMe} onChange={(e) => setPeopleBeforeMe(+e.target.value)}/>
+                <Input value={peopleBeforeMe} onChange={(e) => setPeopleBeforeMe(+e.target.value)}/>
                 <Button onClick={() => dispatch(ExampleApi.increment())}>MEHR INFOS</Button>
                 <Button onClick={() => dispatch(ExampleApi.reset())}>ANMELDUNG</Button>
             </main>
