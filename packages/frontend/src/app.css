@@ -362,18 +362,16 @@ header .space {
 
 .ant-layout-sider {
     background-color: var(--blue);
+    color: white;
+    text-transform: uppercase;
+    height: 100vh;
+    position: fixed !important;
 }
 
 .ant-layout-header .ant-btn-background-ghost,
 .ant-layout-sider .ant-btn-background-ghost {
     border: none;
     color: white;
-}
-
-.ant-layout-sider {
-    color: white;
-    text-transform: uppercase;
-    height: 100vh;
 }
 
 .ant-layout-sider-children {
