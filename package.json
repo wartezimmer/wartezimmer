@@ -18,6 +18,7 @@
     "migrate:up": "node-pg-migrate up",
     "start-api": "node packages/api/server.js",
     "start-admin": "node -r dotenv/config packages/admin-panel/server.js",
+    "heroku-prebuild": "yarn install --production=false",
     "heroku-postbuild": "lerna bootstrap && lerna run build:prod"
   }
 }
