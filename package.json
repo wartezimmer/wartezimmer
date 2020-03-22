@@ -17,6 +17,7 @@
     "migrate": "node-pg-migrate",
     "migrate:up": "node-pg-migrate up",
     "start-api": "node packages/api/server.js",
+    "start-admin": "node -r dotenv/config packages/admin-panel/server.js",
     "heroku-postbuild": "lerna bootstrap"
   }
 }
