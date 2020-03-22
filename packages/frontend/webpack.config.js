@@ -45,7 +45,7 @@ module.exports = function(env) {
       host: "0.0.0.0",
       historyApiFallback: false,
       proxy: {
-        '^/api': {
+        '/api': {
           target: 'http://api:3001'
         },
       },
