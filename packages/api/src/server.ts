@@ -1,7 +1,8 @@
 import express from "express";
-import path from 'path';
+import path from "path";
+
 import { currentQueue } from "./lib/controllers/current_queue";
-import { FACILITIES_NEAREST_QUERY } from "./lib/controllers/facilities";
+import { FACILITIES_NAME_CITY_QUERY, FACILITIES_NEAREST_QUERY } from "./lib/controllers/facilities";
 import { facilityRouter } from "./lib/controllers/facility";
 import { pgClient } from "./lib/pg";
 
@@ -46,9 +47,22 @@ const startup = async () => {
         }
 
         const result = await db.query(FACILITIES_NEAREST_QUERY, [latitude, longitude]);
-        res.json(result);
-        console.log(result);
+        res.json(result.rows);
+        // console.log(result);
     });
+
+    app.get("/facilities/search", async (req, res) => {
+      console.log(req.query);
+      if (req.query.q === undefined) {
+        res.status(400);
+        res.json({error: "q not set"});
+        return;
+      }
+
+      const result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
+      res.json(result.rows);
+      // console.log(result);
+  });
 
     app.listen(process.env.PORT || 3001);
 

@@ -27,3 +27,14 @@ order by
 	$2))
 limit 100;
 `;
+
+export const FACILITIES_NAME_CITY_QUERY = `
+select
+	name,
+	object_id,
+	address_city
+from
+	facilities2
+where
+	to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', $1);
+`;
