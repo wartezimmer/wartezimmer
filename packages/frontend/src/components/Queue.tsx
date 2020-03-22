@@ -17,7 +17,7 @@ export const Queue = () => {
         <>
             <header>
                 <div className="space"></div>
-                <h1>Anstehen</h1>
+                <h1>Warten</h1>
                 <div className="space"></div>
             </header>
             <main>

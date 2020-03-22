@@ -173,6 +173,7 @@ header h1 {
     margin-left: 6px;
     color: white;
     display: inline;
+    text-transform: uppercase;
 }
 
 header .space {

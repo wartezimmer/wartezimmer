@@ -20,10 +20,14 @@ export const Enqueue = () => {
                 <div className="space"></div>
                 <h1>Anstellen</h1>
                 <div className="space"></div>
-                <strong>{facility.name}</strong>
-                {facility.street}
             </header>
             <main>
+                <div>
+                    <div className="doc-name"></div>
+                    <div className="doc-address"></div>
+                </div>
+                <strong>{facility.name}</strong>
+                {facility.street}
                 <Form>
                     <Form.Item label={"Ich bin Verfügbar ab"}>
                         {/* <TimePicker value={time} onChange={(e) => setTime(e.target.value)} /> */}
