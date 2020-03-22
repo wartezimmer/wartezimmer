@@ -2,12 +2,12 @@ FROM node:12-alpine
 
 RUN apk update \
     && apk upgrade \
-    && apk add curl \
+    && apk add curl git \
     && mkdir /app/
 
 WORKDIR /app/
 
-COPY package.json .npmrc yarn.lock ./
+COPY package.json yarn.lock ./
 
 RUN yarn install
 
