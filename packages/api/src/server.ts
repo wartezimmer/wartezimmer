@@ -12,10 +12,10 @@ const app = express();
 const startup = async () => {
     const db = await pgClient();
     
-    app.use("/facility", facilityRouter);
+    app.use("/api/facility", facilityRouter);
     // TODO: activate when routes are implemented
     // app.use("/facilities", facilitiesRouter);
-    app.use("/current-queue", currentQueue);
+    app.use("/api/current-queue", currentQueue);
 
     // Example queue usage
     // app.get("/test1", async (req, res) => {
@@ -28,7 +28,7 @@ const startup = async () => {
     //     res.json(result.rows);
     // });
 
-    app.get("/facilities/nearest", async (req, res) => {
+    app.get("/api/facilities/nearest", async (req, res) => {
         console.log(req.query);
         if (req.query.longitude === undefined || req.query.latitude === undefined) {
           res.status(400);

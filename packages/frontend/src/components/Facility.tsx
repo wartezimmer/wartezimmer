@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { State } from "../state";
 import { AppApi, Step } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
+import { fetchEngagement } from "state/thunks/fetchEngagement";
 
 export const Facility = () => {
     const dispatch = useThunkDispatch();
@@ -44,8 +45,10 @@ export const Facility = () => {
                     <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
                     <Button 
                     className="primary-red" 
-                    onClick={() =>
-                        dispatch(AppApi.gotoStep(currentUserId === null ? Step.SignIn : Step.Enqueue))}
+                    onClick={() => {
+                        dispatch(AppApi.gotoStep(currentUserId === null ? Step.SignIn : Step.Enqueue));
+                        dispatch(fetchEngagement());
+                    }}
                         >Anstellen</Button>
                 </div>
             </main>
