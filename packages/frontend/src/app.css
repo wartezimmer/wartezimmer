@@ -43,7 +43,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-main {
+.ant-layout {
   background-color: white;
 }
 
@@ -594,10 +594,10 @@ header .space {
 
 @media screen and (min-width: 800px) {
   .bottom {
-    top: 915px;
+    top: 790px;
     position: fixed;
     bottom: 16px;
-    width: 468px;
+    width: 408px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -606,24 +606,26 @@ header .space {
   body {
     margin-right: auto;
     margin-left: auto;
-    height: 1122px;
-    max-width: 665px;
+    height: 1000px;
+    max-width: 700px;
     border-style: solid;
-    border-width: 137px 90px 156px 89px;
+    border-width: 137px 130px 156px 130px;
     border-image: url(/images/phone.png) 132 149 158 149 stretch repeat;
   }
+
+
   body > div {
     overflow-y: auto;
-    max-height: 830px;
+    max-height: 720px;
   }
 
   .ant-layout {
-    height: 830px;
+    height: 708px;
     position: relative;
   }
 
   .ant-layout-sider {
-    height: 830px;
+    height: 708px;
     margin-right: auto;
     margin-left: auto;
     position: absolute !important;
