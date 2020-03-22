@@ -15,8 +15,6 @@ import App from "./App";
 import { rootReducer } from "./state";
 import { AppApi, Step } from "./state/app";
 
-
-
 if (SENTRY_DSN !== null) {
     Sentry.init({
         dsn: SENTRY_DSN,
