@@ -124,13 +124,5 @@
       "src/node_modules_dev"
     ],
     "preset": "ts-jest"
-  },
-  "husky": {
-    "hooks": {
-      "post-checkout": "yarnhook",
-      "post-merge": "yarnhook",
-      "post-rewrite": "yarnhook",
-      "pre-commit": "lint-staged"
-    }
   }
 }
