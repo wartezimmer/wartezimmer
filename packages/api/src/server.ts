@@ -1,7 +1,7 @@
 import express from "express";
 import path from 'path';
 import { currentQueue } from "./lib/controllers/current_queue";
-import { facilitiesRouter } from "./lib/controllers/facilities";
+import { FACILITIES_NEAREST_QUERY } from "./lib/controllers/facilities";
 import { facilityRouter } from "./lib/controllers/facility";
 import { pgClient } from "./lib/pg";
 
@@ -15,7 +15,7 @@ const startup = async () => {
     app.use(express.static(staticFileDir))
 
     app.use("/facility", facilityRouter);
-    app.use("/facilities", facilitiesRouter);
+    // app.use("/facilities", facilitiesRouter);
     app.use("/current-queue", currentQueue);
 
     app.get("/test1", async (req, res) => {
@@ -28,6 +28,28 @@ const startup = async () => {
         res.json(result.rows);
     });
 
+    app.get("/facilities/nearest", async (req, res) => {
+        console.log(req.query);
+        if (req.query.longitude === undefined || req.query.latitude === undefined) {
+          res.status(400);
+          res.json({error: "latitude or longitude not set"});
+          return;
+        }
+
+        const latitude = parseFloat(req.query.latitude);
+        const longitude = parseFloat(req.query.longitude)
+
+        if (isNaN(latitude) || isNaN(longitude)) {
+          res.status(400);
+          res.json({error: "latitude or longitude are no valid floats"});
+          return;
+        }
+
+        const result = await db.query(FACILITIES_NEAREST_QUERY, [latitude, longitude]);
+        res.json(result);
+        console.log(result);
+    });
+
     app.listen(process.env.PORT || 3001);
 
     app.use((err, req, res, next) => {
@@ -38,6 +60,6 @@ const startup = async () => {
     })
 };
 
-startup().catch((err) => {
+startup().catch(err => {
     console.error(`startup failed: ${err}`);
 });
