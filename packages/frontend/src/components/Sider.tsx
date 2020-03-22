@@ -3,7 +3,7 @@ import { Avatar, Button, Col, Layout, Menu, Row } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { State } from "state";
-import { AppApi } from "state/app";
+import { AppApi, Step } from "state/app";
 import { useThunkDispatch } from "useThunkDispatch";
 
 export const Sider = () => {
@@ -18,6 +18,12 @@ export const Sider = () => {
             collapsed={collapseSideBar}
             trigger={null}
             className="uppercase"
+            style={{
+                right: 0,
+                position: "absolute",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+            }}
         >
             <Row>
                 <Col className="text-right">
@@ -45,16 +51,16 @@ export const Sider = () => {
                 inlineCollapsed={collapseSideBar}
             >
                 <Menu.Divider />
-                <Menu.Item key="1">
+                <Menu.Item key="1" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>
                     <PushpinOutlined />
                     <span>Karte</span>
                 </Menu.Item>
-                <Menu.Item key="2">
+                <Menu.Item key="2" onClick={() => dispatch(AppApi.gotoStep(Step.About))}>
                     <InfoCircleOutlined />
                     <span>So funktionierts</span>
                 </Menu.Item>
                 <Menu.Item key="3" style={{
-                    paddingBottom: "75px",
+                    marginBottom: "50px",
                 }}>
                     <LogoutOutlined />
                     <span>Abmelden</span>

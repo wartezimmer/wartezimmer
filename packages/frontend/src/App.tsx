@@ -47,8 +47,6 @@ export const App = () => {
                 return <About />
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
-
-
         }
     }
 
