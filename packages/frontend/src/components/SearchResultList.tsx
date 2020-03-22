@@ -23,6 +23,7 @@ export const SearchResultList = () => {
                             }}>{r.name}</a>}
                             description={`${r.street}`}
                         />
+                        <div>Todo: Auslastung</div>
                     </List.Item>
                 ))}
             </List>
