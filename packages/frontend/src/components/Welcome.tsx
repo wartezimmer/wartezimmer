@@ -12,11 +12,21 @@ export const Welcome = () => {
     return (
         <>
             <header>
-                <h1>WARTESCHLEIFE</h1>
+
             </header>
             <main>
-                <Button onClick={() => dispatch(ExampleApi.increment())}>MEHR INFOS</Button>
-                <Button onClick={() => dispatch(AppApi.gotoStep(Step.SignUp))}>ANMELDUNG</Button>
+                <div id="banner" className="uppercase" >
+                    <div className="light">Die</div>
+                    <h1>WARTE<br/>SCHLEIFE</h1>
+                    <h2>Warten im</h2>
+                    <h2>Wohnzimmer</h2>
+                </div>
+                <div id="info">
+                    <div>Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
+                    <Button className="border-blue" onClick={() => dispatch(ExampleApi.increment())}>Infos</Button>
+                    <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.SignUp))}>Karte</Button>
+
+                </div>
             </main>
         </>
     );

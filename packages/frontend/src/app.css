@@ -1,15 +1,96 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap');
 
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+  vertical-align: baseline;
+  color: inherit;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Variables */
 body {
   font-family: 'Nunito', sans-serif;
-
-  --background: #219ef1;
+  --blue: #1F30BA;
+  --light-blue: #F0FCFC;
 }
 
+/* Classes */
+
+.light {
+  font-weight: 300;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+
+/* Components */
 .ant-btn {
+  font-weight: 700;
+  font-size: 20px;
   height: 40px;
-  border-radius: 4px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border-width: 2px;
+  border-color: white;
+  color: var(--blue);
 }
+
+Button.border-blue {
+  border-color: var(--blue);
+
+}
+
+Button.primary-blue {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: white;
+}
+
+
 
 header {
   display: flex;
@@ -18,7 +99,7 @@ header {
   align-items: center;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: var(--background);
+  background-color: var(--blue);
   height: 64px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
@@ -44,6 +125,43 @@ header .space {
   width: 24px;
 }
 
+
+/* Pages */
+
+
+
+/* Welcome */
+#banner {
+  background-color: var(--blue);
+  color: white;
+  padding-left: 16px;
+  padding-bottom: 70px;
+}
+
+#banner .light {
+  font-size: 20px;
+}
+
+#banner h1 {
+  font-size: 55px;
+  font-weight: 900;
+}
+
+#banner h2 {
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 700;
+  width: fit-content;
+  display: block;
+  padding: 4px 6px 4px 6px;
+  background-color: white;
+  color: var(--blue);
+  border-radius: 4px;
+}
+
+#info {
+  background-color: var(--light-blue);
+}
 
 
 
