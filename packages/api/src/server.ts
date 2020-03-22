@@ -51,7 +51,6 @@ const startup = async () => {
     });
 
     app.get("/api/facilities/search", async (req, res) => {
-      console.log(req.query);
       if (req.query.q === undefined) {
         res.status(400);
         res.json({error: "q not set"});
@@ -60,7 +59,6 @@ const startup = async () => {
 
       const result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
       res.json(result.rows);
-      console.log(result);
     });
 
     const staticFileDir = path.resolve(process.cwd(), 'packages/frontend/dist');

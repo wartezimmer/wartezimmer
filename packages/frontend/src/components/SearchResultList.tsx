@@ -21,7 +21,7 @@ export const SearchResultList = () => {
                     }} key={`searchResult${n}`}>
                         <List.Item.Meta
                             title={<a >{r.name}</a>}
-                            description={`${r.street}`}
+                            description={`${r.address_street}`}
                         />
                         <div>Todo: Auslastung</div>
                     </List.Item>

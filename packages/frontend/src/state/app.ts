@@ -19,11 +19,11 @@ export const backend_url = "/api";
 
 export interface Facility {
     name: string;
-    street: string;
+    address_street: string;
     id: string;
-    phone: string;
-    email: string;
-    website: string;
+    contact_phone: string;
+    contact_email: string;
+    contact_website: string;
     current_load: number;
     load: Load;
 }
