@@ -50,7 +50,7 @@ export const defaultAppState: AppState = {
     currentFacility: null,
     currentSearchResult: null,
     currentWaitTime: 5,
-    currentUserId: null,
+    currentUserId: "todo: temp solution to disable userstuff in mvp",
     history: [],
     travelTime: 30,
     collapseSideBar: true,
@@ -76,7 +76,6 @@ class AppReducer extends Reducer<AppState> {
         //     step = Step.Search;
         // }
         window.history.pushState({ step: step}, Step[step]);
-        console.log("History", this.state.activeStep)
         this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
     }
@@ -88,7 +87,7 @@ class AppReducer extends Reducer<AppState> {
         this.state.currentSearchResult = result;
     }
     public setCurrentUserId(id: string | null) {
-        this.state.currentUserId = id;
+        this.state.currentUserId = id || "todo: temp solution to disable userstuff in mvp";
     }
     public setTravelTime(time: number) {
         this.state.travelTime = time;
