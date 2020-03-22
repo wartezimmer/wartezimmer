@@ -720,10 +720,9 @@ header .space {
 
 @media screen and (min-width: 800px) {
   .bottom {
-    top: 650px;
-    position: absolute;
-    bottom: 16px;
-    width: 408px;
+    bottom: 0px;
+    position: sticky;
+    width: 440px;
     margin-right: auto;
     margin-left: auto;
   }
