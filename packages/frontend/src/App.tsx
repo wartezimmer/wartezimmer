@@ -13,6 +13,7 @@ import { hot } from "react-hot-loader";
 import { useSelector } from "react-redux";
 import { Step } from "state/app";
 
+import { Facility } from "./components/Facility";
 import { GoodBye } from "./components/GoodBye";
 import { Search } from "./components/Search";
 import { SignIn } from "./components/SignIn";
@@ -35,6 +36,8 @@ export const App = () => {
                 return <SignUp />
             case Step.Enqueue:
                 return <Enqueue />
+            case Step.Facility:
+                return <Facility />
             case Step.Queue:
                 return <Queue />
             case Step.Wait:
