@@ -12,18 +12,24 @@ export const Welcome = () => {
     // const counter = useSelector((state: State) => state.example.counter);
 
     return (
-        <Content>
-            <div id="banner" className="uppercase" >
-                <div className="light">Die</div>
-                <h1>WARTE<br />SCHLEIFE</h1>
-                <h2>Warten im</h2>
-                <h2>Wohnzimmer</h2> this changed
-            </div>
-            <div id="info">
-                <div>Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
-                <Button className="border-blue" onClick={() => dispatch(ExampleApi.increment())}>Infos</Button>
-                <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.SignUp))}>Karte</Button>
-            </div>
-        </Content>
+        <>
+            <header>
+
+            </header>
+            <main>
+                <div id="banner" className="uppercase" >
+                    <div className="light">Die</div>
+                    <h1>WARTE<br/>SCHLEIFE</h1>
+                    <h2>Warten im</h2>
+                    <h2>Wohnzimmer</h2> this changed
+                </div>
+                <div id="info">
+                    <div>Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
+                    <Button className="border-blue" onClick={() => dispatch(ExampleApi.increment())}>Infos</Button>
+                    <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.SignUp))}>Karte</Button>
+
+                </div>
+            </main>
+        </>
     );
 };
