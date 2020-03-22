@@ -1,4 +1,4 @@
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import React, { useState } from "react";
 
 import { alterCurrentQueue, QueueAction } from "../state/thunks/alterCurrentQueue";
@@ -13,11 +13,10 @@ export const Treatment = () => {
         <>
             <header>Behandlungsraum</header>
             <main>
-                Wie viele leute waren vor dir dran?
-                <Input value={peopleBeforeMe} onChange={(e) => setPeopleBeforeMe(+e.target.value)} />
-                Todo: Bild
+                In behandlung seit
+                Todo: Clock
                 <Button onClick={() => dispatch(alterCurrentQueue(QueueAction.STOP_TREATMENT))}>
-                    Meine Behandlung ist beendet
+                    Behandlung beendet
                 </Button>
             </main>
         </>

@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -6,7 +6,6 @@ import { State } from "../state";
 import { AppApi } from "../state/app";
 import { enqueue } from "../state/thunks/enqueue";
 import { useThunkDispatch } from "../useThunkDispatch";
-import { CurrentLoadChart } from "./CurrentLoadChart";
 
 export const Facility = () => {
     const dispatch = useThunkDispatch();
@@ -42,8 +41,8 @@ export const Facility = () => {
                     <div>1 STD 45 MIN</div>
                 </div>
                 <div>
-                    <Button>Zurück</Button>
-                    <Button className="primary-red">Anstellen</Button>
+                    <Button onClick={() => dispatch(AppApi.back())}>Zurück</Button>
+                    <Button className="primary-red" onClick={() => dispatch(enqueue())}>Anstellen</Button>
                 </div>
             </main>
         </>

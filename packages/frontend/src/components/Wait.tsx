@@ -16,10 +16,9 @@ export const Wait = () => {
             <main>
                 Aktuelle Wartezeit:
                 {`${currentWaitTime} Minuten`}
-                <Button onClick={() => dispatch(alterCurrentQueue(QueueAction.START_TREATMENT))}>Ich bin dran</Button>
                 Wie viele leute warten jetzt gerade?
                 <Input value={peopleInQueue} onChange={(e) => setPeopleInQueue(+e.target.value)} />
-                <Button onClick={() => dispatch(alterCurrentQueue(QueueAction.CANCEL))}>Abbrechen</Button>
+                <Button onClick={() => dispatch(alterCurrentQueue(QueueAction.START_TREATMENT))}>Ich bin jetzt dran</Button>
             </main>
         </>
     );
