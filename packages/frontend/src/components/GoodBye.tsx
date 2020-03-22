@@ -1,7 +1,7 @@
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import React, { useState } from "react";
-import { ExampleApi } from "state/example";
 
+import { AppApi, Step } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
 
 export const GoodBye = () => {
@@ -17,10 +17,8 @@ export const GoodBye = () => {
                 <div className="space"></div>
             </header>
             <main>
-            Wie viele leute waren vor dir dran?
-                <Input value={peopleBeforeMe} onChange={(e) => setPeopleBeforeMe(+e.target.value)}/>
-                <Button onClick={() => dispatch(ExampleApi.increment())}>MEHR INFOS</Button>
-                <Button onClick={() => dispatch(ExampleApi.reset())}>ANMELDUNG</Button>
+            Vielen Dank und gute Besserung!
+                <Button onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Erneut Anmelden</Button>
             </main>
         </>
     );

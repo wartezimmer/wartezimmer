@@ -20,6 +20,8 @@ export const Enqueue = () => {
                 <div className="space"></div>
                 <h1>Anstellen</h1>
                 <div className="space"></div>
+                <strong>{facility.name}</strong>
+                {facility.street}
             </header>
             <main>
                 <Form>
