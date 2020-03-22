@@ -5,15 +5,18 @@
   "repository": "https://github.com/wartezimmer/wartezimmer",
   "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",
   "license": "MIT",
+  "dependencies": {
+    "node-pg-migrate": "^4.2.3"
+  },
   "devDependencies": {
     "dotenv": "^8.2.0",
     "lerna": "^3.20.2",
-    "node-pg-migrate": "^4.2.3",
     "pg": "^7.18.2"
   },
   "scripts": {
     "migrate": "node-pg-migrate",
     "migrate:up": "node-pg-migrate up",
-    "start-api": "node packages/api/server.js"
+    "start-api": "node packages/api/server.js",
+    "heroku-postbuild": "lerna bootstrap"
   }
 }

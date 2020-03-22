@@ -14,6 +14,11 @@ services:
       - 5432:5432
     volumes:
       - postgres:/data/postgres
+  redis:
+    image: redis:5.0.8
+    restart: always
+    ports:
+      - 6379:6379
   frontend:
     build:
       context: ./packages/frontend
@@ -30,6 +35,8 @@ services:
     build:
       context: ./packages/api
       dockerfile: Dockerfile 
+    environment:
+      DATABASE_URL: postgres://user:idealloesung@db:5432/db
     ports: 
       - 3001:3001
       - 9229:9229
@@ -37,6 +44,35 @@ services:
       - "./packages/api/lib:/app/lib:rw"
       - "./packages/api/server.js:/app/server.js:rw"
       - "./packages/api/package.json:/app/package.json:ro"
+      - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
+  load-calculations:
+    build:
+      context: ./packages/load-calculations
+      dockerfile: Dockerfile 
+    environment:
+      DATABASE_URL: postgres://user:idealloesung@db:5432/db
+    ports: 
+      - 3002:3002
+      - 9228:9228
+    volumes:
+      # - "./packages/load-calculations/lib:/app/lib:rw"
+      - "./packages/load-calculations/worker.js:/app/worker.js:rw"
+      - "./packages/load-calculations/package.json:/app/package.json:ro"
+      - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
+  admin-panel:
+    build:
+      context: ./packages/admin-panel
+      dockerfile: Dockerfile 
+    environment:
+      DATABASE_URL: postgres://user:idealloesung@db:5432/db
+    ports: 
+      - 3003:3003
+      - 9227:9227
+    volumes:
+      # - "./packages/admin-panel/lib:/app/lib:rw"
+      - "./packages/admin-panel/server.js:/app/server.js:rw"
+      - "./packages/admin-panel/package.json:/app/package.json:ro"
+      - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
 
 volumes:
   postgres:

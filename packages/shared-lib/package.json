@@ -1,11 +1,11 @@
 {
-  "name": "load-calculations",
+  "name": "shared-lib",
   "version": "0.1.0",
   "description": "> TODO: description",
   "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",
   "homepage": "https://github.com/wartezimmer/wartezimmer#readme",
   "license": "ISC",
-  "main": "worker.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -24,6 +24,7 @@
     "url": "https://github.com/wartezimmer/wartezimmer/issues"
   },
   "dependencies": {
-    "shared-lib": "*"
+    "bull": "^3.13.0",
+    "pg": "^7.18.2"
   }
 }

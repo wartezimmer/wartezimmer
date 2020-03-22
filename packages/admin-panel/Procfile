@@ -1,0 +1,1 @@
+web: node packages/admin-panel/server.js
