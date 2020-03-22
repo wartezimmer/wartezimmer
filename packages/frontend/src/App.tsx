@@ -11,6 +11,8 @@ import { Step } from "state/app";
 
 import { GoodBye } from "./components/GoodBye";
 import { Search } from "./components/Search";
+import { SignIn } from "./components/SignIn";
+import { SignUp } from "./components/SignUp";
 import { Welcome } from "./components/Welcome";
 import { State } from "./state";
 
@@ -22,6 +24,10 @@ export const App = () => {
                 return <Welcome />;
             case Step.Search:
                 return <Search />
+            case Step.SignIn:
+                return <SignIn />
+            case Step.SignUp:
+                return <SignUp />
             case Step.Enqueue:
                 return <Enqueue />
             case Step.Queue:
@@ -30,7 +36,7 @@ export const App = () => {
                 return <Wait />
             case Step.Treatment:
                 return <Treatment />
-            case Step.GoodBy:
+            case Step.GoodBye:
                 return <GoodBye />
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
