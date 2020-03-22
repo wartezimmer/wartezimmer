@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap');
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -135,6 +134,7 @@ header .space {
   background-color: var(--blue);
   color: white;
   padding-left: 16px;
+  padding-right: 16px;
   padding-bottom: 70px;
 }
 
@@ -161,9 +161,22 @@ header .space {
 
 #info {
   background-color: var(--light-blue);
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
 }
 
+#info img {
+  left: 50%;
+  margin-left: -50px;
+  position: absolute;
+  margin-top: -50px;
+}
 
+#info .text {
+  padding-top: 64px;
+  color: var(--blue)
+}
 
 #signup {
   margin-top: 108px;
@@ -178,22 +191,20 @@ header .space {
 
 #signup .ext-login {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
 }
 
 #signup .ext-login button {
-  width: calc(50% - 8px);
+  width: 100%;
 }
 
 #signup .ext-login .google {
-  margin-right: 8px;
   color: white;
   background-color: #dd4c37;
 }
 
 #signup .ext-login .facebook {
-  margin-left: 8px;
   color: white;
   background-color: #3c5899;
 }

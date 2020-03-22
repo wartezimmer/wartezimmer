@@ -1,5 +1,6 @@
 import "./app.css";
 
+import { About } from "components/About";
 import { Enqueue } from "components/Enqueue";
 import { Queue } from "components/Queue";
 import { Treatment } from "components/Treatment";
@@ -38,11 +39,14 @@ export const App = () => {
                 return <Treatment />
             case Step.GoodBye:
                 return <GoodBye />
+            case Step.About:
+                return <About />
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
+
+
         }
     }
-}
-    ;
+};
 
 export default hot(module)(App);
