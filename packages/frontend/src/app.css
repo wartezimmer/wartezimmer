@@ -246,6 +246,48 @@ header .space {
     border-radius: 4.75px;
 }
 
+
+/*Facility */
+.doc-info {
+  padding-left: 16px;
+  color: white;
+  background-color: var(--blue);
+}
+
+.doc-info .doc-type {
+  text-transform: uppercase;
+}
+.doc-info .doc-name {
+  margin-top: 4px;
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.doc-info .doc-address {
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.doc-info .doc-phone {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border-radius: 4.75px;
+  padding: 6px 6px 5px 8px;
+  color: var(--blue);
+  background-color: white;
+}
+
+.doc-info .doc-phone img {
+  display: inline;
+  height: 18px;
+}
+.doc-info .doc-phone span {
+  margin-left: 8px;
+}
+
+
 #signup {
     margin-top: 108px;
     margin-right: 24px;

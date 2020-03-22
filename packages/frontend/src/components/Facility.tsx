@@ -22,7 +22,10 @@ export const Facility = () => {
                     <div className="doc-type">Praxis</div>
                     <div className="doc-name">Dr. Müller</div>
                     <div className="doc-address">Musterstr. 18, 12345 Berlin</div>
-                    <div className="doc-phone">030-41234XXXX</div>
+                    <div className="doc-phone">
+                        <img src="/images/phone.svg" alt=""/>
+                        <span>030-41234XXXX</span>
+                    </div>
                 </div>
                 <div>
                     <div>Heute geöffnet von:</div>

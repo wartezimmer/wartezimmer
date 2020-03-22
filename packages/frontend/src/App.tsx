@@ -3,7 +3,6 @@ import "./app.css";
 import { Layout } from "antd";
 import { About } from "components/About";
 import { Enqueue } from "components/Enqueue";
-import { Imprint } from "components/Imprint";
 import { NavBar } from "components/NavBar";
 import { Queue } from "components/Queue";
 import { Sider } from "components/Sider";
@@ -16,6 +15,7 @@ import { Step } from "state/app";
 
 import { Facility } from "./components/Facility";
 import { GoodBye } from "./components/GoodBye";
+import { Imprint } from "./components/Imprint";
 import { Search } from "./components/Search";
 import { SignIn } from "./components/SignIn";
 import { SignUp } from "./components/SignUp";
@@ -38,7 +38,9 @@ export const App = () => {
             case Step.Enqueue:
                 return <Enqueue />;
             case Step.Facility:
-                return <Facility />;
+                return <Facility />
+            case Step.Imprint:
+                return <Imprint />
             case Step.Queue:
                 return <Queue />;
             case Step.Wait:
