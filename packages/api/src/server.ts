@@ -11,23 +11,22 @@ const app = express();
 
 const startup = async () => {
     const db = await pgClient();
-    const staticFileDir = path.resolve(process.cwd(), 'packages/frontend/dist');
-    console.log(process.cwd(), staticFileDir)
-    app.use(express.static(staticFileDir))
-
+    
     app.use("/facility", facilityRouter);
+    // TODO: activate when routes are implemented
     // app.use("/facilities", facilitiesRouter);
     app.use("/current-queue", currentQueue);
 
-    app.get("/test1", async (req, res) => {
-        const job = await dataQueue.add({ stuff: "valueee" });
-        res.json({ id: job.id });
-    });
+    // Example queue usage
+    // app.get("/test1", async (req, res) => {
+    //     const job = await dataQueue.add({ stuff: "valueee" });
+    //     res.json({ id: job.id });
+    // });
 
-    app.get("/test2", async (req, res) => {
-        const result = await db.query("SELECT * FROM test");
-        res.json(result.rows);
-    });
+    // app.get("/test2", async (req, res) => {
+    //     const result = await db.query("SELECT * FROM test");
+    //     res.json(result.rows);
+    // });
 
     app.get("/facilities/nearest", async (req, res) => {
         console.log(req.query);
@@ -51,7 +50,7 @@ const startup = async () => {
         // console.log(result);
     });
 
-    app.get("/facilities/search", async (req, res) => {
+    app.get("/api/facilities/search", async (req, res) => {
       console.log(req.query);
       if (req.query.q === undefined) {
         res.status(400);
@@ -61,17 +60,20 @@ const startup = async () => {
 
       const result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
       res.json(result.rows);
-      // console.log(result);
-  });
+      console.log(result);
+    });
 
-    app.listen(process.env.PORT || 3001);
-
+    const staticFileDir = path.resolve(process.cwd(), 'packages/frontend/dist');
+    app.get('/*', express.static(staticFileDir))
+    
     app.use((err, req, res, next) => {
         res.end('Error, sooooorry.')
     })
     app.use((req, res, next) => {
         res.end('Not found.')
     })
+    
+    app.listen(process.env.PORT || 3001);
 };
 
 startup().catch(err => {

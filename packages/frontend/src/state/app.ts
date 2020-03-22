@@ -15,7 +15,7 @@ export enum Step {
     GoodBye,
     Treatment,
 }
-export const backend_url = "/backend";
+export const backend_url = "/api";
 
 export interface Facility {
     name: string;

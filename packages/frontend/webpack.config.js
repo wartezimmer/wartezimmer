@@ -43,7 +43,12 @@ module.exports = function(env) {
       contentBase: path.join(__dirname, "dist"),
       disableHostCheck: true,
       host: "0.0.0.0",
-      historyApiFallback: true,
+      historyApiFallback: false,
+      proxy: {
+        '^/api': {
+          target: 'http://api:3001'
+        },
+      },
     },
     cache: true,
     entry: {
