@@ -598,8 +598,8 @@ header .space {
 
 @media screen and (min-width: 800px) {
   .bottom {
-    top: 790px;
-    position: fixed;
+    top: 650px;
+    position: absolute;
     bottom: 16px;
     width: 408px;
     margin-right: auto;
