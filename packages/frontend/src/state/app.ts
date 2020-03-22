@@ -15,6 +15,7 @@ export enum Step {
     GoodBye,
     Treatment,
 }
+export const backend_url = "/backend";
 
 export interface Facility {
     name: string;
@@ -49,7 +50,7 @@ export const defaultAppState: AppState = {
     currentFacility: null,
     currentSearchResult: null,
     currentWaitTime: 5,
-    currentUserId: null,
+    currentUserId: "todo: temp solution to disable userstuff in mvp",
     history: [],
     travelTime: 30,
     collapseSideBar: true,
@@ -61,20 +62,20 @@ class AppReducer extends Reducer<AppState> {
 
     }
     public back() {
-        while (this.state.history.length > 0) {
-            const lastStep = this.state.history.pop()!;
-            if (this.state.currentUserId === null
-                || (lastStep !== Step.SignIn && lastStep !== Step.SignUp)) {
-                this.state.activeStep = lastStep;
-            }
-        }
+        this.state.activeStep = Step.Search;
+        // while (this.state.history.length > 0) {
+        //     const lastStep = this.state.history.pop()!;
+        //     if (this.state.currentUserId === null
+        //         || (lastStep !== Step.SignIn && lastStep !== Step.SignUp)) {
+        //         this.state.activeStep = lastStep;
+        //     }
+        // }
     }
     public gotoStep(step: Step) {
         // if (step > Step.Imprint && this.state.currentFacility === null) {
         //     step = Step.Search;
         // }
         window.history.pushState({ step: step}, Step[step]);
-        console.log("History", this.state.activeStep)
         this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
     }
@@ -86,7 +87,7 @@ class AppReducer extends Reducer<AppState> {
         this.state.currentSearchResult = result;
     }
     public setCurrentUserId(id: string | null) {
-        this.state.currentUserId = id;
+        this.state.currentUserId = id || "todo: temp solution to disable userstuff in mvp";
     }
     public setTravelTime(time: number) {
         this.state.travelTime = time;

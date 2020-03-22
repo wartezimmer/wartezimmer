@@ -4,15 +4,13 @@ import { useSelector } from "react-redux";
 
 import { State } from "../state";
 import { AppApi, Step } from "../state/app";
-import { enqueue } from "../state/thunks/enqueue";
 import { useThunkDispatch } from "../useThunkDispatch";
-import { alterCurrentQueue, QueueAction } from "state/thunks/alterCurrentQueue";
 
 export const Facility = () => {
     const dispatch = useThunkDispatch();
     const facility = useSelector((state: State) => state.app.currentFacility!);
     const travelTime = useSelector((state: State) => state.app.travelTime);
-    const currentFacility = useSelector((state: State) => state.app.currentFacility);
+    const currentUserId = useSelector((state: State) => state.app.currentUserId);
     // const counter = useSelector((state: State) => state.example.counter);
 
     return (
@@ -44,7 +42,11 @@ export const Facility = () => {
                 </div>
                 <div className="bottom actions">
                     <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
-                    <Button className="primary-red" onClick={() => dispatch(AppApi.gotoStep(Step.Enqueue))}>Anstellen</Button>
+                    <Button 
+                    className="primary-red" 
+                    onClick={() =>
+                        dispatch(AppApi.gotoStep(currentUserId === null ? Step.SignIn : Step.Enqueue))}
+                        >Anstellen</Button>
                 </div>
             </main>
         </>
