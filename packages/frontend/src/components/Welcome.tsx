@@ -19,7 +19,7 @@ export const Welcome = () => {
                     <div className="light">Die</div>
                     <h1>WARTE<br/>SCHLEIFE</h1>
                     <h2>Warten im</h2>
-                    <h2>Wohnzimmer</h2>
+                    <h2>Wohnzimmer</h2> this changed
                 </div>
                 <div id="info">
                     <div>Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
