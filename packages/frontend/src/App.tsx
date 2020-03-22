@@ -15,6 +15,7 @@ import { Step } from "state/app";
 
 import { Facility } from "./components/Facility";
 import { GoodBye } from "./components/GoodBye";
+import { Imprint } from "./components/Imprint";
 import { Search } from "./components/Search";
 import { SignIn } from "./components/SignIn";
 import { SignUp } from "./components/SignUp";
@@ -50,8 +51,6 @@ export const App = () => {
                 return <GoodBye />;
             case Step.About:
                 return <About />;
-            case Step.Imprint:
-                return <Imprint />;
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
         }
