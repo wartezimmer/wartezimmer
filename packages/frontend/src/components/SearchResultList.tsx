@@ -16,11 +16,11 @@ export const SearchResultList = () => {
         <>
             <List>
                 {searchResult.map((r, n) => (
-                    <List.Item key={`searchResult${n}`}>
+                    <List.Item onClick={() => {
+                        dispatch(AppApi.setCurrentFacility(r))
+                    }} key={`searchResult${n}`}>
                         <List.Item.Meta
-                            title={<a onClick={() => {
-                                dispatch(AppApi.setCurrentFacility(r))
-                            }}>{r.name}</a>}
+                            title={<a >{r.name}</a>}
                             description={`${r.street}`}
                         />
                         <div>Todo: Auslastung</div>
