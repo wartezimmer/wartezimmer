@@ -3,6 +3,7 @@ import "./app.css";
 import { Layout } from "antd";
 import { About } from "components/About";
 import { Enqueue } from "components/Enqueue";
+import { Imprint } from "components/Imprint";
 import { NavBar } from "components/NavBar";
 import { Queue } from "components/Queue";
 import { Sider } from "components/Sider";
