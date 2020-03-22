@@ -51,9 +51,22 @@ body {
     --red: #FC423F;
     --light-red: #ff7875;
     --light-blue: #F0FCFC;
+    --extra-light-red: #FCEFF3;
 }
 
 /* Classes */
+
+.bottom {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  left: 16px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
 
 .light {
     font-weight: 300;
@@ -298,6 +311,76 @@ header .space {
   margin-left: 8px;
 }
 
+#facility {
+  background-color: white;
+}
+
+#facility .open {
+  margin-top: 16px;
+  margin-left: 16px;
+  font-size: 18px;
+  color: var(--blue);
+}
+
+#facility .open-time {
+  margin-top: 4px;
+  margin-left: 16px;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--blue);
+}
+
+#facility .load {
+  margin-top: 16px;
+  margin-left: 16px;
+  font-size: 18px;
+  color: var(--blue);
+}
+
+#facility .load-value {
+  margin-top: 4px;
+  margin-left: 16px;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--blue);
+}
+
+#facility .chart {
+  margin-top: 16px;
+  background-color: var(--light-blue);
+  height: 170px;
+  width: 100%;
+  
+  text-align: center;
+  padding-top: 64px
+}
+
+#facility .waitingtime-title {
+  color: var(--blue);
+  margin-top: 16px;
+  margin-left: 16px;
+  font-size: 18px;
+}
+
+#facility .waitingtime {
+  color: var(--blue);
+  text-align: center;
+  font-weight: 700;
+  font-size: 28px;
+  margin-top: 4px;
+  background-color: var(--extra-light-red);
+  margin-left: 16px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  width: calc(100% - 32px);
+}
+
+
+/* Queue */
+
+
+
+/*Singup*/
 
 #signup {
     margin-top: 108px;

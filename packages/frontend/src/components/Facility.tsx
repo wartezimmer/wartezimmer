@@ -16,7 +16,7 @@ export const Facility = () => {
 
     return (
         <>
-            <main>
+            <main id="facility">
                 <div className="doc-info">
                     <div className="doc-type">Praxis</div>
                     <div className="doc-name">Dr. Müller</div>
@@ -27,21 +27,22 @@ export const Facility = () => {
                     </div>
                 </div>
                 <div>
-                    <div>Heute geöffnet von:</div>
-                    <div>8 bis 16 Uhr</div>
+                    <div className="open">Heute geöffnet von:</div>
+                    <div className="open-time">8 bis 16 Uhr</div>
                 </div>
                 <div>
-                    <div>Aktuelle Auslastung</div>
+                    <div className="load">Aktuelle Auslastung</div>
+                    <div className="load-value">Gering</div>
                 </div>
-                <div>
+                <div className="chart">
                     <div>Chart</div>
                 </div>
                 <div>
-                    <div>Vorraussichtliche Wartezeit</div>
-                    <div>1 STD 45 MIN</div>
+                    <div className="waitingtime-title">Vorraussichtliche Wartezeit:</div>
+                    <div className="waitingtime">1 STD 45 MIN</div>
                 </div>
-                <div>
-                    <Button onClick={() => dispatch(AppApi.back())}>Zurück</Button>
+                <div className="bottom actions">
+                    <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
                     <Button className="primary-red" onClick={() => dispatch(enqueue())}>Anstellen</Button>
                 </div>
             </main>
