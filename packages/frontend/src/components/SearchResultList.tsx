@@ -18,7 +18,9 @@ export const SearchResultList = () => {
                 {searchResult.map((r, n) => (
                     <List.Item key={`searchResult${n}`}>
                         <List.Item.Meta
-                            title={<a onClick={() => dispatch(AppApi.setCurrentFacility(r))}>{r.name}</a>}
+                            title={<a onClick={() => {
+                                dispatch(AppApi.setCurrentFacility(r))
+                            }}>{r.name}</a>}
                             description={`${r.street}`}
                         />
                     </List.Item>

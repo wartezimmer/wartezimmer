@@ -76,6 +76,7 @@ class AppReducer extends Reducer<AppState> {
         this.state.activeStep = step;
     }
     public setCurrentFacility(currentFacility: Facility | null) {
+        this.state.activeStep = Step.Facility;
         this.state.currentFacility = currentFacility;
     }
     public setCurrentSearchResult(result: Facility[]) {
