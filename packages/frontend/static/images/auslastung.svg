@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="233.258" viewBox="0 0 375 233.258">
+  <g id="Gruppe_174" data-name="Gruppe 174" transform="translate(0 -392.607)">
+    <path id="Pfad_21" data-name="Pfad 21" d="M0,0H375V233.258H319.958l-20.214-9.166,20.214,9.166H0Z" transform="translate(0 392.607)" fill="#f0fcfc"/>
+    <g id="Gruppe_96" data-name="Gruppe 96" transform="translate(0 30)">
+      <rect id="Rechteck_25" data-name="Rechteck 25" width="106.952" height="18.774" rx="4.75" transform="translate(104.973 414.17) rotate(90)" fill="#fff"/>
+      <rect id="Rechteck_34" data-name="Rechteck 34" width="106.952" height="18.774" rx="4.75" transform="translate(135.609 414.17) rotate(90)" fill="#fff"/>
+      <rect id="Rechteck_35" data-name="Rechteck 35" width="106.952" height="18.774" rx="4.75" transform="translate(166.244 414.17) rotate(90)" fill="#fff"/>
+      <rect id="Rechteck_36" data-name="Rechteck 36" width="106.952" height="18.774" rx="4.75" transform="translate(196.879 414.17) rotate(90)" fill="#fff"/>
+      <rect id="Rechteck_37" data-name="Rechteck 37" width="106.952" height="18.774" rx="4.75" transform="translate(227.515 414.17) rotate(90)" fill="#fff"/>
+      <rect id="Rechteck_38" data-name="Rechteck 38" width="106.952" height="18.774" rx="4.75" transform="translate(258.15 414.17) rotate(90)" fill="#fff"/>
+      <rect id="Rechteck_39" data-name="Rechteck 39" width="88.402" height="18.774" rx="4.75" transform="translate(288.785 414.17) rotate(90)" fill="#fff"/>
+    </g>
+    <rect id="Rechteck_36-2" data-name="Rechteck 36" width="73.208" height="18.774" rx="4.75" transform="translate(166.244 477.914) rotate(90)" fill="#1f30ba"/>
+    <rect id="Rechteck_37-2" data-name="Rechteck 37" width="73.208" height="18.774" rx="4.75" transform="translate(196.879 477.914) rotate(90)" fill="#1f30ba"/>
+    <rect id="Rechteck_38-2" data-name="Rechteck 38" width="97.676" height="18.774" rx="4.75" transform="translate(227.515 452.518) rotate(90)" fill="#fc423f"/>
+    <rect id="Rechteck_39-2" data-name="Rechteck 39" width="73.208" height="18.774" rx="4.75" transform="translate(258.15 477.914) rotate(90)" fill="#1f30ba"/>
+    <rect id="Rechteck_34-2" data-name="Rechteck 34" width="53.476" height="18.774" rx="4.75" transform="translate(104.973 497.646) rotate(90)" fill="#1f30ba"/>
+    <rect id="Rechteck_35-2" data-name="Rechteck 35" width="60.58" height="18.774" rx="4.75" transform="translate(135.609 490.543) rotate(90)" fill="#1f30ba"/>
+    <rect id="Rechteck_40" data-name="Rechteck 40" width="53.476" height="18.774" rx="4.75" transform="translate(288.785 497.646) rotate(90)" fill="#1f30ba"/>
+    <text id="MO_DI_MI_DO_FR_SA_SO" data-name="MO  DI  MI  DO  FR  SA  SO" transform="translate(38.874 561.465)" fill="rgba(0,20,177,0.88)" font-size="17" font-family="Nunito-ExtraBold, Nunito" font-weight="800" letter-spacing="-0.017em"><tspan x="43.516" y="17" xml:space="preserve">MO  DI  MI  DO  FR  SA  SO</tspan></text>
+    <text id="AUSLASTUNG" transform="translate(133 409.633)" fill="rgba(0,20,177,0.88)" font-size="15.536" font-family="Nunito-ExtraBold, Nunito" font-weight="800"><tspan x="0" y="16">AUSLASTUNG</tspan></text>
+    <g id="Gruppe_104" data-name="Gruppe 104" transform="translate(0 22)">
+      <text id="_7_TAGE" data-name="7 TAGE" transform="translate(15.874 571.633)" fill="rgba(0,20,177,0.88)" font-size="15" font-family="Nunito-SemiBold, Nunito" font-weight="600"><tspan x="148.373" y="15">7 TAGE</tspan></text>
+      <path id="Pfad_55" data-name="Pfad 55" d="M0,0,7.581,7.939,15.26.617" transform="translate(38.053 572.655) rotate(90)" fill="none" stroke="rgba(0,20,177,0.88)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+      <path id="Pfad_56" data-name="Pfad 56" d="M0,0,7.581,7.939,15.26.617" transform="translate(339.825 587.914) rotate(-90)" fill="none" stroke="rgba(0,20,177,0.88)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    </g>
+  </g>
+</svg>

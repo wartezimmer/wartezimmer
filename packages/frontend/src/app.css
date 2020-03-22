@@ -149,7 +149,7 @@ Button.primary-red:hover {
 
 
 
-.load {
+.load-key {
   margin-top: 16px;
   margin-left: 16px;
   font-size: 18px;
@@ -162,6 +162,27 @@ Button.primary-red:hover {
   font-size: 18px;
   font-weight: 900;
   color: var(--blue);
+}
+
+.waiting-info {
+  background-color: var(--light-blue);
+  text-align: center;
+  color: var(--blue);
+}
+.waiting-info .info {
+  padding-top: 24px;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.waiting-info .image {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  
+}
+.waiting-info .time {
+  font-size: 40px;
+  font-weight: 700;
+  padding-bottom: 24px;
 }
 
 
@@ -354,11 +375,11 @@ header .space {
 #facility .chart {
   margin-top: 16px;
   background-color: var(--light-blue);
-  height: 170px;
+  /* height: 170px; */
   width: 100%;
   
   text-align: center;
-  padding-top: 64px
+  /* padding-top: 64px */
 }
 
 #facility .waitingtime-title {
@@ -443,6 +464,42 @@ header .space {
 #enqueue .duration {
   margin-bottom: 70px;
 }
+
+/* Queue */
+#queue .user-input {
+  background-color: var(--blue);
+  padding: 0px 16px 16px 16px; 
+  font-size: 16px;
+}
+
+#queue .doc-info {
+  padding-bottom: 16px;
+}
+
+#queue .user-input .item {
+  display: flex;
+  font-weight: 700;
+  padding-top: 4px;
+  justify-content: space-between;
+}
+
+#queue .user-input .key {
+  color: white;
+  text-transform: uppercase;
+}
+
+#queue .user-input .value {
+  background-color: white;
+  border-radius: 2px;
+  color: blue;
+  padding: 4px 8px 4px 8px;
+  text-transform: uppercase;
+}
+
+#queue .load {
+  padding-bottom: 70px;
+}
+
 
 
 /*Singup*/

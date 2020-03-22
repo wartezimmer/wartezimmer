@@ -10,8 +10,8 @@ export const CurrentLoadChart = () => {
 
     return (
         <>
-            <div>
-                <div className="load">Aktuelle Auslastung:</div>
+            <div className="load">
+                <div className="load-key">Aktuelle Auslastung:</div>
                 <div className="load-value">Gering</div>
             </div>
         </>

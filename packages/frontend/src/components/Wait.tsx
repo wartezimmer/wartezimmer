@@ -12,13 +12,23 @@ export const Wait = () => {
     const [peopleInQueue, setPeopleInQueue] = useState(0);
     return (
         <>
-            <header>Wartezimmer</header>
+            <header>
+                <div></div>
+                <h1>Wartezimmer</h1>
+                <div></div>
+            </header>
             <main>
-                Aktuelle Wartezeit:
-                {`${currentWaitTime} Minuten`}
-                Wie viele leute warten jetzt gerade?
-                <Input value={peopleInQueue} onChange={(e) => setPeopleInQueue(+e.target.value)} />
-                <Button onClick={() => dispatch(alterCurrentQueue(QueueAction.START_TREATMENT))}>Ich bin jetzt dran</Button>
+                <div className="waiting-info">
+                    <div className="info">Aktuelle Wartezeit:</div>
+                    <div className="image">Grafik</div>
+                    <div className="time">0h 5m</div>
+                </div>
+                <div className="people-text">Wie viele leute warten jetzt gerade?</div>
+                <Input className="people-info" value={peopleInQueue} onChange={(e) => setPeopleInQueue(+e.target.value)} />
+                <div className="bottom actions">
+                    <Button className="border-blue" onClick={() => dispatch(alterCurrentQueue(QueueAction.CANCEL))}>Abbrechen</Button>
+                    <Button className="primary-red" onClick={() => dispatch(alterCurrentQueue(QueueAction.START_TREATMENT))}>Ich bin dran</Button>
+                </div>
             </main>
         </>
     );

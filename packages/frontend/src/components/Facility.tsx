@@ -30,11 +30,11 @@ export const Facility = () => {
                     <div className="open-time">8 bis 16 Uhr</div>
                 </div>
                 <div>
-                    <div className="load">Aktuelle Auslastung:</div>
+                    <div className="load-key">Aktuelle Auslastung:</div>
                     <div className="load-value">Gering</div>
                 </div>
                 <div className="chart">
-                    <div>Chart</div>
+                    <img src="/images/auslastung.svg" alt=""/>
                 </div>
                 <div>
                     <div className="waitingtime-title">Vorraussichtliche Wartezeit:</div>
