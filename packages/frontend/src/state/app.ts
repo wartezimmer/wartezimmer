@@ -1,4 +1,3 @@
-import { Welcome } from "../components/Welcome";
 import { Reducer } from "./reduxHelper";
 
 export enum Step {
@@ -38,6 +37,7 @@ export interface AppState {
     currentUserId: string | null;
     history: Step[];
     travelTime: number;
+    collapseSideBar: boolean;
 }
 
 export const defaultAppState: AppState = {
@@ -49,6 +49,7 @@ export const defaultAppState: AppState = {
     currentUserId: null,
     history: [],
     travelTime: 30,
+    collapseSideBar: true,
 };
 
 class AppReducer extends Reducer<AppState> {
@@ -58,7 +59,7 @@ class AppReducer extends Reducer<AppState> {
     public back() {
         while (this.state.history.length > 0) {
             const lastStep = this.state.history.pop()!;
-            if (this.state.currentUserId === null 
+            if (this.state.currentUserId === null
                 || (lastStep !== Step.SignIn && lastStep !== Step.SignUp)) {
                 this.state.activeStep = lastStep;
             }
@@ -85,6 +86,15 @@ class AppReducer extends Reducer<AppState> {
     }
     public setCurrentWaitTime(time: number) {
         this.state.currentWaitTime = time;
+    }
+    public setSideBarCollapsed(collapsed: boolean) {
+        console.log(collapsed, this.state.collapseSideBar);
+        this.state.collapseSideBar = collapsed;
+        console.log(collapsed, this.state.collapseSideBar);
+    }
+    public toggleSideBar() {
+        console.log("toggle in api");
+        this.state.collapseSideBar = !this.state.collapseSideBar;
     }
 }
 
