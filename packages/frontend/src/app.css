@@ -43,15 +43,18 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+main {
+  background-color: white;
+}
 
 /* Variables */
 body {
-    font-family: 'Nunito', sans-serif;
-    --blue: #1F30BA;
-    --red: #FC423F;
-    --light-red: #ff7875;
-    --light-blue: #F0FCFC;
-    --extra-light-red: #FCEFF3;
+  font-family: 'Nunito', sans-serif;
+  --blue: #1F30BA;
+  --red: #FC423F;
+  --light-red: #ff7875;
+  --light-blue: #F0FCFC;
+  --extra-light-red: #FCEFF3;
 }
 
 /* Classes */
@@ -144,6 +147,22 @@ Button.primary-red:hover {
   color: white;
 }
 
+
+
+.load {
+  margin-top: 16px;
+  margin-left: 16px;
+  font-size: 18px;
+  color: var(--blue);
+}
+
+.load-value {
+  margin-top: 4px;
+  margin-left: 16px;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--blue);
+}
 
 
 header {
@@ -331,20 +350,6 @@ header .space {
   color: var(--blue);
 }
 
-#facility .load {
-  margin-top: 16px;
-  margin-left: 16px;
-  font-size: 18px;
-  color: var(--blue);
-}
-
-#facility .load-value {
-  margin-top: 4px;
-  margin-left: 16px;
-  font-size: 18px;
-  font-weight: 900;
-  color: var(--blue);
-}
 
 #facility .chart {
   margin-top: 16px;
@@ -371,14 +376,69 @@ header .space {
   margin-top: 4px;
   background-color: var(--extra-light-red);
   margin-left: 16px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   width: calc(100% - 32px);
 }
 
 
 /* Queue */
+#enqueue .info {
+  background-color: var(--blue);
 
+}
+
+#enqueue .info img {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+#enqueue .info .doc-name {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 22px;
+  margin-right: 8px;
+  margin-left: 8px;
+  color: white;
+  text-transform: uppercase;
+}
+
+#enqueue .info .doc-address {
+  text-align: center;
+  color: white;
+  font-size: 22px;
+  margin-right: 8px;
+  margin-left: 8px;
+  padding-bottom: 24px;
+}
+
+#enqueue .label {
+  color: var(--blue);
+  margin-left: 16px;
+  font-size: 18px;
+  margin-top: 24px;
+}
+
+#enqueue .ant-picker {
+  margin-right: 16px;
+  margin-left: 16px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  background-color: var(--extra-light-red);
+  width: calc(100% - 32px);
+}
+
+
+#enqueue .duration-input {
+  margin-right: 16px;
+  margin-left: 16px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  background-color: var(--extra-light-red);
+  width: calc(100% - 32px);
+}
 
 
 /*Singup*/
@@ -529,4 +589,43 @@ header .space {
     margin-top: -80px;
     width: 80px;
     height: 80px;
+}
+
+
+@media screen and (min-width: 800px) {
+  .bottom {
+    top: 915px;
+    position: fixed;
+    bottom: 16px;
+    width: 468px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  
+  body {
+    margin-right: auto;
+    margin-left: auto;
+    height: 1122px;
+    max-width: 665px;
+    border-style: solid;
+    border-width: 137px 90px 156px 89px;
+    border-image: url(/images/phone.png) 132 149 158 149 stretch repeat;
+  }
+  body > div {
+    overflow-y: auto;
+    max-height: 830px;
+  }
+
+  .ant-layout {
+    height: 830px;
+    position: relative;
+  }
+
+  .ant-layout-sider {
+    height: 830px;
+    margin-right: auto;
+    margin-left: auto;
+    position: absolute !important;
+  }
 }

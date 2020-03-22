@@ -32,7 +32,7 @@ export const Facility = () => {
                     <div className="open-time">8 bis 16 Uhr</div>
                 </div>
                 <div>
-                    <div className="load">Aktuelle Auslastung</div>
+                    <div className="load">Aktuelle Auslastung:</div>
                     <div className="load-value">Gering</div>
                 </div>
                 <div className="chart">

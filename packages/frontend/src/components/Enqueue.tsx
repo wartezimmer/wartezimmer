@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, TimePicker } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -21,29 +21,33 @@ export const Enqueue = () => {
                 <h1>Anstellen</h1>
                 <div className="space"></div>
             </header>
-            <main>
-                <div>
-                    <div className="doc-name"></div>
-                    <div className="doc-address"></div>
+            <main id="enqueue">
+                <div className="info">
+                    <img src="/images/logo.svg" alt=""/>
+                    <div className="doc-name">{facility.name}</div>
+                    <div className="doc-address">{facility.street}</div>
                 </div>
-                <strong>{facility.name}</strong>
-                {facility.street}
+                <CurrentLoadChart />
+                
                 <Form>
-                    <Form.Item label={"Ich bin Verfügbar ab"}>
-                        {/* <TimePicker value={time} onChange={(e) => setTime(e.target.value)} /> */}
+                    <div className="label">Ich bin Verfügbar ab:</div>
+                    <Form.Item>
+                        <TimePicker />
                     </Form.Item>
-                    <Form.Item label={"Dauer Anreise"}>
-                        <Input
+                    <div className="label">Dauer meiner Anreise:</div>
+                    <Form.Item>
+                        <Input className ="duration-input"
                             type="number"
                             value={travelTime}
                             onChange={(e) => dispatch(AppApi.setTravelTime(+e.target.value))}
-                        />
+                            />
                     </Form.Item>
-                    {/* <Button onClick={() => dispatch(AppApi.back())}>Zurück</Button> */}
-                    {facility ? facility.name : "kann später nicht mehr passieren"}
-                    <Button onClick={() => dispatch(enqueue())}>Anstellen</Button>
+                    
+                    <div className="bottom actions">
+                        <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
+                        <Button className="primary-red" onClick={() => dispatch(enqueue())}>Einreihen</Button>
+                    </div>
                 </Form>
-                <CurrentLoadChart />
             </main>
         </>
     );

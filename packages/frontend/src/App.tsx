@@ -57,6 +57,8 @@ export const App = () => {
     }
 
     return <Layout>
+        {/* <div id="smartphone"></div> */}
+        {/* <img src="/images/phone.png" alt=""/> */}
         <Layout>
             <NavBar />
             {renderContent()}
