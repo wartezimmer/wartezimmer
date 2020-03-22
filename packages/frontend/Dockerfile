@@ -12,6 +12,7 @@ COPY package.json yarn.lock ./
 RUN yarn install
 
 COPY src ./src/
+COPY static ./static/
 COPY .babelrc webpack.config.js ./
 COPY tsconfig.docker.json ./tsconfig.json
 
