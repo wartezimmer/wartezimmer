@@ -29,10 +29,18 @@ if (SENTRY_DSN !== null) {
 const root = document.createElement("div");
 document.body.appendChild(root);
 
+
+
 const store = createStore(
     rootReducer,
     applyMiddleware(thunk),
 );
+
+window.addEventListener("popstate", (e: PopStateEvent) => {
+    console.log(e);
+    store.dispatch(AppApi.gotoStep(e.state.step))
+})
+
 store.subscribe(() => {
     (window as any).state = store.getState();
 });
