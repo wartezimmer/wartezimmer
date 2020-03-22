@@ -24,7 +24,8 @@ services:
       context: ./packages/frontend
       dockerfile: Dockerfile 
     ports: 
-      - 3004:443
+    #      - 3004:443
+      - 8080:8080
     volumes:
       - "./packages/frontend/dist:/app/dist:rw" 
       - "./packages/frontend/src:/app/src:rw"
