@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const packageJson = require("./package.json");
 const vendorDependencies = Object.keys(packageJson["dependencies"]);
 const SentryCliPlugin = require("@sentry/webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const SENTRY_DSN = process.env.SENTRY_DSN && process.env.SENTRY_DSN.length > 0 ? process.env.SENTRY_DSN : null;
 
@@ -30,7 +31,7 @@ module.exports = function(env) {
     // commitHashLong = execSync("git rev-parse HEAD").toString().trim();
   }
 
-  fs.writeFileSync(path.join(__dirname, "static/version.txt"), `${packageJson.version}-${commitHash}`);
+  //fs.writeFileSync(path.join(__dirname, "static/version.txt"), `${packageJson.version}-${commitHash}`);
 
   if (!env) {
     console.log("No env specified. Use `--env {dev|prod}`. Using `--env dev`");
@@ -109,6 +110,7 @@ module.exports = function(env) {
       // `namedModules` defaults to `mode == "development"`. So webpack uses nice names in development.
     },
     plugins: [
+      new BundleAnalyzerPlugin(),
       new HtmlWebpackPlugin({
         title: "frontend",
         // favicon: "path/to/favicon",  // TODO you can set a favicon here
