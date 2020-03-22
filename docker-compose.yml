@@ -45,8 +45,8 @@ services:
       - 3001:3001
       - 9229:9229
     volumes:
-      - "./packages/api/lib:/app/lib:rw"
-      - "./packages/api/server.js:/app/server.js:rw"
+      - "./packages/api/src:/app/src:rw"
+      - "./packages/api/tsconfig.json:/app/tsconfig.json:ro"
       - "./packages/api/package.json:/app/package.json:ro"
       - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
   load-calculations:
