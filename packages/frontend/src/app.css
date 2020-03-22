@@ -49,6 +49,7 @@ body {
     font-family: 'Nunito', sans-serif;
     --blue: #1F30BA;
     --red: #FC423F;
+    --light-red: #ff7875;
     --light-blue: #F0FCFC;
 }
 
@@ -117,10 +118,20 @@ Button.primary-blue {
     color: white;
 }
 
-.ant-btn-dangerous.ant-btn-primary {
-    background-color: var(--red);
-    border-color: var(--red);
+Button.primary-red {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: white;
 }
+
+
+Button.primary-red:hover {
+  background-color: var(--light-red);
+  border-color: var(--light-red);
+  color: white;
+}
+
+
 
 header {
     display: flex;

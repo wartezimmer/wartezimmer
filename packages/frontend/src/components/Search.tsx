@@ -21,7 +21,7 @@ export const Search = () => {
                     </Form.Item>
                     <div className="btn-group">
                         <Button onClick={() => dispatch(AppApi.gotoStep(Step.SignIn))}>Anmeldung</Button>
-                        <Button type="primary" danger onClick={() => dispatch(fetchFacilities(search))}>Suchen</Button>
+                        <Button className="primary-red" onClick={() => dispatch(fetchFacilities(search))}>Suchen</Button>
                     </div>
                 </div>
                 <SearchResultList />
