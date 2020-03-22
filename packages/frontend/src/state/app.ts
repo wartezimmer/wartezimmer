@@ -11,6 +11,7 @@ export enum Step {
     Wait,
     Treatment,
     GoodBye,
+    About,
 }
 
 export interface Facility {

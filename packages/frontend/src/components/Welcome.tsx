@@ -1,15 +1,13 @@
 import { Button, Layout } from "antd";
 import React from "react";
-import { ExampleApi } from "state/example";
+import { useThunkDispatch } from "useThunkDispatch";
 
 import { AppApi, Step } from "../state/app";
-import { useThunkDispatch } from "../useThunkDispatch";
 
 const { Content } = Layout;
 
 export const Welcome = () => {
     const dispatch = useThunkDispatch();
-    // const counter = useSelector((state: State) => state.example.counter);
 
     return (
         <>
@@ -24,10 +22,9 @@ export const Welcome = () => {
                     <h2>Wohnzimmer</h2> this changed
                 </div>
                 <div id="info">
-                    <div>Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
-                    <Button className="border-blue" onClick={() => dispatch(ExampleApi.increment())}>Infos</Button>
-                    <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.SignUp))}>Karte</Button>
-
+                    <div className="text">Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
+                    <Button className="border-blue" onClick={() => dispatch(AppApi.gotoStep(Step.About))}>Infos</Button>
+                    <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Karte</Button>
                 </div>
             </main>
         </>

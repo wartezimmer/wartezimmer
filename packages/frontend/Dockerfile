@@ -15,7 +15,7 @@ COPY src ./src/
 COPY .babelrc webpack.config.js ./
 COPY tsconfig.docker.json ./tsconfig.json
 
-EXPOSE 8080
+EXPOSE 443
 
 CMD ["yarn", "run", "start"]
 
@@ -24,4 +24,4 @@ HEALTHCHECK \
     --timeout=5s \
     --start-period=5s\
     --retries=3 \
-    CMD curl --fail --silent --show-error http://localhost:8080/
+    CMD curl --fail --silent --show-error http://localhost:80/

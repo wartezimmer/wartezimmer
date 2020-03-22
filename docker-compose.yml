@@ -24,8 +24,9 @@ services:
       context: ./packages/frontend
       dockerfile: Dockerfile 
     ports: 
-      - 8080:8080
+      - 3004:443
     volumes:
+      - "./packages/frontend/dist:/app/dist:rw" 
       - "./packages/frontend/src:/app/src:rw"
       - "./packages/frontend/webpack.config.js:/app/webpack.config.js:ro"
       - "./packages/frontend/tsconfig.json:/app/tsconfig.json:ro"
