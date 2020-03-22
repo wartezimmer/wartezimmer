@@ -30,27 +30,29 @@ export const App = () => {
             case Step.Welcome:
                 return <Welcome />;
             case Step.Search:
-                return <Search />
+                return <Search />;
             case Step.SignIn:
-                return <SignIn />
+                return <SignIn />;
             case Step.SignUp:
-                return <SignUp />
+                return <SignUp />;
             case Step.Enqueue:
-                return <Enqueue />
+                return <Enqueue />;
             case Step.Facility:
                 return <Facility />
             case Step.Imprint:
                 return <Imprint />
             case Step.Queue:
-                return <Queue />
+                return <Queue />;
             case Step.Wait:
-                return <Wait />
+                return <Wait />;
             case Step.Treatment:
-                return <Treatment />
+                return <Treatment />;
             case Step.GoodBye:
-                return <GoodBye />
+                return <GoodBye />;
             case Step.About:
-                return <About />
+                return <About />;
+            case Step.Imprint:
+                return <Imprint />;
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
         }

@@ -22,7 +22,7 @@ export const Welcome = () => {
                 <div id="info">
                     <img src="/images/logo.svg" alt="" />
                     <div className="text">Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
-                    <div className="btn">
+                    <div className="btn-group">
                         <Button className="border-blue info-btn" onClick={() => dispatch(AppApi.gotoStep(Step.About))}>Infos</Button>
                         <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Karte</Button>
                     </div>

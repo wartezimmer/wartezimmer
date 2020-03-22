@@ -19,9 +19,9 @@ export const Search = () => {
                     <Form.Item>
                         <Input value={search} onChange={(e) => setSearch(e.target.value)}/>
                     </Form.Item>
-                    <div className="btn">
+                    <div className="btn-group">
                         <Button onClick={() => dispatch(AppApi.gotoStep(Step.SignIn))}>Anmeldung</Button>
-                        <Button className="primary-red" onClick={() => dispatch(fetchFacilities(search))}>Suchen</Button>
+                        <Button type="primary" danger onClick={() => dispatch(fetchFacilities(search))}>Suchen</Button>
                     </div>
                 </div>
                 <SearchResultList />
