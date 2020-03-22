@@ -95,12 +95,9 @@ class AppReducer extends Reducer<AppState> {
         this.state.currentWaitTime = time;
     }
     public setSideBarCollapsed(collapsed: boolean) {
-        console.log(collapsed, this.state.collapseSideBar);
         this.state.collapseSideBar = collapsed;
-        console.log(collapsed, this.state.collapseSideBar);
     }
     public toggleSideBar() {
-        console.log("toggle in api");
         this.state.collapseSideBar = !this.state.collapseSideBar;
     }
 }
