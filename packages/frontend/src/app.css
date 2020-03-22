@@ -282,7 +282,7 @@ header .space {
   text-transform: uppercase;
 }
 .doc-info .doc-name {
-  margin-top: 4px;
+  padding-top: 4px;
   font-weight: 700;
   font-size: 24px;
   text-transform: uppercase;
