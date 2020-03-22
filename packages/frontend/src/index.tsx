@@ -1,9 +1,8 @@
-
 import "antd/dist/antd.css";
-
 
 import * as Sentry from "@sentry/browser";
 import { CaptureConsole, RewriteFrames } from "@sentry/integrations";
+import { CURRENT_ENVIRONMENT } from "environment";
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
@@ -11,10 +10,12 @@ import { applyMiddleware, createStore } from "redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import thunk from "redux-thunk";
-import { CURRENT_ENVIRONMENT } from "environment";
 
 import App from "./App";
 import { rootReducer } from "./state";
+import { AppApi, Step } from "./state/app";
+
+
 
 if (SENTRY_DSN !== null) {
     Sentry.init({
@@ -35,6 +36,7 @@ const store = createStore(
 store.subscribe(() => {
     (window as any).state = store.getState();
 });
+(window as any).go = (step: Step) => store.dispatch(AppApi.gotoStep(step))
 const persistor = persistStore(store);
 render(
     <Provider store={store}>

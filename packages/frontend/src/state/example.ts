@@ -9,11 +9,8 @@ export const defaultExampleState: ExampleState = {
 };
 
 class ExampleReducer extends Reducer<ExampleState> {
-
     constructor() {
         super(defaultExampleState);
-
-        
     }
 
     public increment() {

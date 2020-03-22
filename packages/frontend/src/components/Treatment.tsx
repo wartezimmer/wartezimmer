@@ -1,33 +1,25 @@
-import { Button, Layout } from "antd";
-import React from "react";
-import { ExampleApi } from "state/example";
+import { Button, Input } from "antd";
+import React, { useState } from "react";
 
+import { alterCurrentQueue, QueueAction } from "../state/thunks/alterCurrentQueue";
 import { useThunkDispatch } from "../useThunkDispatch";
 
-
-
-
 export const Treatment = () => {
-
     const dispatch = useThunkDispatch();
     // const counter = useSelector((state: State) => state.example.counter);
+    const [peopleBeforeMe, setPeopleBeforeMe] = useState(0);
 
-    return <>
-        <Layout>
-            <Layout.Header>Behandlungsraum</Layout.Header>
-            <Layout.Content>
-                <Button
-                    onClick={() => dispatch(ExampleApi.increment())}
-                >
-                    MEHR INFOS
-        </Button>
-                <Button
-                    onClick={() => dispatch(ExampleApi.reset())}
-                >
-                    ANMELDUNG
-        </Button>
-
-            </Layout.Content>
-        </Layout>
-    </>;
+    return (
+        <>
+            <header>Behandlungsraum</header>
+            <main>
+                Wie viele leute waren vor dir dran?
+                <Input value={peopleBeforeMe} onChange={(e) => setPeopleBeforeMe(+e.target.value)} />
+                Todo: Bild
+                <Button onClick={() => dispatch(alterCurrentQueue(QueueAction.STOP_TREATMENT))}>
+                    Meine Behandlung ist beendet
+                </Button>
+            </main>
+        </>
+    );
 };
