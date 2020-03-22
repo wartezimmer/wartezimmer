@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "start": "node server.js"
+    "start": "node ./node_modules/.bin/ts-node --files -P tsconfig.json src/server.ts"
   },
   "bugs": {
     "url": "https://github.com/wartezimmer/wartezimmer/issues"
