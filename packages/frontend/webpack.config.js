@@ -52,7 +52,7 @@ module.exports = function(env) {
       app: "./src/index.tsx",
     },
     output: {
-      path: path.resolve(__dirname, "./dist/"),
+      path: path.join(__dirname, "dist"),
       filename: "[name].js",
       globalObject: "this",
       chunkFilename: "[chunkhash].js",
