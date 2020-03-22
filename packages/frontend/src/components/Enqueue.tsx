@@ -25,7 +25,7 @@ export const Enqueue = () => {
                 <div className="info">
                     <img src="/images/logo.svg" alt=""/>
                     <div className="doc-name">{facility.name}</div>
-                    <div className="doc-address">{facility.street}</div>
+                    <div className="doc-address">{facility.address_street}</div>
                 </div>
                 <CurrentLoadChart />
                 

@@ -19,10 +19,10 @@ export const Facility = () => {
                 <div className="doc-info">
                     {/* <div className="doc-type">Praxis</div> */}
                     <div className="doc-name">{facility.name}</div>
-                    <div className="doc-address">{facility.street}</div>
+                    <div className="doc-address">{facility.address_street}</div>
                     <div className="doc-phone">
                         <img src="/images/phone.svg" alt=""/>
-                        <span>{facility.phone}</span>
+                        <span>{facility.contact_phone}</span>
                     </div>
                 </div>
                 <div>
