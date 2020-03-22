@@ -20,8 +20,8 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "start": "node ./node_modules/.bin/ts-node --files -P tsconfig.json src/server.ts",
-    "buildProd": "node ./node_modules/.bin/tsc",
-    "startProd": "node build/server.js"
+    "dev": "ts-node-dev src/server.ts",
+    "build:prod": "tsc -p ."
   },
   "bugs": {
     "url": "https://github.com/wartezimmer/wartezimmer/issues"
@@ -29,7 +29,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "pg": "^7.18.2",
-    "shared-lib": "*"
+    "shared-lib": "*",
+    "ts-node-dev": "^1.0.0-pre.44"
   },
   "devDependencies": {
     "@types/express": "^4.17.3",
