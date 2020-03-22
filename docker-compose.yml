@@ -59,6 +59,20 @@ services:
       - "./packages/load-calculations/worker.js:/app/worker.js:rw"
       - "./packages/load-calculations/package.json:/app/package.json:ro"
       - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
+  admin-panel:
+    build:
+      context: ./packages/admin-panel
+      dockerfile: Dockerfile 
+    environment:
+      DATABASE_URL: postgres://user:idealloesung@db:5432/db
+    ports: 
+      - 3003:3003
+      - 9227:9227
+    volumes:
+      # - "./packages/admin-panel/lib:/app/lib:rw"
+      - "./packages/admin-panel/server.js:/app/server.js:rw"
+      - "./packages/admin-panel/package.json:/app/package.json:ro"
+      - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
 
 volumes:
   postgres:
