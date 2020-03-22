@@ -38,7 +38,7 @@ const store = createStore(
 
 window.addEventListener("popstate", (e: PopStateEvent) => {
     console.log(e);
-    store.dispatch(AppApi.gotoStep(e.state.step))
+    store.dispatch(AppApi.back())
 })
 
 store.subscribe(() => {
