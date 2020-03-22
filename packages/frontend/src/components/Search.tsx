@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { fetchFacilities } from "state/thunks/fetchFacilities";
 
 import { AppApi, Step } from "../state/app";
-import { Map } from "./Map";
 import { useThunkDispatch } from "../useThunkDispatch";
+import { Map } from "./Map";
 
 export const Search = () => {
     const dispatch = useThunkDispatch();
@@ -12,13 +12,17 @@ export const Search = () => {
     const [search, setSearch] = useState("");
     return (
         <>
-            <header>WARTESCHLEIFE</header>
             <main>
-                <Form.Item>
-                    <Input value={search} onChange={(e) => e.target.value}/>
-                </Form.Item>
-                <Button onClick={() => dispatch(AppApi.gotoStep(Step.SignIn))}>Anmeldung</Button>
-                <Button onClick={() => dispatch(fetchFacilities(search))}>Suchen</Button>
+                <div id="search">
+                    <h2>Meine Einrichtung finden</h2>
+                    <Form.Item>
+                        <Input value={search} onChange={(e) => e.target.value}/>
+                    </Form.Item>
+                    <div className="btn">
+                        <Button onClick={() => dispatch(AppApi.gotoStep(Step.SignIn))}>Anmeldung</Button>
+                        <Button className="primary-red" onClick={() => dispatch(fetchFacilities(search))}>Suchen</Button>
+                    </div>
+                </div>
                 <Map />
             </main>
         </>

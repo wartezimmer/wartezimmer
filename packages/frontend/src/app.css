@@ -48,6 +48,7 @@ table {
 body {
   font-family: 'Nunito', sans-serif;
   --blue: #1F30BA;
+  --red: #FC423F;
   --light-blue: #F0FCFC;
 }
 
@@ -71,6 +72,7 @@ body {
   font-weight: 700;
   font-size: 20px;
   height: 40px;
+  font-weight: 700;
   text-transform: uppercase;
   border-radius: 3px;
   border-width: 2px;
@@ -85,6 +87,12 @@ Button.border-blue {
 Button.primary-blue {
   background-color: var(--blue);
   border-color: var(--blue);
+  color: white;
+}
+
+Button.primary-red {
+  background-color: var(--red);
+  border-color: var(--red);
   color: white;
 }
 
@@ -163,6 +171,7 @@ header .space {
   padding-left: 16px;
   padding-right: 16px;
   position: relative;
+
 }
 
 #info img {
@@ -174,7 +183,49 @@ header .space {
 
 #info .text {
   padding-top: 64px;
+  font-size: 24px;
   color: var(--blue)
+}
+
+#info .btn {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+
+
+/* Search */
+#search {
+  background-color: var(--blue);
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+#search h2 {
+  color: white;
+  text-align: center;
+  font-size: 26px;
+  padding-top: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+
+#search .ant-form-item {
+  margin-bottom: 24px;
+}
+
+#search .ant-input {
+  height: 40px;
+  border-radius: 4.75px;
+}
+
+#search .btn {
+  padding-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
 }
 
 #signup {

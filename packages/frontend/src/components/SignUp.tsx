@@ -1,7 +1,6 @@
 import { LeftOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
-import { ExampleApi } from "state/example";
 import { login } from "state/thunks/login";
 
 import { AppApi } from "../state/app";
@@ -31,12 +30,7 @@ export const SignUp = () => {
                     <Form.Item label={"Passwort"}>
                         <Input type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} />
                     </Form.Item>
-                    <Button className="login" onClick={() => dispatch(login(id, password))}>Anmeldung</Button>
-                    <hr/>
-                    <div className="ext-login">
-                      <Button className="google" onClick={() => dispatch(ExampleApi.reset())}>Login with Google</Button>
-                      <Button className="facebook" onClick={() => dispatch(ExampleApi.reset())}>Login with Facebook</Button>
-                    </div>
+                    <Button className="login" onClick={() => dispatch(login(id, password))}>Registrieren</Button>
                 </Form>
             </main>
         </>

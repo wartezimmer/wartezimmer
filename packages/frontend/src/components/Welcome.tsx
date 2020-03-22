@@ -12,21 +12,20 @@ export const Welcome = () => {
 
     return (
         <>
-            <header>
-
-            </header>
             <main>
                 <div id="banner" className="uppercase" >
                     <div className="light">Die</div>
-                    <h1>WARTE<br/>SCHLEIFE</h1>
+                    <h1>WARTE<br />SCHLEIFE</h1>
                     <h2>Warten im</h2>
-                    <h2>Wohnzimmer</h2> this changed
+                    <h2>Wohnzimmer</h2>
                 </div>
                 <div id="info">
-                    <img src="/images/logo.svg" alt=""/>
+                    <img src="/images/logo.svg" alt="" />
                     <div className="text">Unnötige Wartezeiten vermeiden und so das Infektionsrisiko von COVID-19 gering halten</div>
-                    <Button className="border-blue" onClick={() => dispatch(AppApi.gotoStep(Step.About))}>Infos</Button>
-                    <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Karte</Button>
+                    <div className="btn">
+                        <Button className="border-blue info-btn" onClick={() => dispatch(AppApi.gotoStep(Step.About))}>Infos</Button>
+                        <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Karte</Button>
+                    </div>
                 </div>
             </main>
         </>
