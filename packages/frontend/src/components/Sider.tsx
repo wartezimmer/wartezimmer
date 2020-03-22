@@ -26,38 +26,46 @@ export const Sider = () => {
             }}
         >
             <div className="user">
-
-            <Row>
-                <Col className="text-right">
-                    <Button ghost onClick={() => dispatch(AppApi.setSideBarCollapsed(true))}>
-                        <CloseOutlined />
-                    </Button>
-                </Col>
-            </Row>
-            <Row className="text-center my-2">
-                <Col>
-                    <Avatar size={64} icon={<UserOutlined />} />
-                </Col>
-            </Row>
-            <Row className="text-center my-2">
-                <Col>Max Mustermann</Col>
-            </Row>
-            <Row className="text-center my-2">
-                <Col>email@example.com</Col>
-            </Row>
+                <Row>
+                    <Col className="text-right">
+                        <Button ghost onClick={() => dispatch(AppApi.setSideBarCollapsed(true))}>
+                            <CloseOutlined />
+                        </Button>
+                    </Col>
+                </Row>
+                <Row className="text-center my-2">
+                    <Col>
+                        <Avatar size={64} icon={<UserOutlined />} />
+                    </Col>
+                </Row>
+                <Row className="text-center my-2">
+                    <Col>Max Mustermann</Col>
+                </Row>
+                <Row className="text-center my-2">
+                    <Col>email@example.com</Col>
+                </Row>
             </div>
-            <Menu mode="inline" inlineCollapsed={collapseSideBar}>
+            <Menu
+                mode="inline"
+                selectable={false}
+                inlineCollapsed={collapseSideBar}
+            >
                 <Menu.Divider />
-                <Menu.Item key="1" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>
+                <Menu.Item onClick={() => {
+                    dispatch(AppApi.gotoStep(Step.Search));
+                    dispatch(AppApi.setSideBarCollapsed(true));
+                }}>
                     <PushpinOutlined />
                     <span>Karte</span>
                 </Menu.Item>
-                <Menu.Item key="2" onClick={() => dispatch(AppApi.gotoStep(Step.About))}>
+                <Menu.Item onClick={() => {
+                    dispatch(AppApi.gotoStep(Step.About));
+                    dispatch(AppApi.setSideBarCollapsed(true));
+                }}>
                     <InfoCircleOutlined />
                     <span>So funktionierts</span>
                 </Menu.Item>
                 <Menu.Item
-                    key="3"
                     style={{
                         marginBottom: "50px",
                     }}
@@ -87,7 +95,10 @@ export const Sider = () => {
                     />
                     {/* </div> */}
                 </div>
-                <Menu.Item key="4" className="text-center impressum-btn">
+                <Menu.Item className="text-center impressum-btn" onClick={() => {
+                    dispatch(AppApi.gotoStep(Step.Imprint));
+                    dispatch(AppApi.setSideBarCollapsed(true));
+                }}>
                     Impressum
                 </Menu.Item>
 
