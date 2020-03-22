@@ -12,32 +12,36 @@ export const Facility = () => {
     const dispatch = useThunkDispatch();
     const facility = useSelector((state: State) => state.app.currentFacility!);
     const travelTime = useSelector((state: State) => state.app.travelTime);
+    const currentFacility = useSelector((state: State) => state.app.currentFacility);
     // const counter = useSelector((state: State) => state.example.counter);
 
     return (
         <>
-            <header>
-                <div className="space"></div>
-                <h1>Anstellen</h1>
-                <div className="space"></div>
-            </header>
             <main>
-                <Form>
-                    <Form.Item label={"Ich bin Verfügbar ab"}>
-                        {/* <TimePicker value={time} onChange={(e) => setTime(e.target.value)} /> */}
-                    </Form.Item>
-                    <Form.Item label={"Dauer Anreise"}>
-                        <Input
-                            type="number"
-                            value={travelTime}
-                            onChange={(e) => dispatch(AppApi.setTravelTime(+e.target.value))}
-                        />
-                    </Form.Item>
-                    {/* <Button onClick={() => dispatch(AppApi.back())}>Zurück</Button> */}
-                    {facility ? facility.name : "kann später nicht mehr passieren"}
-                    <Button onClick={() => dispatch(enqueue())}>Anstellen</Button>
-                </Form>
-                <CurrentLoadChart />
+                <div className="doc-info">
+                    <div className="doc-type">Praxis</div>
+                    <div className="doc-name">Dr. Müller</div>
+                    <div className="doc-address">Musterstr. 18, 12345 Berlin</div>
+                    <div className="doc-phone">030-41234XXXX</div>
+                </div>
+                <div>
+                    <div>Heute geöffnet von:</div>
+                    <div>8 bis 16 Uhr</div>
+                </div>
+                <div>
+                    <div>Aktuelle Auslastung</div>
+                </div>
+                <div>
+                    <div>Chart</div>
+                </div>
+                <div>
+                    <div>Vorraussichtliche Wartezeit</div>
+                    <div>1 STD 45 MIN</div>
+                </div>
+                <div>
+                    <Button>Zurück</Button>
+                    <Button className="primary-red">Anstellen</Button>
+                </div>
             </main>
         </>
     );
