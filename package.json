@@ -15,6 +15,6 @@
     "migrate": "node-pg-migrate",
     "migrate:up": "node-pg-migrate up",
     "start-api": "node packages/api/server.js",
-    "heroku-postbuild": "lerna bootstrap && node-pg-migrate up"
+    "heroku-postbuild": "lerna bootstrap"
   }
 }
