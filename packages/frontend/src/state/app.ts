@@ -34,7 +34,7 @@ export interface Load {
 
 export interface AppState {
     activeStep: Step;
-    availableTime: string;
+    earliestDeparture: string;
     currentFacility: Facility | null;
     currentSearchResult: Facility[] | null;
     currentWaitTime: number;
@@ -46,7 +46,7 @@ export interface AppState {
 
 export const defaultAppState: AppState = {
     activeStep: Step.Welcome,
-    availableTime: "16:30",
+    earliestDeparture: "16:30",
     currentFacility: null,
     currentSearchResult: null,
     currentWaitTime: 5,
@@ -92,8 +92,8 @@ class AppReducer extends Reducer<AppState> {
     public setTravelTime(time: number) {
         this.state.travelTime = time;
     }
-    public setAvailableTime(time: string) {
-        this.state.availableTime = time;
+    public setEarliestDeparture(time: string) {
+        this.state.earliestDeparture = time;
     }
     public setCurrentWaitTime(time: number) {
         this.state.currentWaitTime = time;

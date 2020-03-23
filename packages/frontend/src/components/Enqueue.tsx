@@ -12,7 +12,6 @@ export const Enqueue = () => {
     const dispatch = useThunkDispatch();
     const facility = useSelector((state: State) => state.app.currentFacility!);
     const travelTime = useSelector((state: State) => state.app.travelTime);
-    // const counter = useSelector((state: State) => state.example.counter);
 
     return (
         <>
@@ -32,6 +31,7 @@ export const Enqueue = () => {
                 <Form>
                     <div className="label">Ich bin Verfügbar ab:</div>
                     <Form.Item>
+                        {/* TODO: set earliestDeparture in state */}
                         <TimePicker />
                     </Form.Item>
                     <div className="label">Dauer meiner Anreise:</div>
@@ -45,6 +45,7 @@ export const Enqueue = () => {
                     
                     <div className="bottom actions">
                         <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
+                        {/* TODO: Use Button with loading spinner */}
                         <Button className="primary-red" onClick={() => dispatch(enqueue())}>Einreihen</Button>
                     </div>
                 </Form>

@@ -1,3 +1,4 @@
+// TODO: Use as shared module (shared-lib)
 import { Client } from "pg";
 
 export async function pgClient(): Promise<Client> {

@@ -1,5 +1,7 @@
 import express from "express";
 import path from "path";
+import bodyParser from "body-parser"
+import cookieParser from "cookie-parser"
 
 import { currentQueue } from "./lib/controllers/current_queue";
 import { FACILITIES_NAME_CITY_QUERY, FACILITIES_NEAREST_QUERY } from "./lib/controllers/facilities";
@@ -9,9 +11,14 @@ import { pgClient } from "./lib/pg";
 const { dataQueue } = require("shared-lib/lib/redis-queue");
 const app = express();
 
+app.use(bodyParser.json())
+app.use(cookieParser())
+
 const startup = async () => {
     const db = await pgClient();
     
+    app.set('db', db)
+
     app.use("/api/facility", facilityRouter);
     // TODO: activate when routes are implemented
     // app.use("/facilities", facilitiesRouter);

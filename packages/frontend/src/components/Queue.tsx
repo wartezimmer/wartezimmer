@@ -10,7 +10,7 @@ import { CurrentLoadChart } from "./CurrentLoadChart";
 export const Queue = () => {
     const dispatch = useThunkDispatch();
     const travelTime = useSelector((state: State) => state.app.travelTime);
-    const availableTime = useSelector((state: State) => state.app.availableTime);
+    const earliestDeparture = useSelector((state: State) => state.app.earliestDeparture);
     const facility = useSelector((state: State) => state.app.currentFacility!);
 
     // const counter = useSelector((state: State) => state.example.counter);
@@ -30,7 +30,7 @@ export const Queue = () => {
                 <div className="user-input">
                     <div className="item">
                         <div className="key">Ich bin verfügbar ab</div>
-                        <div className="value">{availableTime} UHR</div>
+                        <div className="value">{earliestDeparture} UHR</div>
                     </div>
                     <div className="item">
                         <div className="key">Dauer meiner Anreise</div>
