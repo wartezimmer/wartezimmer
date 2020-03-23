@@ -1,7 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from 'uuid';
-import { pgClient } from "../pg";
 
 export const facilityRouter = express.Router();
 
@@ -14,17 +13,21 @@ facilityRouter.get('/:id', (req, res) => {
 facilityRouter.post("/:id/engage", (req, res) => {
     // TODO: Ensure facility even exists
     // TODO: Track engagement for load calculation (interest in a facility adds to load with a very low factor)
+    // TODO: if there is a token, and is same facility, ensure there is at least X minutes to last action
     const facilityId = req.params["id"]
     const token = jwt.sign({
         userId: uuidv4(),
         engagedWithFacility: facilityId,
-    }, process.env.JWT_SECRET || 'secret123');
+    }, process.env.JWT_SECRET);
     res.cookie('Authorization', `Bearer ${token}`, { maxAge: 15 * 60 * 1000 })
     res.json({ success: true });
 })
 
 facilityRouter.post("/:id/enqueue", async (req, res) => {
     // TODO: Ensure facility even exists
+    // TODO: if there is a token, and is same facility, ensure there is at least X minutes to last action
+    // TODO: store ip address and other unique props to identify the same origin (flood prevention if there is no auth)
+    // TODO: periodically clean up enqueues that timed out (user never went to facility)
     const facilityId = req.params["id"]
     const authToken = req.cookies.Authorization ? req.cookies.Authorization.split(' ')[1] : null
     
@@ -34,7 +37,7 @@ facilityRouter.post("/:id/enqueue", async (req, res) => {
         return
     }
 
-    const authData = jwt.verify(authToken, process.env.JWT_SECRET || 'secret123')
+    const authData = jwt.verify(authToken, process.env.JWT_SECRET)
     const db = req.app.get('db')
     const { earliestDeparture, travelTime } = req.body;
     
@@ -56,7 +59,7 @@ facilityRouter.post("/:id/enqueue", async (req, res) => {
         enquedFor: facilityId,
         earliestDeparture,
         travelTime,
-    }, process.env.JWT_SECRET || 'secret123');
+    }, process.env.JWT_SECRET);
 
     res.cookie('Authorization', `Bearer ${token}`, { maxAge: 15 * 60 * 1000 })
     res.json({ success: true });
