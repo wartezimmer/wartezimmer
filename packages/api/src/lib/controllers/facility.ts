@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { verifyJWTAuth } from '../middleware/verify-jwt-auth'
 import { TOKEN_LIFETIME } from '../config'
 import { asyncHandler } from '../async-handler'
+
 export const facilityRouter = express.Router();
 
 facilityRouter.get('/:id', (req, res) => {

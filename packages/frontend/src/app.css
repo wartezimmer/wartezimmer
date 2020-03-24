@@ -567,39 +567,6 @@ header .space {
 }
 
 
-/*Singup*/
-
-#signup {
-    margin-top: 108px;
-    margin-right: 24px;
-    margin-left: 24px;
-}
-
-#signup .login {
-    display: block;
-    margin-left: auto;
-}
-
-#signup .ext-login {
-    display: flex;
-    flex-direction: column;
-
-}
-
-#signup .ext-login button {
-    width: 100%;
-}
-
-#signup .ext-login .google {
-    color: white;
-    background-color: #dd4c37;
-}
-
-#signup .ext-login .facebook {
-    color: white;
-    background-color: #3c5899;
-}
-
 /* About */
 
 #about {

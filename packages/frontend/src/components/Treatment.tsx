@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 
-import { alterCurrentQueue, QueueAction } from "../state/thunks/alterCurrentQueue";
+import { finished } from "../state/thunks/finished";
 import { useThunkDispatch } from "../useThunkDispatch";
 import { State } from "state";
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ export const Treatment = () => {
                 </div>
                 <div className="bottom actions">
                     <div></div>
-                    <Button className="primary-red" onClick={() => dispatch(alterCurrentQueue(QueueAction.STOP_TREATMENT))}>
+                    <Button className="primary-red" onClick={() => dispatch(finished())}>
                         Behandlung beendet
                     </Button>
 
