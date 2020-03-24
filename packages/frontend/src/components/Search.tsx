@@ -9,8 +9,8 @@ import { SearchResultList } from "./SearchResultList";
 
 export const Search = () => {
     const dispatch = useThunkDispatch();
-    // const counter = useSelector((state: State) => state.example.counter);
     const [search, setSearch] = useState("");
+    
     return (
         <>
             <main>
@@ -20,7 +20,6 @@ export const Search = () => {
                         <Input value={search} onChange={(e) => setSearch(e.target.value)}/>
                     </Form.Item>
                     <div className="btn-group">
-                        <Button onClick={() => dispatch(AppApi.gotoStep(Step.SignIn))}>Anmeldung</Button>
                         <Button className="primary-red" onClick={() => dispatch(fetchFacilities(search))}>Suchen</Button>
                     </div>
                 </div>

@@ -11,9 +11,7 @@ export const Facility = () => {
     const dispatch = useThunkDispatch();
     const facility = useSelector((state: State) => state.app.currentFacility!);
     const travelTime = useSelector((state: State) => state.app.travelTime);
-    const currentUserId = useSelector((state: State) => state.app.currentUserId);
-    // const counter = useSelector((state: State) => state.example.counter);
-
+    
     return (
         <>
             <main id="facility">
@@ -47,7 +45,7 @@ export const Facility = () => {
                     className="primary-red" 
                     onClick={async () => {
                         await dispatch(fetchEngagement());
-                        dispatch(AppApi.gotoStep(currentUserId === null ? Step.SignIn : Step.Enqueue));
+                        dispatch(AppApi.gotoStep(Step.Enqueue));
                     }}
                         >Anstellen</Button>
                 </div>

@@ -4,8 +4,6 @@ export enum Step {
     Welcome,
     Search,
     Facility,
-    SignIn,
-    SignUp,
     About,
     Imprint,
     // all following steps can only be accessed if a facility is set!
@@ -38,7 +36,6 @@ export interface AppState {
     currentFacility: Facility | null;
     currentSearchResult: Facility[] | null;
     currentWaitTime: number;
-    currentUserId: string | null;
     history: Step[];
     travelTime: number;
     collapseSideBar: boolean;
@@ -50,7 +47,6 @@ export const defaultAppState: AppState = {
     currentFacility: null,
     currentSearchResult: null,
     currentWaitTime: 5,
-    currentUserId: "todo: temp solution to disable userstuff in mvp",
     history: [],
     travelTime: 30,
     collapseSideBar: true,
@@ -63,15 +59,9 @@ class AppReducer extends Reducer<AppState> {
     }
     public back() {
         this.state.activeStep = Step.Search;
-        // while (this.state.history.length > 0) {
-        //     const lastStep = this.state.history.pop()!;
-        //     if (this.state.currentUserId === null
-        //         || (lastStep !== Step.SignIn && lastStep !== Step.SignUp)) {
-        //         this.state.activeStep = lastStep;
-        //     }
-        // }
     }
     public gotoStep(step: Step) {
+        // TODO: Still needed?
         // if (step > Step.Imprint && this.state.currentFacility === null) {
         //     step = Step.Search;
         // }
@@ -85,9 +75,6 @@ class AppReducer extends Reducer<AppState> {
     }
     public setCurrentSearchResult(result: Facility[]) {
         this.state.currentSearchResult = result;
-    }
-    public setCurrentUserId(id: string | null) {
-        this.state.currentUserId = id || "todo: temp solution to disable userstuff in mvp";
     }
     public setTravelTime(time: number) {
         this.state.travelTime = time;
