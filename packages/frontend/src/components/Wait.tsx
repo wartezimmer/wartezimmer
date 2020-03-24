@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { State } from "state";
 import { alterCurrentQueue, QueueAction } from "state/thunks/alterCurrentQueue";
+import { cancel } from "../state/thunks/cancel";
 
 import { useThunkDispatch } from "../useThunkDispatch";
 
@@ -32,7 +33,7 @@ export const Wait = () => {
                 <div className="people-text">Wie viele leute warten jetzt gerade?</div>
                 <Input className="people-input" value={peopleInQueue} onChange={(e) => setPeopleInQueue(+e.target.value)} />
                 <div className="bottom actions">
-                    <Button className="border-blue" onClick={() => dispatch(alterCurrentQueue(QueueAction.CANCEL))}>Abbrechen</Button>
+                    <Button className="border-blue" onClick={() => dispatch(cancel())}>Abbrechen</Button>
                     <Button className="primary-red" onClick={() => dispatch(alterCurrentQueue(QueueAction.START_TREATMENT))}>Ich bin dran</Button>
                 </div>
             </main>

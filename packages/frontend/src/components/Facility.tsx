@@ -45,9 +45,9 @@ export const Facility = () => {
                     <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
                     <Button 
                     className="primary-red" 
-                    onClick={() => {
+                    onClick={async () => {
+                        await dispatch(fetchEngagement());
                         dispatch(AppApi.gotoStep(currentUserId === null ? Step.SignIn : Step.Enqueue));
-                        dispatch(fetchEngagement());
                     }}
                         >Anstellen</Button>
                 </div>

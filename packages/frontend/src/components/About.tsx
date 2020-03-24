@@ -7,7 +7,7 @@ import { useThunkDispatch } from "../useThunkDispatch";
 
 export const About = () => {
     const dispatch = useThunkDispatch();
-    // const counter = useSelector((state: State) => state.example.counter);
+    
     return (
         <>
             <header className="uppercase">

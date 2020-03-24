@@ -1,5 +1,6 @@
 {
   "name": "admin-panel",
+  "private": true,
   "version": "0.1.0",
   "description": "> TODO: description",
   "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",

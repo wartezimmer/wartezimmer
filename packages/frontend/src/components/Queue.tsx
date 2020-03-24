@@ -3,9 +3,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { State } from "state";
 
-import { alterCurrentQueue, QueueAction } from "../state/thunks/alterCurrentQueue";
 import { useThunkDispatch } from "../useThunkDispatch";
 import { CurrentLoadChart } from "./CurrentLoadChart";
+import { arrived } from "../state/thunks/arrived";
+import { cancel } from "../state/thunks/cancel";
 
 export const Queue = () => {
     const dispatch = useThunkDispatch();
@@ -44,8 +45,8 @@ export const Queue = () => {
                 </div>
                 <CurrentLoadChart />
                 <div className="bottom actions">
-                    <Button className="border-blue" onClick={() => dispatch(alterCurrentQueue(QueueAction.CANCEL))}>Abbrechen</Button>
-                    <Button className="primary-red" onClick={() => dispatch(alterCurrentQueue(QueueAction.ARRIVED))}>angekommen</Button>
+                    <Button className="border-blue" onClick={() => dispatch(cancel())}>Abbrechen</Button>
+                    <Button className="primary-red" onClick={() => dispatch(arrived())}>angekommen</Button>
                 </div>
             </main>
         </>

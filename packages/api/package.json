@@ -1,5 +1,6 @@
 {
   "name": "api",
+  "private": true,
   "version": "0.1.0",
   "description": "Public API",
   "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",

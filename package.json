@@ -1,5 +1,6 @@
 {
   "name": "wartezimmer",
+  "private": true,
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/wartezimmer/wartezimmer",

@@ -4,7 +4,7 @@ import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 
 import { currentQueue } from "./lib/controllers/current_queue";
-import { FACILITIES_NAME_CITY_QUERY, FACILITIES_NEAREST_QUERY } from "./lib/controllers/facilities";
+import { facilitiesRouter } from "./lib/controllers/facilities";
 import { facilityRouter } from "./lib/controllers/facility";
 import { pgClient } from "./lib/pg";
 
@@ -20,8 +20,7 @@ const startup = async () => {
     app.set('db', db)
 
     app.use("/api/facility", facilityRouter);
-    // TODO: activate when routes are implemented
-    // app.use("/facilities", facilitiesRouter);
+    app.use("/api/facilities", facilitiesRouter);
     app.use("/api/current-queue", currentQueue);
 
     // Example queue usage
@@ -35,43 +34,11 @@ const startup = async () => {
     //     res.json(result.rows);
     // });
 
-    app.get("/api/facilities/nearest", async (req, res) => {
-        console.log(req.query);
-        if (req.query.longitude === undefined || req.query.latitude === undefined) {
-          res.status(400);
-          res.json({error: "latitude or longitude not set"});
-          return;
-        }
-
-        const latitude = parseFloat(req.query.latitude);
-        const longitude = parseFloat(req.query.longitude)
-
-        if (isNaN(latitude) || isNaN(longitude)) {
-          res.status(400);
-          res.json({error: "latitude or longitude are no valid floats"});
-          return;
-        }
-
-        const result = await db.query(FACILITIES_NEAREST_QUERY, [latitude, longitude]);
-        res.json(result.rows);
-        // console.log(result);
-    });
-
-    app.get("/api/facilities/search", async (req, res) => {
-      if (req.query.q === undefined) {
-        res.status(400);
-        res.json({error: "q not set"});
-        return;
-      }
-
-      const result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
-      res.json(result.rows);
-    });
-
     const staticFileDir = path.resolve(process.cwd(), 'packages/frontend/dist');
     app.get('/*', express.static(staticFileDir))
     
     app.use((err, req, res, next) => {
+        res.status(500)
         res.end('Error, sooooorry.')
     })
     app.use((req, res, next) => {
