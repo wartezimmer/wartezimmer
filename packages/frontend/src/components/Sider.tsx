@@ -65,18 +65,6 @@ export const Sider = () => {
                     <InfoCircleOutlined />
                     <span>So funktionierts</span>
                 </Menu.Item>
-                {/* <Menu.Item     todo: temporarely removed for mvp
-                    style={{
-                        marginBottom: "50px",
-                    }}
-                    onClick={() => {
-                        dispatch(signout());
-                        dispatch(AppApi.setSideBarCollapsed(true));
-                    }}
-                >
-                    <LogoutOutlined />
-                    <span>Abmelden</span>
-                </Menu.Item> */}
                 <div className="grow"></div>
                 <Menu.Divider />
                 <div className="sider-banner">
