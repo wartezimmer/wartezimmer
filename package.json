@@ -1,5 +1,6 @@
 {
   "name": "wartezimmer",
+  "private": true,
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/wartezimmer/wartezimmer",
@@ -18,6 +19,7 @@
     "migrate:up": "node-pg-migrate up",
     "start-api": "node packages/api/server.js",
     "start-admin": "node -r dotenv/config packages/admin-panel/server.js",
-    "heroku-postbuild": "lerna bootstrap"
+    "heroku-prebuild": "cd packages/api && yarn install --production=false && cd ../frontend && yarn install --production=false",
+    "heroku-postbuild": "lerna bootstrap && lerna run build:prod"
   }
 }

@@ -1,0 +1,1 @@
+export const TOKEN_LIFETIME = 12 * 60 * 60 * 1000

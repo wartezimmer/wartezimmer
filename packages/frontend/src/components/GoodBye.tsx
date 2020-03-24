@@ -1,7 +1,7 @@
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import React, { useState } from "react";
-import { ExampleApi } from "state/example";
 
+import { AppApi, Step } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
 
 export const GoodBye = () => {
@@ -11,16 +11,24 @@ export const GoodBye = () => {
 
     return (
         <>
-            <header>
-                <div className="space"></div>
-                <h1>Good Bye</h1>
-                <div className="space"></div>
-            </header>
             <main>
-            Wie viele leute waren vor dir dran?
-                    <Input value={peopleBeforeMe} onChange={(e) => setPeopleBeforeMe(+e.target.value)}/>
-                <Button onClick={() => dispatch(ExampleApi.increment())}>MEHR INFOS</Button>
-                <Button onClick={() => dispatch(ExampleApi.reset())}>ANMELDUNG</Button>
+                <div id="banner" className="uppercase" >
+                    <div className="light">Die</div>
+                    <h1>WARTE<br />SCHLEIFE</h1>
+                    <h2>Warten im</h2>
+                    <h2>Wohnzimmer</h2>
+                </div>
+                <div id="info">
+                    <img src="/images/logo.svg" alt="" />
+                </div>
+                
+                <div id="thanks">
+                    Vielen Dank <br/> und gute <br/> Besserung!
+                </div>
+                <div className="bottom actions">
+                    <div></div>
+                    <Button className="primary-red" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Zurück zur Karte</Button>
+                </div>
             </main>
         </>
     );

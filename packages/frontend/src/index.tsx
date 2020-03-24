@@ -15,8 +15,6 @@ import App from "./App";
 import { rootReducer } from "./state";
 import { AppApi, Step } from "./state/app";
 
-
-
 if (SENTRY_DSN !== null) {
     Sentry.init({
         dsn: SENTRY_DSN,
@@ -29,10 +27,18 @@ if (SENTRY_DSN !== null) {
 const root = document.createElement("div");
 document.body.appendChild(root);
 
+
+
 const store = createStore(
     rootReducer,
     applyMiddleware(thunk),
 );
+
+window.addEventListener("popstate", (e: PopStateEvent) => {
+    console.log(e);
+    store.dispatch(AppApi.back())
+})
+
 store.subscribe(() => {
     (window as any).state = store.getState();
 });

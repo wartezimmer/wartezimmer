@@ -5,6 +5,7 @@ import { About } from "components/About";
 import { Enqueue } from "components/Enqueue";
 import { NavBar } from "components/NavBar";
 import { Queue } from "components/Queue";
+import { Sider } from "components/Sider";
 import { Treatment } from "components/Treatment";
 import { Wait } from "components/Wait";
 import React from "react";
@@ -12,7 +13,9 @@ import { hot } from "react-hot-loader";
 import { useSelector } from "react-redux";
 import { Step } from "state/app";
 
+import { Facility } from "./components/Facility";
 import { GoodBye } from "./components/GoodBye";
+import { Imprint } from "./components/Imprint";
 import { Search } from "./components/Search";
 import { SignIn } from "./components/SignIn";
 import { SignUp } from "./components/SignUp";
@@ -21,50 +24,46 @@ import { State } from "./state";
 
 export const App = () => {
     const activeStep = useSelector((state: State) => state.app.activeStep);
-    const collapseSideBar = useSelector((state: State) => state.app.collapseSideBar);
 
     function renderContent() {
         switch (activeStep) {
             case Step.Welcome:
                 return <Welcome />;
             case Step.Search:
-                return <Search />
+                return <Search />;
             case Step.SignIn:
-                return <SignIn />
+                return <SignIn />;
             case Step.SignUp:
-                return <SignUp />
+                return <SignUp />;
             case Step.Enqueue:
-                return <Enqueue />
+                return <Enqueue />;
+            case Step.Facility:
+                return <Facility />
+            case Step.Imprint:
+                return <Imprint />
             case Step.Queue:
-                return <Queue />
+                return <Queue />;
             case Step.Wait:
-                return <Wait />
+                return <Wait />;
             case Step.Treatment:
-                return <Treatment />
+                return <Treatment />;
             case Step.GoodBye:
-                return <GoodBye />
+                return <GoodBye />;
             case Step.About:
-                return <About />
+                return <About />;
             default:
                 return <div>Page not found {Step[activeStep]}</div>;
-
-
         }
     }
 
     return <Layout>
+        {/* <div id="smartphone"></div> */}
+        {/* <img src="/images/phone.png" alt=""/> */}
         <Layout>
             <NavBar />
             {renderContent()}
         </Layout>
-        <Layout.Sider
-            collapsible
-            collapsedWidth="0"
-            collapsed={collapseSideBar}
-            trigger={null}
-        >
-            Sider
-        </Layout.Sider>
+        <Sider />
     </Layout>
 };
 

@@ -1,6 +1,5 @@
-import { LeftOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
+import { Button, Form, Input, TimePicker } from "antd";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { State } from "../state";
@@ -13,32 +12,43 @@ export const Enqueue = () => {
     const dispatch = useThunkDispatch();
     const facility = useSelector((state: State) => state.app.currentFacility!);
     const travelTime = useSelector((state: State) => state.app.travelTime);
-    // const counter = useSelector((state: State) => state.example.counter);
 
     return (
         <>
             <header>
-                <LeftOutlined onClick={() => dispatch(AppApi.back())} />
-                <h1>Anstehen</h1>
+                <div className="space"></div>
+                <h1>Anstellen</h1>
                 <div className="space"></div>
             </header>
-            <main>
+            <main id="enqueue">
+                <div className="info">
+                    <img src="/images/logo.svg" alt=""/>
+                    <div className="doc-name">{facility.name}</div>
+                    <div className="doc-address">{facility.address_street}</div>
+                </div>
+                <CurrentLoadChart />
+                
                 <Form>
-                    <Form.Item label={"Ich bin Verfügbar ab"}>
-                        {/* <TimePicker value={time} onChange={(e) => setTime(e.target.value)} /> */}
+                    <div className="label">Ich bin Verfügbar ab:</div>
+                    <Form.Item>
+                        {/* TODO: set earliestDeparture in state */}
+                        <TimePicker />
                     </Form.Item>
-                    <Form.Item label={"Dauer Anreise"}>
-                        <Input
+                    <div className="label">Dauer meiner Anreise:</div>
+                    <Form.Item className="duration">
+                        <Input className ="duration-input"
                             type="number"
                             value={travelTime}
                             onChange={(e) => dispatch(AppApi.setTravelTime(+e.target.value))}
-                        />
+                            />
                     </Form.Item>
-                    {/* <Button onClick={() => dispatch(AppApi.back())}>Zurück</Button> */}
-                    {facility ? facility.name : "kann später nicht mehr passieren"}
-                    <Button onClick={() => dispatch(enqueue())}>Anstellen</Button>
+                    
+                    <div className="bottom actions">
+                        <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
+                        {/* TODO: Use Button with loading spinner */}
+                        <Button className="primary-red" onClick={() => dispatch(enqueue())}>Einreihen</Button>
+                    </div>
                 </Form>
-                    <CurrentLoadChart />
             </main>
         </>
     );

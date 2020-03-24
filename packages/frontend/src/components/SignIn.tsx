@@ -1,5 +1,6 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
+import { login } from "state/thunks/login";
 
 import { AppApi } from "../state/app";
 import { register } from "../state/thunks/register";
@@ -22,11 +23,12 @@ export const SignIn = () => {
                 </Form.Item>
                 oder [Signin Facebook] [Signin Google]
                 <Button onClick={() => dispatch(AppApi.back())}>Abbrechen</Button>
+                <Button onClick={() => dispatch(login(id, password))}>Login</Button>
                 <Button onClick={() => dispatch(register(id, password))}>Registrieren</Button>
                 <hr/>
                 <div className="ext-login">
-                    <Button className="google" onClick={() => dispatch(ExampleApi.reset())}>Login with Google</Button>
-                    <Button className="facebook" onClick={() => dispatch(ExampleApi.reset())}>Login with Facebook</Button>
+                    {/* <Button className="google" onClick={() => dispatch(ExampleApi.reset())}>Login with Google</Button> */}
+                    {/* <Button className="facebook" onClick={() => dispatch(AppApi.reset())}>Login with Facebook</Button> */}
                 </div>
             </main>
         </>

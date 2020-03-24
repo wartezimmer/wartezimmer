@@ -10,7 +10,10 @@ export const CurrentLoadChart = () => {
 
     return (
         <>
-            Aktuelle Auslastung
+            <div className="load">
+                <div className="load-key">Aktuelle Auslastung:</div>
+                <div className="load-value">Gering</div>
+            </div>
         </>
     );
 };

@@ -28,7 +28,8 @@ services:
     #      - 3004:443
       - 8080:8080
     volumes:
-      - "./packages/frontend/dist:/app/dist:rw" 
+      # - "./packages/frontend/dist:/app/dist:rw" 
+      - "./packages/frontend/static:/app/static:rw"
       - "./packages/frontend/src:/app/src:rw"
       - "./packages/frontend/webpack.config.js:/app/webpack.config.js:ro"
       - "./packages/frontend/tsconfig.json:/app/tsconfig.json:ro"
@@ -39,15 +40,17 @@ services:
       context: ./packages/api
       dockerfile: Dockerfile
     environment:
+      JWT_SECRET: secret123
       DATABASE_URL: postgres://user:idealloesung@db:5432/db
     ports:
       - 3001:3001
       - 9229:9229
     volumes:
-      - "./packages/api/lib:/app/lib:rw"
-      - "./packages/api/server.js:/app/server.js:rw"
+      - "./packages/api/src:/app/src:rw"
+      - "./packages/api/tsconfig.json:/app/tsconfig.json:ro"
       - "./packages/api/package.json:/app/package.json:ro"
       - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
+      - "./packages/frontend/dist:/frontend/dist:ro"
   load-calculations:
     build:
       context: ./packages/load-calculations

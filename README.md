@@ -12,4 +12,7 @@ docker-compose -up -d
 yarn migrate:up
 ```
 
+## Populate DB
+Goto admin-panel (localhost:3003), upload a facilities CSV (/data/*).
+
 GOTO: `localhost:8080`
