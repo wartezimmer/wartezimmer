@@ -12,6 +12,7 @@ import React from "react";
 import { hot } from "react-hot-loader";
 import { useSelector } from "react-redux";
 import { Step } from "state/app";
+import { SnackbarProvider } from 'notistack';
 
 import { Facility } from "./components/Facility";
 import { GoodBye } from "./components/GoodBye";
@@ -54,11 +55,14 @@ export const App = () => {
         {/* <div id="smartphone"></div> */}
         {/* <img src="/images/phone.png" alt=""/> */}
         <Layout>
-            <NavBar />
-            {renderContent()}
+            <SnackbarProvider maxSnack={3}>
+                <NavBar />
+                {renderContent()}
+            </SnackbarProvider>
         </Layout>
         <Sider />
     </Layout>
 };
 
+// TODO: Hot only in dev?
 export default hot(module)(App);

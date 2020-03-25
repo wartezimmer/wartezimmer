@@ -9,9 +9,11 @@ import { useThunkDispatch } from "../useThunkDispatch";
 export const SearchResultList = () => {
     const dispatch = useThunkDispatch();
     const searchResult = useSelector((state: State) => state.app.currentSearchResult);
-    if (searchResult === null) {
+    
+    if (searchResult === null || !searchResult.length) {
         return <div>Todo: no searchresult</div>;
     }
+    
     return (
         <>
             <List>
