@@ -313,11 +313,20 @@ header .space {
   background-color: var(--blue);
 }
 
-#search .head .ant-input {
+#search .head .ant-input-affix-wrapper  {
   height: 40px;
   border-radius: 0px;
   border-top-left-radius: 4.75px;
   border-bottom-left-radius: 4.75px;
+}
+
+#search .head .ant-input-suffix {
+  padding-top: 5px;
+}
+
+
+#search .head .anticon-close-circle {
+  font-size: 20px;
 }
 
 #search .head .ant-btn {
@@ -343,7 +352,7 @@ header .space {
   left: 16px;
   bottom: 0px;
   opacity: 0.9;
-  z-index: 1000;
+  z-index: 10000;
   overflow: auto;
 }
 
@@ -640,7 +649,7 @@ header .space {
 }
 
 .ant-layout-sider {
-  z-index: 10000;
+  z-index: 100000;
   background-color: var(--blue);
   color: white;
   text-transform: uppercase;
