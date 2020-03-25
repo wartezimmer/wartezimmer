@@ -30,9 +30,9 @@ export const About = () => {
                 <section>
                     <h2>So funktioniert's</h2>
                     <p>
-                        Um dieses Ziel zu erreichen, wollen wir mit dieser App deine Artezeit ins eigene Wohnzimmer verlegen:
+                        Um dieses Ziel zu erreichen, wollen wir mit dieser App deine Wartezeit ins eigene Wohnzimmer verlegen:
                         Die App zeigt dir an, wann es Zeit ist, loszugehen,
-                        damit du genau rechtzeitig beim Arzt ankommst und dort jegliche Wartezeiten vermeiden kannst.
+                        damit du genau rechtzeitig beim Arzt ankommst und dort unnötige Wartezeiten vermeiden kannst.
                     </p>
                     <p>
                         Dies erreichen wir, indem du angibst, wann du beim Arzt angekommen bist,
@@ -50,7 +50,7 @@ export const About = () => {
                         profitieren sie durch den optimierten Strom von Patient*innen.
                     </p>
                     <p>
-                        Nutzer*innen der App können ebenfalls sehenn, ob es nicht Sinn macht,
+                        Nutzer*innen der App können ebenfalls sehen, ob es nicht Sinn macht,
                         gerade eine andere Praxis aufzusuchen, die derzeit weniger frequentiert ist.
                         So entsteht eine Verteilung und die medizinische Versorgung wird optimal.
                     </p>
@@ -62,10 +62,7 @@ export const About = () => {
                         Wir erheben keine Bewegungsdaten.
                     </p>
                     <p>
-                        Du musst lediglich einen Account erstellen, damit du,
-                        falls sich der Browser versehentlich schließt,
-                        auf deine Angaben wieder zugreifen kannst und dich nicht neu "anstellst".
-                        Dies würde die Berechnungen verfälschen.
+                        Als Nutzter brauchst du nichtmal einen Account zu erstellen.
                     </p>
                     <div className="btn-group">
                         <Button

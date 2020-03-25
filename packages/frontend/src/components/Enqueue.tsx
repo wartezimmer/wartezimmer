@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { State } from "../state";
-import { AppApi } from "../state/app";
+import { AppApi, Step } from "../state/app";
 import { enqueue } from "../state/thunks/enqueue";
 import { useThunkDispatch } from "../useThunkDispatch";
 import { CurrentLoadChart } from "./CurrentLoadChart";
@@ -44,7 +44,7 @@ export const Enqueue = () => {
                     </Form.Item>
                     
                     <div className="bottom actions">
-                        <Button className="border-blue" onClick={() => dispatch(AppApi.back())}>Zurück</Button>
+                        <Button className="border-blue" onClick={() => dispatch(AppApi.gotoStep(Step.Facility))}>Zurück</Button>
                         {/* TODO: Use Button with loading spinner */}
                         <Button className="primary-red" onClick={() => dispatch(enqueue())}>Einreihen</Button>
                     </div>
