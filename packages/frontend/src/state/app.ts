@@ -34,6 +34,7 @@ export interface AppState {
     activeStep: Step;
     earliestDeparture: string;
     currentFacility: Facility | null;
+    currentSearchTerm: string;
     currentSearchResult: Facility[] | null;
     currentWaitTime: number;
     history: Step[];
@@ -45,6 +46,7 @@ export const defaultAppState: AppState = {
     activeStep: Step.Welcome,
     earliestDeparture: "16:30",
     currentFacility: null,
+    currentSearchTerm: "",
     currentSearchResult: null,
     currentWaitTime: 5,
     history: [],
@@ -72,6 +74,9 @@ class AppReducer extends Reducer<AppState> {
     public setCurrentFacility(currentFacility: Facility | null) {
         this.state.activeStep = Step.Facility;
         this.state.currentFacility = currentFacility;
+    }
+    public setCurrentSearchTerm(term: string) {
+        this.state.currentSearchTerm = term;
     }
     public setCurrentSearchResult(result: Facility[]) {
         this.state.currentSearchResult = result;

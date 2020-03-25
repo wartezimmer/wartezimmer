@@ -48,6 +48,7 @@ table {
 }
 
 body > div {
+  position: relative;
   height: 100%;
 }
 /* Variables */
@@ -653,6 +654,7 @@ header .space {
 }
 
 .ant-layout-sider {
+  top: 0;
   z-index: 100000;
   background-color: var(--blue);
   color: white;

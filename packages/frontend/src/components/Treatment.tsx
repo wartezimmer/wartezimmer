@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 
+import { AppApi, Step } from "../state/app";
 import { finished } from "../state/thunks/finished";
 import { useThunkDispatch } from "../useThunkDispatch";
 import { State } from "state";
@@ -32,7 +33,11 @@ export const Treatment = () => {
                 </div>
                 <div className="bottom actions">
                     <div></div>
-                    <Button className="primary-red" onClick={() => dispatch(finished())}>
+                    <Button className="primary-red" onClick={() => {
+                        dispatch(AppApi.setCurrentSearchResult([]))
+                        dispatch(AppApi.setCurrentSearchTerm(''));
+                        dispatch(finished())
+                    }}>
                         Behandlung beendet
                     </Button>
 
