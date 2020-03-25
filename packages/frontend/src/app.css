@@ -117,6 +117,10 @@ body {
 
 /* Components */
 
+#app {
+  min-height: 100vh;
+}
+
 .ant-btn {
     font-weight: 700;
     font-size: 20px;
@@ -292,12 +296,19 @@ header .space {
 
 /* Search */
 #search {
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#search .head {
     background-color: var(--blue);
     padding-right: 16px;
     padding-left: 16px;
 }
 
-#search h2 {
+#search .head h2 {
     color: white;
     text-align: center;
     font-size: 26px;
@@ -307,13 +318,30 @@ header .space {
 }
 
 
-#search .ant-form-item {
+#search .head .ant-form-item {
     margin-bottom: 0px;
 }
 
-#search .ant-input {
+#search .head .ant-input {
     height: 40px;
     border-radius: 4.75px;
+}
+
+#search .leaflet-container {
+  width: 100%;
+  flex-grow: 1;
+}
+
+#search .results {
+  position: absolute;
+  background-color: white;
+  top: 100px;
+  right: 16px;
+  left: 16px;
+  bottom: 0px;
+  opacity: 0.9;
+  z-index: 1000;
+  overflow: auto;
 }
 
 
@@ -609,11 +637,12 @@ header .space {
 }
 
 .ant-layout-sider {
-    background-color: var(--blue);
-    color: white;
-    text-transform: uppercase;
-    height: 100vh;
-    position: fixed !important;
+  z-index: 10000;
+  background-color: var(--blue);
+  color: white;
+  text-transform: uppercase;
+  height: 100vh;
+  position: fixed !important;
 }
 
 .ant-layout-header .ant-btn-background-ghost,
