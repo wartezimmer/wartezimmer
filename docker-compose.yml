@@ -42,6 +42,9 @@ services:
     environment:
       JWT_SECRET: secret123
       DATABASE_URL: postgres://user:idealloesung@db:5432/db
+    depends_on:
+      - db
+      - redis
     ports:
       - 3001:3001
       - 9229:9229
@@ -56,7 +59,10 @@ services:
       context: ./packages/load-calculations
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: postgres://user:idealloesung@db:5432/db
+      DATABASE_URL: postgres://user:idealloesung@db:5432/db    
+    depends_on:
+      - db
+      - redis
     ports:
       - 3002:3002
       - 9228:9228
@@ -71,11 +77,14 @@ services:
       dockerfile: Dockerfile
     environment:
       DATABASE_URL: postgres://user:idealloesung@db:5432/db
+    depends_on:
+      - db
     ports:
       - 3003:3003
       - 9227:9227
     volumes:
       # - "./packages/admin-panel/lib:/app/lib:rw"
+      - "./packages/admin-panel/views:/app/views:rw"
       - "./packages/admin-panel/server.js:/app/server.js:rw"
       - "./packages/admin-panel/package.json:/app/package.json:ro"
       - "./packages/shared-lib:/app/node_modules/shared-lib:ro"
