@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import { fetchFacilities } from "state/thunks/fetchFacilities";
 import { withSnackbar } from 'notistack';
+import { SearchOutlined } from '@ant-design/icons';
 
 import { AppApi, Step } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
@@ -14,32 +15,29 @@ export const Search = withSnackbar(({ enqueueSnackbar }) => {
     let position = [51.505, -0.09];
     let zoom = 13
 
+    async function onSearch() {
+        try {
+            await dispatch(fetchFacilities(search))
+        } catch(err) {
+            switch(err.message) {
+                case 'no_query': {
+                    enqueueSnackbar('Bitte geben Sie einen Suchbegriff ein');
+                    break;
+                }
+                default: {
+                    enqueueSnackbar(`Fehler: ${err.message}`);
+                    break;
+                }
+            }
+        }
+    }
+
     return (
         <>
             <main id="search">
                 <div className="head">
-                    <h2>Meine Einrichtung finden</h2>
-                    <Form.Item>
-                        <Input value={search} onChange={(e) => setSearch(e.target.value)}/>
-                    </Form.Item>
-                    <div className="btn-group">
-                        <Button className="primary-red" onClick={async () => {
-                            try {
-                                await dispatch(fetchFacilities(search))
-                            } catch(err) {
-                                switch(err.message) {
-                                    case 'no_query': {
-                                        enqueueSnackbar('Bitte geben Sie einen Suchbegriff ein');
-                                        break;
-                                    }
-                                    default: {
-                                        enqueueSnackbar(`Fehler: ${err.message}`);
-                                        break;
-                                    }
-                                }
-                            }
-                        }}>Suchen</Button>
-                    </div>
+                    <Input placeholder="Meine Einrichtung finden" value={search} onChange={(e) => setSearch(e.target.value)} onPressEnter={onSearch}/>
+                    <Button className="primary-red" onClick={onSearch} icon={<SearchOutlined />}/> 
                 </div>
                 <SearchResultList />
 
