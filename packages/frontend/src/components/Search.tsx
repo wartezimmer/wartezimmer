@@ -12,7 +12,7 @@ import { SearchResultList } from "./SearchResultList";
 export const Search = withSnackbar(({ enqueueSnackbar }) => {
     const dispatch = useThunkDispatch();
     const [search, setSearch] = useState("");
-    let position = [51.505, -0.09];
+    let position = [52.517, 13.388];
     let zoom = 13
 
     async function onSearch() {
@@ -36,7 +36,10 @@ export const Search = withSnackbar(({ enqueueSnackbar }) => {
         <>
             <main id="search">
                 <div className="head">
-                    <Input placeholder="Meine Einrichtung finden" value={search} onChange={(e) => setSearch(e.target.value)} onPressEnter={onSearch}/>
+                    <Input allowClear placeholder="Meine Einrichtung finden" value={search} onChange={(e) => {
+                        if (e.target.value == "") dispatch(AppApi.setCurrentSearchResult([]))
+                        setSearch(e.target.value)
+                    }} onPressEnter={onSearch}/>
                     <Button className="primary-red" onClick={onSearch} icon={<SearchOutlined />}/> 
                 </div>
                 <SearchResultList />
