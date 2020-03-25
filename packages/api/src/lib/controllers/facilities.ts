@@ -35,14 +35,14 @@ facilitiesRouter.get("/nearest", asyncHandler(async (req, res) => {
 facilitiesRouter.get("/search", asyncHandler(async (req, res) => {
   if (!req.query.q) {
     res.status(400);
-    res.json({ error: "no query set" });
+    res.json({ status: 'error', code: 'no_query' });
     return;
   }
   
   const db = req.app.get('db')
   const result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
   
-  res.json(result.rows);
+  res.json({ status: 'success', result: result.rows });
 }));
 
 export const FACILITIES_NEAREST_QUERY = `
