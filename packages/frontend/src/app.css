@@ -47,6 +47,9 @@ table {
   background-color: white;
 }
 
+body > div {
+  height: 100%;
+}
 /* Variables */
 body {
   font-family: 'Nunito', sans-serif;
@@ -117,8 +120,9 @@ body {
 
 /* Components */
 
-#app {
-  /* min-height: 100vh; */
+
+.full-height {
+  height: 100%;
 }
 
 .ant-btn {

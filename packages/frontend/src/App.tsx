@@ -52,17 +52,17 @@ export const App = () => {
         }
     }
 
-    return <Layout>
+    return <>
         {/* <div id="smartphone"></div> */}
         {/* <img src="/images/phone.png" alt=""/> */}
-        <Layout id="app">
+        <Layout className="full-height" id="app">
             <SnackbarProvider maxSnack={3}>
                 <NavBar />
                 {renderContent()}
             </SnackbarProvider>
         </Layout>
         <Sider />
-    </Layout>
+    </>
 };
 
 // TODO: Hot only in dev?

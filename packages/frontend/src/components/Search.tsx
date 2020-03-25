@@ -12,7 +12,7 @@ import { SearchResultList } from "./SearchResultList";
 export const Search = withSnackbar(({ enqueueSnackbar }) => {
     const dispatch = useThunkDispatch();
     const [search, setSearch] = useState("");
-    let position = [51.505, -0.09];
+    let position = [52.517, 13.388];
     let zoom = 13
 
     async function onSearch() {
