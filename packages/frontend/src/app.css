@@ -118,7 +118,7 @@ body {
 /* Components */
 
 #app {
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 .ant-btn {
@@ -302,29 +302,29 @@ header .space {
   flex-direction: column;
 }
 
+
 #search .head {
-    background-color: var(--blue);
-    padding-right: 16px;
-    padding-left: 16px;
-}
-
-#search .head h2 {
-    color: white;
-    text-align: center;
-    font-size: 26px;
-    padding-top: 16px;
-    margin-bottom: 16px;
-    font-weight: 700;
-}
-
-
-#search .head .ant-form-item {
-    margin-bottom: 0px;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0px;
+  background-color: var(--blue);
 }
 
 #search .head .ant-input {
-    height: 40px;
-    border-radius: 4.75px;
+  height: 40px;
+  border-radius: 0px;
+  border-top-left-radius: 4.75px;
+  border-bottom-left-radius: 4.75px;
+}
+
+#search .head .ant-btn {
+  border-radius: 0px;
+  width: 40px;
+  border-top-right-radius: 4.75px;
+  border-bottom-right-radius: 4.75px;
 }
 
 #search .leaflet-container {
@@ -335,7 +335,10 @@ header .space {
 #search .results {
   position: absolute;
   background-color: white;
-  top: 100px;
+  top: 44px;
+  border-radius: 4.75px;
+  padding-right: 8px;
+  padding-left: 8px;
   right: 16px;
   left: 16px;
   bottom: 0px;

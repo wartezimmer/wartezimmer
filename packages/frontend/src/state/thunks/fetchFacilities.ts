@@ -8,6 +8,8 @@ export function fetchFacilities(search: string) {
 
         if (json.status === 'success') {
             dispatch(AppApi.setCurrentSearchResult(json.result));
+        } else if (json.status === 'error' && json.code === 'no_query') {
+            dispatch(AppApi.setCurrentSearchResult([]));
         } else if (json.status === 'error') {
             throw new Error(json.code);
         }
