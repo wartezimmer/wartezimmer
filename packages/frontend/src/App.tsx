@@ -1,4 +1,5 @@
 import "./app.css";
+import "./leaflet.css";
 
 import { Layout } from "antd";
 import { About } from "components/About";
@@ -54,7 +55,7 @@ export const App = () => {
     return <Layout>
         {/* <div id="smartphone"></div> */}
         {/* <img src="/images/phone.png" alt=""/> */}
-        <Layout>
+        <Layout id="app">
             <SnackbarProvider maxSnack={3}>
                 <NavBar />
                 {renderContent()}

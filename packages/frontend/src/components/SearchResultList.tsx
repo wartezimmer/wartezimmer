@@ -11,12 +11,12 @@ export const SearchResultList = () => {
     const searchResult = useSelector((state: State) => state.app.currentSearchResult);
     
     if (searchResult === null || !searchResult.length) {
-        return <div>Todo: no searchresult</div>;
+        return null;
     }
     
     return (
         <>
-            <List>
+            <List className="results" >
                 {searchResult.map((r, n) => (
                     <List.Item onClick={() => {
                         dispatch(AppApi.setCurrentFacility(r))

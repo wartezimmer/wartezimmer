@@ -68,10 +68,10 @@ module.exports = function(env) {
           test: /\.css$/,
           use: ["style-loader", "css-loader"],
         },
-        {
-          test: /\.png$/,
-          loader: "url-loader?limit=100000",
-        },
+        // {
+        //   test: /\.png$/,
+        //   loader: "url-loader?limit=100000",
+        // },
         {
           test: /(pdfkit|linebreak|fontkit|unicode|brotli|png-js).*\.js$/,
           loader: "transform-loader?brfs",
@@ -81,7 +81,7 @@ module.exports = function(env) {
           loader: "url-loader?limit=10000&mimetype=application/font-woff",
         },
         {
-          test: /\.(ttf|otf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?|(jpg|gif)$/,
+          test: /\.(ttf|otf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?|(jpg|gif|png)$/,
           loader: "file-loader",
         },
         {
