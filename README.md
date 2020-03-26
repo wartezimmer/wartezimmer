@@ -16,6 +16,6 @@ yarn migrate up
 When checking out another branch where migrations where changed, run `yarn migrate up` again.
 
 ### Populate DB
-Goto admin-panel (localhost:3003), upload a facilities CSV (/data/*).
 
-GOTO: `localhost:8080`
+Goto admin-panel (localhost:3003), upload a facilities CSV (/data/*).
+GOTO: `https://localhost:8080`

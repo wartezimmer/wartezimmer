@@ -10,6 +10,7 @@
     "build": "webpack --config ./webpack.config.js",
     "build:prod": "webpack --config ./webpack.config.js --env prod",
     "start": "webpack-dev-server --env dev --hot --host=0.0.0.0 --port=8080",
+    "start:ssl": "webpack-dev-server --env dev --hot --host=0.0.0.0 --port=8080 --https --cert=cert.pem --key=key.pem",
     "refresh": "sudo docker-compose build frontend && sudo docker-compose up -d frontend",
     "restart": "sudo docker-compose restart frontend",
     "test": "jest --env=jsdom",
