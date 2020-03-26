@@ -8,11 +8,13 @@ facilitiesRouter.get('/', (req, res) => {
     // todo
 })
 
-facilitiesRouter.get("/nearest", asyncHandler(async (req, res) => {
+// Deactivated because unused currently
+// facilitiesRouter.get("/nearest", asyncHandler(nearest));
+async function nearest(req, res) {
 	// TODO: Use Joi validation instead of manual if(typecheck)
 	if (req.query.longitude === undefined || req.query.latitude === undefined) {
 	  res.status(400);
-	  res.json({error: "latitude or longitude not set"});
+	  res.json({ status: 'error', code: "latitude or longitude not set"});
 	  return;
 	}
 
@@ -28,7 +30,31 @@ facilitiesRouter.get("/nearest", asyncHandler(async (req, res) => {
 	const db = req.app.get('db')
   	const result = await db.query(FACILITIES_NEAREST_QUERY, [latitude, longitude]);
 	
-	res.json(result.rows);
+	res.json({ status: 'success', result: result.rows });
+}
+
+facilitiesRouter.get("/area", asyncHandler(async (req, res) => {
+  const {
+    celat,
+    celng,
+    nelat,
+    nelng,
+  } = req.query;
+  const celatf = parseFloat(celat);
+  const celngf = parseFloat(celng);
+  const nelatf = parseFloat(nelat);
+  const nelngf = parseFloat(nelng);
+
+  if (!celatf || !celngf || !nelatf || !nelngf) {
+	  res.status(400);
+	  res.json({ status: 'error', code: 'missing_boundary' });
+	  return;
+	}
+
+  const db = req.app.get('db')
+  const result = await db.query(FACILITIES_AREA_QUERY, [celatf, celngf, nelatf, nelngf]);
+  
+  res.json({ status: 'success', result: result.rows });
 }));
 
 // TODO: Paginate with filter: { offset, limit }
@@ -45,9 +71,34 @@ facilitiesRouter.get("/search", asyncHandler(async (req, res) => {
   res.json({ status: 'success', result: result.rows });
 }));
 
+export const FACILITIES_AREA_QUERY = `
+  select
+    id,
+    x,
+    y,
+    name,
+		global_id,
+		contact_phone,
+		contact_website,
+		contact_email,
+		address_street,
+		address_housenumber,
+		address_postcode,
+		address_city,
+		address_state
+	from
+		facilities f
+	where
+    earth_box(ll_to_earth($1, $2), earth_distance(ll_to_earth($1, $2), ll_to_earth($3, $4))) @> ll_to_earth(y, x)
+	limit 100;
+`;
+
 export const FACILITIES_NEAREST_QUERY = `
-	select
-		name,
+  select
+    id,
+    x,
+    y,
+    name,
 		object_id,
 		address_city,
 		earth_distance(ll_to_earth(f.latitude,
@@ -66,7 +117,9 @@ export const FACILITIES_NEAREST_QUERY = `
 
 export const FACILITIES_NAME_CITY_QUERY = `
 	select
-		id,
+    id,
+    x,
+    y,
 		name,
 		global_id,
 		contact_phone,

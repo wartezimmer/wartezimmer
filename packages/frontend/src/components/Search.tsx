@@ -1,25 +1,54 @@
 import { Button, Input } from "antd";
-import React, { useEffect } from "react";
-import { fetchFacilities } from "state/thunks/fetchFacilities";
+import React, { useEffect, createRef } from "react";
 import { withSnackbar } from 'notistack';
 import { SearchOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 
+import { fetchFacilities } from "state/thunks/fetchFacilities";
+import { fetchFacilitiesInArea } from "state/thunks/fetchFacilitiesInArea";
 import { State } from "../state";
-import { AppApi } from "../state/app";
+import { AppApi, MapArea, Facility } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
-import { Map, TileLayer } from "react-leaflet";
+import { 
+    Map, 
+    TileLayer, 
+    Marker, 
+    CircleMarker,
+    Viewport,
+    FeatureGroup,
+    Popup,
+} from "react-leaflet";
 import { SearchResultList } from "./SearchResultList";
 import { hasGeolocation, getCurrentPosition } from "../geolocation";
+
+function areaQueryFromBounds(bounds): MapArea {
+    const center = bounds.getCenter()
+    const northEast = bounds.getNorthEast()
+    return {
+        celat: center.lat,
+        celng: center.lng,
+        nelat: northEast.lat,
+        nelng: northEast.lng,
+    };
+}
 
 export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const dispatch = useThunkDispatch();
     const search = useSelector((state: State) => state.app.currentSearchTerm);
     const position = useSelector((state: State) => state.app.currentPosition);
     const searchingPosition = useSelector((state: State) => state.app.currentlySearchingPosition);
-    let zoom = 13
+    const facilities = useSelector((state: State) => state.app.facilities);
+    const mapRef = createRef<Map>()
+    let zoom = 12
     
     useEffect(() => {
+        const bounds = mapRef.current.leafletElement.getBounds();
+        dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
+
+        if (searchingPosition) {
+            dispatch(fetchFacilitiesInArea())
+        }
+
         // TODO: setup position watcher for periodic updates
         if (hasGeolocation && !searchingPosition) {
             dispatch(AppApi.setCurrentlySearchingPosition(true))
@@ -37,6 +66,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 });
                 const crd = pos.coords;
                 dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
+                dispatch(fetchFacilitiesInArea())
             }, (err) => {
                 dispatch(AppApi.setCurrentlySearchingPosition(false))
                 closeSnackbar(positionPendingSnackbar);
@@ -73,6 +103,23 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         }
     }
 
+    const onViewportChanged = async (viewport: Viewport) => {
+        if (mapRef) {
+            const bounds = mapRef.current.leafletElement.getBounds();
+            dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
+            dispatch(fetchFacilitiesInArea())
+        }
+    }
+
+    const ClinikMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
+        const items = facilities.map(({ id, x, y, name }) => (
+            <Marker key={id} position={[y, x]}>
+                <Popup>{name}</Popup>
+            </Marker>
+        ))
+        return (<>{items}</>)
+    }
+
     return (
         <>
             <main id="search">
@@ -87,12 +134,20 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 </div>
                 <SearchResultList />
 
-                <Map  center={position} zoom={zoom}>
-    
+                <Map 
+                    center={position} 
+                    zoom={zoom}
+                    ref={mapRef}
+                    onViewportChanged={onViewportChanged}
+                >
                     <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
+                    <CircleMarker center={position}></CircleMarker>
+                    <FeatureGroup>
+                        <ClinikMarkersList facilities={facilities} />
+                    </FeatureGroup>
                 </Map>
             </main>
         </>
