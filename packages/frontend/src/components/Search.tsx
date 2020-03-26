@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchFacilities } from "state/thunks/fetchFacilities";
 import { withSnackbar } from 'notistack';
 import { SearchOutlined } from '@ant-design/icons';
@@ -12,22 +12,39 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { SearchResultList } from "./SearchResultList";
 import { hasGeolocation, getCurrentPosition } from "../geolocation";
 
-export const Search = withSnackbar(({ enqueueSnackbar }) => {
+export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const dispatch = useThunkDispatch();
     const search = useSelector((state: State) => state.app.currentSearchTerm);
-    const [position, setPosition] = useState([52.517, 13.388]);
+    const position = useSelector((state: State) => state.app.currentPosition);
+    const searchingPosition = useSelector((state: State) => state.app.currentlySearchingPosition);
     let zoom = 13
-
-    if (hasGeolocation) {
-        getCurrentPosition((pos) => {
-            const crd = pos.coords;
-            setPosition([crd.latitude, crd.longitude])
-        }, (err) => {
-            enqueueSnackbar(`Position Fehler: ${err.message}`, { 
-                variant: 'error',
+    
+    useEffect(() => {
+        // TODO: setup position watcher for periodic updates
+        if (hasGeolocation && !searchingPosition) {
+            dispatch(AppApi.setCurrentlySearchingPosition(true))
+            const positionPendingSnackbar = enqueueSnackbar('Versuche deine momentane Position zu finden...', { 
+                persist: true,
+                variant: 'info',
             });
-        })
-    }
+            
+            getCurrentPosition((pos) => {
+                dispatch(AppApi.setCurrentlySearchingPosition(false))
+                closeSnackbar(positionPendingSnackbar);
+                enqueueSnackbar('Position gefunden!', { 
+                    variant: 'success',
+                });
+                const crd = pos.coords;
+                dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
+            }, (err) => {
+                dispatch(AppApi.setCurrentlySearchingPosition(false))
+                closeSnackbar(positionPendingSnackbar);
+                enqueueSnackbar(`Position Fehler: ${err.message}`, { 
+                    variant: 'error',
+                });
+            })
+        }
+    }, [])
 
     async function onSearch() {
         if (search.length < 3) {

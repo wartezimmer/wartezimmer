@@ -1,5 +1,5 @@
-import { CloseOutlined, InfoCircleOutlined, PushpinOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Button, Col, Layout, Menu, Row } from "antd";
+import { CloseOutlined, InfoCircleOutlined, PushpinOutlined, HomeOutlined } from "@ant-design/icons";
+import { Button, Col, Layout, Menu, Row } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { State } from "state";
@@ -33,17 +33,6 @@ export const Sider = () => {
                         </Button>
                     </Col>
                 </Row>
-                <Row className="text-center my-2">
-                    <Col>
-                        <Avatar size={64} icon={<UserOutlined />} />
-                    </Col>
-                </Row>
-                <Row className="text-center my-2">
-                    <Col>Max Mustermann</Col>
-                </Row>
-                <Row className="text-center my-2">
-                    <Col>email@example.com</Col>
-                </Row>
             </div>
             <Menu
                 mode="inline"
@@ -51,6 +40,13 @@ export const Sider = () => {
                 inlineCollapsed={collapseSideBar}
             >
                 <Menu.Divider />
+                <Menu.Item onClick={() => {
+                    dispatch(AppApi.gotoStep(Step.Welcome));
+                    dispatch(AppApi.setSideBarCollapsed(true));
+                }}>
+                    <HomeOutlined />
+                    <span>Zuhause ist am besten.</span>
+                </Menu.Item>
                 <Menu.Item onClick={() => {
                     dispatch(AppApi.gotoStep(Step.Search));
                     dispatch(AppApi.setSideBarCollapsed(true));

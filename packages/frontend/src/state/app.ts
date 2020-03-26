@@ -36,6 +36,8 @@ export interface AppState {
     currentFacility: Facility | null;
     currentSearchTerm: string;
     currentSearchResult: Facility[] | null;
+    currentPosition: Array<number>;
+    currentlySearchingPosition: boolean;
     currentWaitTime: number;
     history: Step[];
     travelTime: number;
@@ -48,6 +50,8 @@ export const defaultAppState: AppState = {
     currentFacility: null,
     currentSearchTerm: "",
     currentSearchResult: null,
+    currentPosition: [52.517, 13.388], // Berlin
+    currentlySearchingPosition: false,
     currentWaitTime: 5,
     history: [],
     travelTime: 30,
@@ -80,6 +84,12 @@ class AppReducer extends Reducer<AppState> {
     }
     public setCurrentSearchResult(result: Facility[]) {
         this.state.currentSearchResult = result;
+    }
+    public setCurrentPosition(position: Array<number>) {
+        this.state.currentPosition = position;
+    }
+    public setCurrentlySearchingPosition(searching: boolean) {
+        this.state.currentlySearchingPosition = searching;
     }
     public setTravelTime(time: number) {
         this.state.travelTime = time;
