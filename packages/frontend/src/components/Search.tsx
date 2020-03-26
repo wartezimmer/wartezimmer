@@ -10,12 +10,24 @@ import { AppApi, Step } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { SearchResultList } from "./SearchResultList";
+import { hasGeolocation, getCurrentPosition } from "../geolocation";
 
 export const Search = withSnackbar(({ enqueueSnackbar }) => {
     const dispatch = useThunkDispatch();
     const search = useSelector((state: State) => state.app.currentSearchTerm);
-    let position = [52.517, 13.388];
+    const [position, setPosition] = useState([52.517, 13.388]);
     let zoom = 13
+
+    if (hasGeolocation) {
+        getCurrentPosition((pos) => {
+            const crd = pos.coords;
+            setPosition([crd.latitude, crd.longitude])
+        }, (err) => {
+            enqueueSnackbar(`Position Fehler: ${err.message}`, { 
+                variant: 'error',
+            });
+        })
+    }
 
     async function onSearch() {
         if (search.length < 3) {
