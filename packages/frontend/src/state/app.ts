@@ -16,6 +16,8 @@ export enum Step {
 export const backend_url = "/api";
 
 export interface Facility {
+    x: number,
+    y: number,
     name: string;
     address_street: string;
     id: string;
@@ -30,6 +32,13 @@ export interface Load {
     [time: string]: number;
 }
 
+export interface MapArea {
+    celat: number,
+    celng: number,
+    nelat: number,
+    nelng: number,
+}
+
 export interface AppState {
     activeStep: Step;
     earliestDeparture: string;
@@ -37,8 +46,10 @@ export interface AppState {
     currentSearchTerm: string;
     currentSearchResult: Facility[] | null;
     currentPosition: Array<number>;
+    currentArea: MapArea | null;
     currentlySearchingPosition: boolean;
     currentWaitTime: number;
+    facilities: Facility[],
     history: Step[];
     travelTime: number;
     collapseSideBar: boolean;
@@ -51,8 +62,10 @@ export const defaultAppState: AppState = {
     currentSearchTerm: "",
     currentSearchResult: null,
     currentPosition: [52.517, 13.388], // Berlin
+    currentArea: null,
     currentlySearchingPosition: false,
     currentWaitTime: 5,
+    facilities: [],
     history: [],
     travelTime: 30,
     collapseSideBar: true,
@@ -88,6 +101,9 @@ class AppReducer extends Reducer<AppState> {
     public setCurrentPosition(position: Array<number>) {
         this.state.currentPosition = position;
     }
+    public setCurrentArea(area: MapArea) {
+        this.state.currentArea = area;
+    }
     public setCurrentlySearchingPosition(searching: boolean) {
         this.state.currentlySearchingPosition = searching;
     }
@@ -99,6 +115,13 @@ class AppReducer extends Reducer<AppState> {
     }
     public setCurrentWaitTime(time: number) {
         this.state.currentWaitTime = time;
+    }
+    public addFacilities(facilities: Facility[]) {
+        // TODO: Store as Map<id, Facility> and add newly loaded once,
+        // show already loaded ones on the map immediately.
+        // These facilities are only shown on the map,
+        // if there is no search term currently
+        this.state.facilities = facilities;
     }
     public setSideBarCollapsed(collapsed: boolean) {
         this.state.collapseSideBar = collapsed;

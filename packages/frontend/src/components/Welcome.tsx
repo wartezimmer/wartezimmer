@@ -14,7 +14,7 @@ export const Welcome = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             autoHideDuration: 15000,
             action: (key) => (
                 <Button onClick={() => { closeSnackbar(key) }}>
-                    'Ok'
+                    Ok
                 </Button>
             )
         });
