@@ -18,19 +18,20 @@ export const Search = withSnackbar(({ enqueueSnackbar }) => {
     let zoom = 13
 
     async function onSearch() {
-        try {
-            await dispatch(fetchFacilities())
-        } catch(err) {
-            switch(err.message) {
-                case 'no_query': {
-                    enqueueSnackbar('Bitte geben Sie einen Suchbegriff ein');
-                    break;
-                }
-                default: {
-                    enqueueSnackbar(`Fehler: ${err.message}`);
-                    break;
-                }
-            }
+        if (search.length < 3) {
+            enqueueSnackbar('Bitte geben Sie mindestens 3 Zeichen ein');
+            return;
+        }
+
+        const response = await dispatch(fetchFacilities())
+        
+        if (response.status === 'error' && response.code === 'no_query') {
+            dispatch(AppApi.setCurrentSearchResult([]));
+            enqueueSnackbar('Bitte geben Sie einen Suchbegriff ein');
+        } else if (response.status === 'error') {
+            enqueueSnackbar(`Fehler: ${response.code}`);
+        } else if (response.result.length === 0) {
+            enqueueSnackbar(`Leider nichts gefunden :(`);
         }
     }
 
@@ -39,7 +40,7 @@ export const Search = withSnackbar(({ enqueueSnackbar }) => {
             <main id="search">
                 <div className="head">
                     <Input allowClear placeholder="Meine Einrichtung finden" value={search} onChange={(e) => {
-                        if (e.target.value == "") {
+                        if (e.target.value.length === 0) {
                             dispatch(AppApi.setCurrentSearchResult([]))
                         }
                         dispatch(AppApi.setCurrentSearchTerm(e.target.value));
