@@ -19,7 +19,9 @@ export const Search = withSnackbar(({ enqueueSnackbar }) => {
 
     async function onSearch() {
         if (search.length < 3) {
-            enqueueSnackbar('Bitte geben Sie mindestens 3 Zeichen ein');
+            enqueueSnackbar('Bitte geben Sie mindestens 3 Zeichen ein', { 
+                variant: 'info',
+            });
             return;
         }
 
@@ -27,9 +29,13 @@ export const Search = withSnackbar(({ enqueueSnackbar }) => {
         
         if (response.status === 'error' && response.code === 'no_query') {
             dispatch(AppApi.setCurrentSearchResult([]));
-            enqueueSnackbar('Bitte geben Sie einen Suchbegriff ein');
+            enqueueSnackbar('Bitte geben Sie einen Suchbegriff ein', { 
+                variant: 'info',
+            });
         } else if (response.status === 'error') {
-            enqueueSnackbar(`Fehler: ${response.code}`);
+            enqueueSnackbar(`Fehler: ${response.code}`, { 
+                variant: 'error',
+            });
         } else if (response.result.length === 0) {
             enqueueSnackbar(`Leider nichts gefunden :(`);
         }
