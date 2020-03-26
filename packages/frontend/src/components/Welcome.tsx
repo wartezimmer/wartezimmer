@@ -5,16 +5,18 @@ import { withSnackbar } from 'notistack';
 
 import { AppApi, Step } from "../state/app";
 
-
-const { Content } = Layout;
-
-export const Welcome = withSnackbar(({ enqueueSnackbar }) => {
+export const Welcome = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const dispatch = useThunkDispatch();
-    
+
     useEffect(() => {
         enqueueSnackbar('BETA: Es gibt noch einiges zu tun. Feedback gerne an info@zwerk.io. Vielen Dank!', { 
             variant: 'info',
             autoHideDuration: 15000,
+            action: (key) => (
+                <Button onClick={() => { closeSnackbar(key) }}>
+                    'Ok'
+                </Button>
+            )
         });
     }, [])
 
