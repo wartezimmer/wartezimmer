@@ -1,14 +1,14 @@
-import { Button, Form, Input } from "antd";
-import React, { useState, useEffect } from "react";
+import { Button, Input } from "antd";
+import React, { useEffect } from "react";
 import { fetchFacilities } from "state/thunks/fetchFacilities";
 import { withSnackbar } from 'notistack';
 import { SearchOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 
 import { State } from "../state";
-import { AppApi, Step } from "../state/app";
+import { AppApi } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer } from "react-leaflet";
 import { SearchResultList } from "./SearchResultList";
 import { hasGeolocation, getCurrentPosition } from "../geolocation";
 
@@ -33,6 +33,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 closeSnackbar(positionPendingSnackbar);
                 enqueueSnackbar('Position gefunden!', { 
                     variant: 'success',
+                    autoHideDuration: 3000,
                 });
                 const crd = pos.coords;
                 dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
@@ -41,6 +42,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 closeSnackbar(positionPendingSnackbar);
                 enqueueSnackbar(`Position Fehler: ${err.message}`, { 
                     variant: 'error',
+                    autoHideDuration: 7000,
                 });
             })
         }
@@ -64,6 +66,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         } else if (response.status === 'error') {
             enqueueSnackbar(`Fehler: ${response.code}`, { 
                 variant: 'error',
+                autoHideDuration: 7000,
             });
         } else if (response.result.length === 0) {
             enqueueSnackbar(`Leider nichts gefunden :(`);
