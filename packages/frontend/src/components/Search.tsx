@@ -9,6 +9,7 @@ import { fetchFacilitiesInArea } from "state/thunks/fetchFacilitiesInArea";
 import { State } from "../state";
 import { AppApi, MapArea, Facility } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
+import L from 'leaflet';
 import { 
     Map, 
     TileLayer, 
@@ -40,8 +41,14 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const facilities = useSelector((state: State) => state.app.facilities);
     const mapRef = createRef<Map>()
     let zoom = 12
+
+    // Bound to germany for the time being
+    const southWest = L.latLng(46.27103747280261, 2.3730468750000004);
+    const northEast = L.latLng(56.47462805805594, 17.885742187500004);
+    const mapBounds = L.latLngBounds(southWest, northEast);
     
     useEffect(() => {
+        mapRef.current.leafletElement.setMinZoom(6);
         const bounds = mapRef.current.leafletElement.getBounds();
         dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
 
@@ -139,6 +146,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     zoom={zoom}
                     ref={mapRef}
                     onViewportChanged={onViewportChanged}
+                    maxBounds={mapBounds}
                 >
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
