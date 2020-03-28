@@ -16,8 +16,8 @@ export enum Step {
 export const backend_url = "/api";
 
 export interface Facility {
-    x: number;
-    y: number;
+    x: number,
+    y: number,
     name: string;
     address_street: string;
     id: string;
@@ -33,10 +33,10 @@ export interface Load {
 }
 
 export interface MapArea {
-    celat: number;
-    celng: number;
-    nelat: number;
-    nelng: number;
+    celat: number,
+    celng: number,
+    nelat: number,
+    nelng: number,
 }
 
 export interface AppState {
@@ -48,11 +48,11 @@ export interface AppState {
     userAllowedLocation: boolean;
     currentPosition: Array<number> | null;
     center: Array<number> | null;
-    zoom: number;
+    zoom: number,
     currentArea: MapArea | null;
     currentlySearchingPosition: boolean;
     currentWaitTime: number;
-    facilities: Facility[];
+    facilities: Facility[],
     history: Step[];
     travelTime: number;
     collapseSideBar: boolean;
@@ -80,6 +80,7 @@ export const defaultAppState: AppState = {
 class AppReducer extends Reducer<AppState> {
     constructor() {
         super(defaultAppState);
+
     }
     public back() {
         this.state.activeStep = Step.Search;

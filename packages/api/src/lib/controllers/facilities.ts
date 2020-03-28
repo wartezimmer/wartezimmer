@@ -114,7 +114,7 @@ export const FACILITIES_NEAREST_QUERY = `
 	order by
 		distance
   offset $4
-	limit 15;
+	limit 5;
 `;
 
 export const FACILITIES_NAME_CITY_QUERY = `
