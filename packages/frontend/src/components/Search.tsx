@@ -37,6 +37,7 @@ function areaQueryFromBounds(bounds): MapArea {
 
 let zoomLevelNotification = 0;
 const MIN_ZOOM_FOR_FETCH = 10;
+let hasInitialPosition = false;
 
 export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const dispatch = useThunkDispatch();
@@ -71,7 +72,8 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
 
         // TODO: setup position watcher for periodic updates
-        if (hasGeolocation && allowedLocation) {
+        if (hasGeolocation && allowedLocation && !hasInitialPosition) {
+            hasInitialPosition = true;
             const positionPendingSnackbar = enqueueSnackbar('Versuche deine momentane Position zu finden...', { 
                 persist: true,
                 variant: 'info',
@@ -84,15 +86,13 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     autoHideDuration: 3000,
                 });
                 const crd = pos.coords;
+                dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
+                // TODO: consolidate zoom and center to viewport in state
+                await dispatch(AppApi.setCenter([crd.latitude, crd.longitude]))
                 await dispatch(AppApi.setZoom(12))
-                await dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
                 const newBounds = map.leafletElement.getBounds();
                 await dispatch(AppApi.setCurrentArea(areaQueryFromBounds(newBounds)))
-                if (zoom >= MIN_ZOOM_FOR_FETCH) {
-                    dispatch(fetchFacilitiesInArea())
-                } else if(!searchTerm) {
-                    showZoomLevelNotification()
-                }
+                dispatch(fetchFacilitiesInArea())
             }, (err) => {
                 closeSnackbar(positionPendingSnackbar);
                 enqueueSnackbar(`Position Fehler: ${err.message} (${err.code})`, { 
@@ -137,18 +137,20 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         } else if (response.result.length === 0) {
             enqueueSnackbar(`Leider nichts gefunden :(`);
         } else {
-            setTimeout(() => setBounds(latLngBounds(response.result.map((result) => [result.y, result.x]))), 100)
+            setTimeout(() => setBounds(latLngBounds(response.result.map((result) => [result.y, result.x]))), 250)
         }
     }
 
     const onViewportChanged = async (viewport: Viewport) => {
+        const map = mapRef.current;
+
         dispatch(AppApi.setZoom(viewport.zoom))
+        dispatch(AppApi.setCenter(viewport.center))
         if (viewport.zoom < MIN_ZOOM_FOR_FETCH || searchTerm.length !== 0) {
             return
         }
 
-        if (mapRef.current) {
-            const map = mapRef.current
+        if (map) {
             const bounds = map.leafletElement.getBounds();
             dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
             dispatch(fetchFacilitiesInArea())
@@ -156,6 +158,8 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     }
 
     const onZoomEnd = (e) => {
+        const map = mapRef.current;
+        
         if (searchTerm.length !== 0) {
             return
         }
@@ -165,8 +169,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             showZoomLevelNotification()
             return;
         }
-        if (mapRef.current) {
-            const map = mapRef.current
+        if (map) {
             const bounds = map.leafletElement.getBounds();
             dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
             dispatch(fetchFacilitiesInArea())
@@ -211,7 +214,10 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                             if (zoom >= MIN_ZOOM_FOR_FETCH) {
                                 dispatch(fetchFacilitiesInArea())
                             } else {
-                                showZoomLevelNotification()
+                                if (bounds) {
+                                    dispatch(AppApi.setCenter((bounds as any).getCenter()));
+                                }
+                                dispatch(AppApi.setZoom(MIN_ZOOM_FOR_FETCH));
                             }
                             dispatch(AppApi.setCurrentSearchTerm(''));
                             return
@@ -228,7 +234,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 {/* <SearchResultList /> */}
 
                 <Map 
-                    center={position || center} 
+                    center={center} 
                     zoom={zoom}
                     ref={mapRef}
                     onViewportChanged={onViewportChanged}
