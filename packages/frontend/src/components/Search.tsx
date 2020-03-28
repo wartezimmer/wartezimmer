@@ -48,10 +48,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const center = useSelector((state: State) => state.app.center);
     const allowedLocation = useSelector((state: State) => state.app.userAllowedLocation);
     const mapRef = createRef<Map>()
-    let bounds = null
-    if (searchResult && searchResult.length) {
-        bounds = latLngBounds(searchResult.map((result) => [result.y, result.x]))
-    }
+    const [bounds, setBounds] = useState(null)
     
     // Bound to germany for the time being
     const southWest = L.latLng(46.27103747280261, 2.3730468750000004);
@@ -93,7 +90,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 await dispatch(AppApi.setCurrentArea(areaQueryFromBounds(newBounds)))
                 if (zoom >= MIN_ZOOM_FOR_FETCH) {
                     dispatch(fetchFacilitiesInArea())
-                } else {
+                } else if(!searchTerm) {
                     showZoomLevelNotification()
                 }
             }, (err) => {
@@ -111,7 +108,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         } else {
             if (zoom >= MIN_ZOOM_FOR_FETCH) {
                 dispatch(fetchFacilitiesInArea())
-            } else {
+            } else if(!searchTerm) {
                 showZoomLevelNotification()
             }
         }
@@ -139,6 +136,8 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             });
         } else if (response.result.length === 0) {
             enqueueSnackbar(`Leider nichts gefunden :(`);
+        } else {
+            setTimeout(() => setBounds(latLngBounds(response.result.map((result) => [result.y, result.x]))), 100)
         }
     }
 
@@ -221,6 +220,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                             closeSnackbar(zoomLevelNotification)
                             zoomLevelNotification = 0
                         }
+                        setBounds(null)
                         dispatch(AppApi.setCurrentSearchTerm(e.target.value));
                     }} onPressEnter={onSearch}/>
                     <Button className="primary-red" onClick={onSearch} icon={<SearchOutlined />}/> 
