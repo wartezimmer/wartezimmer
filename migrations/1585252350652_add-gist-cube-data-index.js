@@ -9,7 +9,7 @@ exports.up = pgm => {
     pgm.alterColumn('facilities', 'y', {
       type: 'float8',
     })
-    pgm.createExtension(['cube', 'earthdistance'])
+    pgm.createExtension(['cube', 'earthdistance'], { ifNotExists: true })
     pgm.sql('CREATE INDEX facilities_cube_data_index ON facilities USING gist (ll_to_earth(y, x));')
 };
 
