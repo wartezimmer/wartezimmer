@@ -748,7 +748,6 @@ header .space {
   .bottom {
     bottom: 0px;
     position: sticky;
-    width: 440px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -771,7 +770,7 @@ header .space {
   }
 
   .ant-layout {
-    height: 708px;
+    height: 707px;
     position: relative;
   }
 
