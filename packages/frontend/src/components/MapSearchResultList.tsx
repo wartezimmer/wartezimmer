@@ -25,7 +25,7 @@ export const MapSearchResultList = () => {
                             title={<a >{r.name}</a>}
                             description={`${r.address_street}`}
                         />
-                        <div>Todo: Auslastung</div>
+                        {/* <div>Todo: Auslastung</div> */}
                     </List.Item>
                 ))}
             </List>

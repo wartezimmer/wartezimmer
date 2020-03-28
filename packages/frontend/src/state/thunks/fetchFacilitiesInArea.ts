@@ -9,7 +9,7 @@ export function fetchFacilitiesInArea() {
         const json = await response.json();
 
         if (json.status === 'success') {
-            dispatch(AppApi.addFacilities(json.result));
+            dispatch(AppApi.setFacilities(json.result));
         } 
         
         return json
