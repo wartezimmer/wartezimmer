@@ -139,6 +139,10 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     }
 
     const onZoomEnd = (e) => {
+        if (searchTerm.length !== 0) {
+            return
+        }
+
         if (e.target._zoom < 10) {
             dispatch(AppApi.setFacilities([]));
             if (!zoomLevelNotification) {
@@ -193,6 +197,10 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                             }
                             dispatch(AppApi.setCurrentSearchResult([]))
                             dispatch(fetchFacilitiesInArea())
+                        }
+                        if (zoomLevelNotification) {
+                            closeSnackbar(zoomLevelNotification)
+                            zoomLevelNotification = 0
                         }
                         dispatch(AppApi.setCurrentSearchTerm(e.target.value));
                     }} onPressEnter={onSearch}/>
