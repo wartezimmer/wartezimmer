@@ -45,7 +45,10 @@ export interface AppState {
     currentFacility: Facility | null;
     currentSearchTerm: string;
     currentSearchResult: Facility[] | null;
-    currentPosition: Array<number>;
+    userAllowedLocation: boolean;
+    currentPosition: Array<number> | null;
+    center: Array<number> | null;
+    zoom: number,
     currentArea: MapArea | null;
     currentlySearchingPosition: boolean;
     currentWaitTime: number;
@@ -61,7 +64,10 @@ export const defaultAppState: AppState = {
     currentFacility: null,
     currentSearchTerm: "",
     currentSearchResult: null,
-    currentPosition: [52.517, 13.388], // Berlin
+    userAllowedLocation: true,
+    currentPosition: null,
+    center: [51.65892664880053, 10.129394531250002], // Germany as start position
+    zoom: 6,
     currentArea: null,
     currentlySearchingPosition: false,
     currentWaitTime: 5,
@@ -98,8 +104,17 @@ class AppReducer extends Reducer<AppState> {
     public setCurrentSearchResult(result: Facility[]) {
         this.state.currentSearchResult = result;
     }
+    public setUserAllowedLocation(allowed: boolean) {
+        this.state.userAllowedLocation = allowed;
+    }
     public setCurrentPosition(position: Array<number>) {
         this.state.currentPosition = position;
+    }
+    public setZoom(zoom: number) {
+        this.state.zoom = zoom;
+    }
+    public setCenter(center: Array<number>) {
+        this.state.center = center;
     }
     public setCurrentArea(area: MapArea) {
         this.state.currentArea = area;
