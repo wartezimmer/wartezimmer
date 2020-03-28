@@ -1,7 +1,7 @@
 import { Button, Input } from "antd";
 import React, { useEffect, createRef } from "react";
 import { withSnackbar } from 'notistack';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, LinkOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 
 import { fetchFacilities } from "state/thunks/fetchFacilities";
@@ -9,6 +9,7 @@ import { fetchFacilitiesInArea } from "state/thunks/fetchFacilitiesInArea";
 import { State } from "../state";
 import { AppApi, MapArea, Facility } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
+import L, { latLngBounds } from 'leaflet';
 import { 
     Map, 
     TileLayer, 
@@ -18,7 +19,8 @@ import {
     FeatureGroup,
     Popup,
 } from "react-leaflet";
-import { SearchResultList } from "./SearchResultList";
+// import { SearchResultList } from "./SearchResultList";
+import { MapSearchResultList } from "./MapSearchResultList";
 import { hasGeolocation, getCurrentPosition } from "../geolocation";
 
 function areaQueryFromBounds(bounds): MapArea {
@@ -34,52 +36,68 @@ function areaQueryFromBounds(bounds): MapArea {
 
 export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const dispatch = useThunkDispatch();
-    const search = useSelector((state: State) => state.app.currentSearchTerm);
+    const searchTerm = useSelector((state: State) => state.app.currentSearchTerm);
     const position = useSelector((state: State) => state.app.currentPosition);
-    const searchingPosition = useSelector((state: State) => state.app.currentlySearchingPosition);
     const facilities = useSelector((state: State) => state.app.facilities);
+    const searchResult = useSelector((state: State) => state.app.currentSearchResult);
+    const zoom = useSelector((state: State) => state.app.zoom);
+    const center = useSelector((state: State) => state.app.center);
+    const allowedLocation = useSelector((state: State) => state.app.userAllowedLocation);
     const mapRef = createRef<Map>()
-    let zoom = 12
+    let bounds = null
+    if (searchResult && searchResult.length) {
+        bounds = latLngBounds(searchResult.map((result) => [result.y, result.x]))
+    }
+    
+    // Bound to germany for the time being
+    const southWest = L.latLng(46.27103747280261, 2.3730468750000004);
+    const northEast = L.latLng(56.47462805805594, 17.885742187500004);
+    const mapBounds = L.latLngBounds(southWest, northEast);
     
     useEffect(() => {
-        const bounds = mapRef.current.leafletElement.getBounds();
+        const map = mapRef.current;
+        map.leafletElement.setMinZoom(6);
+        const bounds = map.leafletElement.getBounds();
         dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
 
-        if (searchingPosition) {
-            dispatch(fetchFacilitiesInArea())
-        }
-
         // TODO: setup position watcher for periodic updates
-        if (hasGeolocation && !searchingPosition) {
-            dispatch(AppApi.setCurrentlySearchingPosition(true))
+        if (hasGeolocation && allowedLocation) {
             const positionPendingSnackbar = enqueueSnackbar('Versuche deine momentane Position zu finden...', { 
                 persist: true,
                 variant: 'info',
             });
             
-            getCurrentPosition((pos) => {
-                dispatch(AppApi.setCurrentlySearchingPosition(false))
+            getCurrentPosition(async (pos) => {
                 closeSnackbar(positionPendingSnackbar);
                 enqueueSnackbar('Position gefunden!', { 
                     variant: 'success',
                     autoHideDuration: 3000,
                 });
                 const crd = pos.coords;
-                dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
+                await dispatch(AppApi.setZoom(12))
+                await dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
+                const newBounds = map.leafletElement.getBounds();
+                await dispatch(AppApi.setCurrentArea(areaQueryFromBounds(newBounds)))
                 dispatch(fetchFacilitiesInArea())
             }, (err) => {
-                dispatch(AppApi.setCurrentlySearchingPosition(false))
                 closeSnackbar(positionPendingSnackbar);
-                enqueueSnackbar(`Position Fehler: ${err.message}`, { 
+                enqueueSnackbar(`Position Fehler: ${err.message} (${err.code})`, { 
                     variant: 'error',
                     autoHideDuration: 7000,
                 });
+
+                // TODO: Handle err.code === 1, user denied location
+                if (err.code === 1) {
+                    dispatch(AppApi.setUserAllowedLocation(false))
+                } 
             })
+        } else {
+            dispatch(fetchFacilitiesInArea())
         }
     }, [])
 
     async function onSearch() {
-        if (search.length < 3) {
+        if (searchTerm.length < 3) {
             enqueueSnackbar('Bitte geben Sie mindestens 3 Zeichen ein', { 
                 variant: 'info',
             });
@@ -105,50 +123,74 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
 
     const onViewportChanged = async (viewport: Viewport) => {
         if (mapRef) {
-            const bounds = mapRef.current.leafletElement.getBounds();
-            dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
-            dispatch(fetchFacilitiesInArea())
+            if (searchTerm.length === 0) {
+                const bounds = mapRef.current.leafletElement.getBounds();
+                dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
+                dispatch(fetchFacilitiesInArea())
+            }
         }
     }
 
-    const ClinikMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
-        const items = facilities.map(({ id, x, y, name }) => (
-            <Marker key={id} position={[y, x]}>
-                <Popup>{name}</Popup>
-            </Marker>
-        ))
+    const ClinicMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
+        const items = facilities.map((facility: Facility) => {
+            const { id, x, y, name } = facility
+            return (
+                <Marker key={id} position={[y, x]}>
+                    <Popup>
+                        <div style={{ cursor: "pointer" }} onClick={() => {
+                            dispatch(AppApi.setCurrentFacility(facility))
+                        }}>
+                            <LinkOutlined />&nbsp;{name}
+                        </div>
+                    </Popup>
+                </Marker>
+            )
+        })
         return (<>{items}</>)
     }
+
+    const UserPosition = ({ center }) => center 
+        ?  (<CircleMarker center={center}></CircleMarker>)
+        : null
 
     return (
         <>
             <main id="search">
                 <div className="head">
-                    <Input allowClear placeholder="Meine Einrichtung finden" value={search} onChange={(e) => {
+                    <Input allowClear placeholder="Meine Einrichtung finden" value={searchTerm} onChange={(e) => {
                         if (e.target.value.length === 0) {
+                            if (mapRef.current) {
+                                const newBounds = mapRef.current.leafletElement.getBounds();
+                                dispatch(AppApi.setCurrentArea(areaQueryFromBounds(newBounds)))
+                            }
                             dispatch(AppApi.setCurrentSearchResult([]))
+                            dispatch(fetchFacilitiesInArea())
                         }
                         dispatch(AppApi.setCurrentSearchTerm(e.target.value));
                     }} onPressEnter={onSearch}/>
                     <Button className="primary-red" onClick={onSearch} icon={<SearchOutlined />}/> 
                 </div>
-                <SearchResultList />
+                {/* <SearchResultList /> */}
 
                 <Map 
-                    center={position} 
+                    center={position || center} 
                     zoom={zoom}
                     ref={mapRef}
                     onViewportChanged={onViewportChanged}
+                    maxBounds={mapBounds}
+                    bounds={bounds}
                 >
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
-                    <CircleMarker center={position}></CircleMarker>
+                    <UserPosition center={position} />
                     <FeatureGroup>
-                        <ClinikMarkersList facilities={facilities} />
+                        <ClinicMarkersList facilities={searchResult?.length ? searchResult : facilities} />
                     </FeatureGroup>
                 </Map>
+
+                <MapSearchResultList />
             </main>
         </>
     );

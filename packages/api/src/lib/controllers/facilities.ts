@@ -1,5 +1,6 @@
 import express from "express";
 import { asyncHandler } from '../async-handler'
+import { logger } from '../logger'
 
 export const facilitiesRouter = express.Router();
 
@@ -7,31 +8,6 @@ facilitiesRouter.get('/', (req, res) => {
     var facilityId = req.params["id"]
     // todo
 })
-
-// Deactivated because unused currently
-// facilitiesRouter.get("/nearest", asyncHandler(nearest));
-async function nearest(req, res) {
-	// TODO: Use Joi validation instead of manual if(typecheck)
-	if (req.query.longitude === undefined || req.query.latitude === undefined) {
-	  res.status(400);
-	  res.json({ status: 'error', code: "latitude or longitude not set"});
-	  return;
-	}
-
-	const latitude = parseFloat(req.query.latitude);
-	const longitude = parseFloat(req.query.longitude)
-
-	if (isNaN(latitude) || isNaN(longitude)) {
-	  res.status(400);
-	  res.json({error: "latitude or longitude are no valid floats"});
-	  return;
-	}
-
-	const db = req.app.get('db')
-  	const result = await db.query(FACILITIES_NEAREST_QUERY, [latitude, longitude]);
-	
-	res.json({ status: 'success', result: result.rows });
-}
 
 facilitiesRouter.get("/area", asyncHandler(async (req, res) => {
   const {
@@ -52,8 +28,17 @@ facilitiesRouter.get("/area", asyncHandler(async (req, res) => {
 	}
 
   const db = req.app.get('db')
-  const result = await db.query(FACILITIES_AREA_QUERY, [celatf, celngf, nelatf, nelngf]);
-  
+  const before = Date.now();
+  // TODO: If position known, order by nearest as well
+  const result = await db.query(FACILITIES_AREA_QUERY, [
+    celatf, 
+    celngf, 
+    nelatf, 
+    nelngf, 
+    process.env.AREA_FACILITIES_LIMIT || 250
+  ]);
+  logger.info(`Area query time: ${Date.now() - before}ms`)
+
   res.json({ status: 'success', result: result.rows });
 }));
 
@@ -66,31 +51,44 @@ facilitiesRouter.get("/search", asyncHandler(async (req, res) => {
   }
   
   const db = req.app.get('db')
-  const result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
+  const before = Date.now();
+  let result;
+  if (req.query.lat && req.query.lng) {
+    result = await db.query(FACILITIES_NEAREST_QUERY, [
+      req.query.q, 
+      req.query.lat, 
+      req.query.lng, 
+      0 // offset not handled yet
+    ]);
+  } else {
+    result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
+  }
+  logger.info(`Search query time: ${Date.now() - before}ms`)
   
   res.json({ status: 'success', result: result.rows });
 }));
 
 export const FACILITIES_AREA_QUERY = `
   select
+    count(id) OVER() AS total,
     id,
     x,
     y,
     name,
-		global_id,
-		contact_phone,
-		contact_website,
-		contact_email,
-		address_street,
-		address_housenumber,
-		address_postcode,
-		address_city,
-		address_state
+    global_id,
+    contact_phone,
+    contact_website,
+    contact_email,
+    address_street,
+    address_housenumber,
+    address_postcode,
+    address_city,
+    address_state
 	from
 		facilities f
 	where
     earth_box(ll_to_earth($1, $2), earth_distance(ll_to_earth($1, $2), ll_to_earth($3, $4))) @> ll_to_earth(y, x)
-	limit 100;
+	limit $5;
 `;
 
 export const FACILITIES_NEAREST_QUERY = `
@@ -99,20 +97,24 @@ export const FACILITIES_NEAREST_QUERY = `
     x,
     y,
     name,
-		object_id,
-		address_city,
-		earth_distance(ll_to_earth(f.latitude,
-		f.longitude),
-		ll_to_earth($1,
-		$2))
+    global_id,
+    contact_phone,
+    contact_website,
+    contact_email,
+    address_street,
+    address_housenumber,
+    address_postcode,
+    address_city,
+    address_state,
+    earth_distance(ll_to_earth(y, x), ll_to_earth($2, $3)) as distance
 	from
-		facilities2 f
+		facilities
+	where
+		to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', $1)
 	order by
-		earth_distance(ll_to_earth(f.latitude,
-		f.longitude),
-		ll_to_earth($1,
-		$2))
-	limit 100;
+		distance
+  offset $4
+	limit 5;
 `;
 
 export const FACILITIES_NAME_CITY_QUERY = `

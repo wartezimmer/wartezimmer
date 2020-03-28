@@ -361,6 +361,18 @@ header .space {
   overflow: auto;
 }
 
+#search .map-results {
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0px;
+  overflow: auto;
+  max-height: 250px;
+  border-top: 1px #aaa solid;
+}
+
 
 /*Facility */
 .doc-info {
