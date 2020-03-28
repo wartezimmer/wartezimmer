@@ -36,6 +36,7 @@ function areaQueryFromBounds(bounds): MapArea {
 }
 
 let zoomLevelNotification = 0;
+const MIN_ZOOM_FOR_FETCH = 10;
 
 export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const dispatch = useThunkDispatch();
@@ -47,16 +48,22 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const center = useSelector((state: State) => state.app.center);
     const allowedLocation = useSelector((state: State) => state.app.userAllowedLocation);
     const mapRef = createRef<Map>()
-    let bounds = null
-    if (searchResult && searchResult.length) {
-        bounds = latLngBounds(searchResult.map((result) => [result.y, result.x]))
-    }
+    const [bounds, setBounds] = useState(null)
     
     // Bound to germany for the time being
     const southWest = L.latLng(46.27103747280261, 2.3730468750000004);
     const northEast = L.latLng(56.47462805805594, 17.885742187500004);
     const mapBounds = L.latLngBounds(southWest, northEast);
     
+    const showZoomLevelNotification = () => {
+        if (!zoomLevelNotification) {
+            const key = enqueueSnackbar(`Gib einen Suchbegriff ein oder zoom rein um Einrichtungen anzuzeigen.`, {
+                persist: true
+            });
+            zoomLevelNotification = (key as any)
+        }
+    }
+
     useEffect(() => {
         const map = mapRef.current;
         map.leafletElement.setMinZoom(6);
@@ -81,7 +88,11 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 await dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]))
                 const newBounds = map.leafletElement.getBounds();
                 await dispatch(AppApi.setCurrentArea(areaQueryFromBounds(newBounds)))
-                dispatch(fetchFacilitiesInArea())
+                if (zoom >= MIN_ZOOM_FOR_FETCH) {
+                    dispatch(fetchFacilitiesInArea())
+                } else if(!searchTerm) {
+                    showZoomLevelNotification()
+                }
             }, (err) => {
                 closeSnackbar(positionPendingSnackbar);
                 enqueueSnackbar(`Position Fehler: ${err.message} (${err.code})`, { 
@@ -95,7 +106,11 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 } 
             })
         } else {
-            dispatch(fetchFacilitiesInArea())
+            if (zoom >= MIN_ZOOM_FOR_FETCH) {
+                dispatch(fetchFacilitiesInArea())
+            } else if(!searchTerm) {
+                showZoomLevelNotification()
+            }
         }
     }, [])
 
@@ -121,12 +136,14 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             });
         } else if (response.result.length === 0) {
             enqueueSnackbar(`Leider nichts gefunden :(`);
+        } else {
+            setTimeout(() => setBounds(latLngBounds(response.result.map((result) => [result.y, result.x]))), 100)
         }
     }
 
     const onViewportChanged = async (viewport: Viewport) => {
         dispatch(AppApi.setZoom(viewport.zoom))
-        if (viewport.zoom < 10 || searchTerm.length !== 0) {
+        if (viewport.zoom < MIN_ZOOM_FOR_FETCH || searchTerm.length !== 0) {
             return
         }
 
@@ -143,14 +160,9 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             return
         }
 
-        if (e.target._zoom < 10) {
+        if (e.target._zoom < MIN_ZOOM_FOR_FETCH) {
             dispatch(AppApi.setFacilities([]));
-            if (!zoomLevelNotification) {
-                const key = enqueueSnackbar(`Gib einen Suchbegriff ein oder zoom rein um Einrichtungen anzuzeigen.`, {
-                    persist: true
-                });
-                zoomLevelNotification = (key as any)
-            }
+            showZoomLevelNotification()
             return;
         }
         if (mapRef.current) {
@@ -196,12 +208,19 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                                 dispatch(AppApi.setCurrentArea(areaQueryFromBounds(newBounds)))
                             }
                             dispatch(AppApi.setCurrentSearchResult([]))
-                            dispatch(fetchFacilitiesInArea())
+                            if (zoom >= MIN_ZOOM_FOR_FETCH) {
+                                dispatch(fetchFacilitiesInArea())
+                            } else {
+                                showZoomLevelNotification()
+                            }
+                            dispatch(AppApi.setCurrentSearchTerm(''));
+                            return
                         }
                         if (zoomLevelNotification) {
                             closeSnackbar(zoomLevelNotification)
                             zoomLevelNotification = 0
                         }
+                        setBounds(null)
                         dispatch(AppApi.setCurrentSearchTerm(e.target.value));
                     }} onPressEnter={onSearch}/>
                     <Button className="primary-red" onClick={onSearch} icon={<SearchOutlined />}/> 

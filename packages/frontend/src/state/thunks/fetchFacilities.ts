@@ -25,6 +25,7 @@ export function fetchFacilities() {
 
         if (json.status === 'success') {
             dispatch(AppApi.setCurrentSearchResult(json.result));
+            dispatch(AppApi.setFacilities([]));
         } 
         
         return json
