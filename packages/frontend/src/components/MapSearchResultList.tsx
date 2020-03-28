@@ -10,16 +10,14 @@ export const MapSearchResultList = () => {
     const dispatch = useThunkDispatch();
     const searchResult = useSelector((state: State) => state.app.currentSearchResult);
     const scroll = useRef(null) as any;
-    const halfWay = useRef(null);
+    const halfWay = useRef(null) as any;
 
     if (searchResult === null || !searchResult.length) {
         return null;
     }
     useEffect(() => {
         if (halfWay != undefined) {
-            console.log(scroll);
-            let element = halfWay as any;
-            scroll.current.scrollTo(0, element.current.offsetTop);
+            scroll.current.scrollTo(0, halfWay.current.offsetTop);
         }
     });
     return (
