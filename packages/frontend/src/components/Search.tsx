@@ -134,7 +134,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         } else {
             setTimeout(() => {
                 setBounds(latLngBounds(response.result.map((result) => [result.y, result.x])));
-                
+
             }, 250);
         }
     }
@@ -261,7 +261,6 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     bounds={bounds}
                     onZoomEnd={onZoomEnd}
                     onClick={() => {
-                        console.log("MAP CLICKED");
                     }}
                 >
                     <TileLayer
