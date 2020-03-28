@@ -131,11 +131,7 @@ class AppReducer extends Reducer<AppState> {
     public setCurrentWaitTime(time: number) {
         this.state.currentWaitTime = time;
     }
-    public addFacilities(facilities: Facility[]) {
-        // TODO: Store as Map<id, Facility> and add newly loaded once,
-        // show already loaded ones on the map immediately.
-        // These facilities are only shown on the map,
-        // if there is no search term currently
+    public setFacilities(facilities: Facility[]) {
         this.state.facilities = facilities;
     }
     public setSideBarCollapsed(collapsed: boolean) {

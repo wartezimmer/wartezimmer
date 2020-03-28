@@ -35,7 +35,7 @@ facilitiesRouter.get("/area", asyncHandler(async (req, res) => {
     celngf, 
     nelatf, 
     nelngf, 
-    process.env.AREA_FACILITIES_LIMIT || 250
+    process.env.AREA_FACILITIES_LIMIT || 320
   ]);
   logger.info(`Area query time: ${Date.now() - before}ms`)
 

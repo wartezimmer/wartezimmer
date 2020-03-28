@@ -1,5 +1,5 @@
 import { Button, Input } from "antd";
-import React, { useEffect, createRef } from "react";
+import React, { useEffect, createRef, useState } from "react";
 import { withSnackbar } from 'notistack';
 import { SearchOutlined, LinkOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import { hasGeolocation, getCurrentPosition } from "../geolocation";
 function areaQueryFromBounds(bounds): MapArea {
     const center = bounds.getCenter()
     const northEast = bounds.getNorthEast()
+    
     return {
         celat: center.lat,
         celng: center.lng,
@@ -33,6 +34,8 @@ function areaQueryFromBounds(bounds): MapArea {
         nelng: northEast.lng,
     };
 }
+
+let zoomLevelNotification = 0;
 
 export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const dispatch = useThunkDispatch();
@@ -122,13 +125,38 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     }
 
     const onViewportChanged = async (viewport: Viewport) => {
-        if (mapRef) {
-            if (searchTerm.length === 0) {
-                const bounds = mapRef.current.leafletElement.getBounds();
-                dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
-                dispatch(fetchFacilitiesInArea())
-            }
+        dispatch(AppApi.setZoom(viewport.zoom))
+        if (viewport.zoom < 10 || searchTerm.length !== 0) {
+            return
         }
+
+        if (mapRef.current) {
+            const map = mapRef.current
+            const bounds = map.leafletElement.getBounds();
+            dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
+            dispatch(fetchFacilitiesInArea())
+        }
+    }
+
+    const onZoomEnd = (e) => {
+        if (e.target._zoom < 10) {
+            dispatch(AppApi.setFacilities([]));
+            if (!zoomLevelNotification) {
+                const key = enqueueSnackbar(`Gib einen Suchbegriff ein oder zoom rein um Einrichtungen anzuzeigen.`, {
+                    persist: true
+                });
+                zoomLevelNotification = (key as any)
+            }
+            return;
+        }
+        if (mapRef.current) {
+            const map = mapRef.current
+            const bounds = map.leafletElement.getBounds();
+            dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)))
+            dispatch(fetchFacilitiesInArea())
+        }
+        closeSnackbar(zoomLevelNotification)
+        zoomLevelNotification = 0
     }
 
     const ClinicMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
@@ -179,6 +207,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     onViewportChanged={onViewportChanged}
                     maxBounds={mapBounds}
                     bounds={bounds}
+                    onZoomEnd={onZoomEnd}
                 >
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
