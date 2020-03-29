@@ -19,12 +19,16 @@
     "url": "git+https://github.com/wartezimmer/wartezimmer.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "../../node_modules/.bin/jest"
   },
   "bugs": {
     "url": "https://github.com/wartezimmer/wartezimmer/issues"
   },
   "dependencies": {
-    "shared-lib": "*"
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2",
+    "shared-lib": "*",
+    "winston": "^3.2.1"
   }
 }

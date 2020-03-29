@@ -17,4 +17,4 @@ RUN yarn install
 EXPOSE 3002
 
 
-CMD ["node", "--inspect=0.0.0.0:9228", "worker.js"]
+CMD ["nodemon", "--inspect=0.0.0.0:9228", "worker.js"]
