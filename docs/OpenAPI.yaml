@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  description: |
+  version: "1.0.0"
+  title: Virtuelles Wartezimmer
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Wartezimmer/Backend/1.0.0
+  - url: https://herokuapp.com/abcabc
+
+
+paths:
+  /facilities:
+    get:
+      summary: Get information about the facility
+      operationId: getFacilities
+      responses:
+        200:
+          description: "Request successful"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Facility'
+      security:
+        - firebase: []
+  /facility/{id}:
+    get:
+      summary: Inforamation about the facility
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Id of the facility
+      responses:
+        200:
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+      security:
+        - firebase: []
+  /facility/{id}/enqueue:
+    post:
+      summary: enqueue into facility queue
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Id of the facility
+      responses:
+        201:
+          description: Request successful
+      security:
+        - firebase: []
+  
+  /current-queue:
+    get:
+      summary: Inforamation about the current queue
+      responses:
+        200:
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Queue'
+      security:
+        - firebase: []
+    post:
+      summary: Inforamation about the current queue
+      requestBody:
+       content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [cancel,arrived,start-treatment,finish-treatment]
+         
+      responses:
+        201:
+          description: Request successful
+      security:
+        - firebase: []
+  
+  
+  
+components:
+  schemas:
+    Facility:
+      type: object
+      properties:
+        id:
+          type: string
+        external_id:
+          type: string
+        name: 
+          type: string
+        location:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+        phone:
+          type: string
+        email:
+          type: string
+        website:
+          type: string
+        current_load:
+          type: number
+        load:
+          type: object
+          additionalProperties:
+            type: number
+          example: 
+            "2020-03-21T17:00:00+00:00": 0.2
+            "2020-03-21T17:15:00+00:00": 0.3
+            "2020-03-21T17:30:00+00:00": 0.4
+            "2020-03-21T17:45:00+00:00": 0.5
+            "2020-03-21T18:00:00+00:00": 0.45
+            "2020-03-21T18:15:00+00:00": 0.42
+            "2020-03-21T18:30:00+00:00": 0.40
+            "2020-03-21T18:45:00+00:00": 0.35
+            
+          
+          
+    Queue:
+      type: object
+      properties:
+        facility_id:
+          type: string
+        departure:
+          type: number
+        current_load:
+          type: number
+        created_at:
+          type: number
+        
+
+  securitySchemes:
+    firebase:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: ""
+          # Replace YOUR-PROJECT-ID with your project ID
+          x-google-issuer: "https://securetoken.google.com/virtuelles-wartezimmer"
+          x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+          x-google-audiences: "virtuelles-wartezimmer"
+          scopes: {}
