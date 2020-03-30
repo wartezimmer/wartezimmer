@@ -1,1 +1,1 @@
-export const TOKEN_LIFETIME = 12 * 60 * 60 * 1000
+export const TOKEN_LIFETIME = process.env.TOKEN_LIFETIME || 12 * 60 * 60 * 1000

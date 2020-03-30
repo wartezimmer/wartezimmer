@@ -62,11 +62,11 @@ currentQueue.get("/", (req, res) => {
 });
 
 async function updateQueueState(db, userId, state) {
-    await db.query(`
+    await db.raw(`
         UPDATE queues
-        SET state = $1
-        WHERE user_id = $2
-    `, [state, userId])
+        SET state = :state
+        WHERE user_id = :userId
+    `, { state, userId })
 }
 
 function setTokenData(res, data) {
@@ -78,10 +78,10 @@ function setTokenData(res, data) {
 }
 
 async function deleteQueue(db, res, userId) {
-    await db.query(`
+    await db.raw(`
         DELETE FROM queues
-        WHERE user_id = $1
-    `, [userId])
+        WHERE user_id = :userId
+    `, { userId })
 
     setTokenData(res, {
         userId,

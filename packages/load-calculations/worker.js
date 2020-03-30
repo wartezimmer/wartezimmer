@@ -1,11 +1,41 @@
 const { dataQueue } = require('shared-lib/lib/redis-queue')
-const pgClient = require('shared-lib/lib/pg-client')
+const knex = require('knex')
+
+const { logger } = require('./lib/logger')
+const { crawlIntensiveCareRegister } = require('./lib/crawl-divi')
+
+// TODO: Trigger via exgernal cron job
+DIVI_CRAWL_INTERVAL = 60000 * 60;
 
 const startup = async () => {
-  const { db } = await pgClient()
+  const db = knex({
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    acquireConnectionTimeout: 10000,
+    log: logger
+  })
+  
+  // Note: Queue usage example
+  // dataQueue.process(10, async ({ data }) => {
+  //   await db.query('INSERT INTO test(stuff) VALUES($1) RETURNING *', [data.stuff])
+  // });
 
-  dataQueue.process(10, async ({ data }) => {
-    await db.query('INSERT INTO test(stuff) VALUES($1) RETURNING *', [data.stuff])
-  });
+  // DIVI CRAWLING
+  runIntensiveCareCrawl(db) // one initial run on startup until there is an externally timed trigger
+  setInterval(() => runIntensiveCareCrawl(db), DIVI_CRAWL_INTERVAL)
+  //
 }
 startup()
+
+function runIntensiveCareCrawl(db) {
+  try {
+    crawlIntensiveCareRegister(db, 'https://www.divi.de/register/intensivregister?list[limit]=0');
+  } catch (err) {
+    logger.error('Could not crawl data from divi.de intensive care register', err)
+  }
+}
+
+// knex.js seems to have a broken promise chain somewhere
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error(`Unhandled Rejection at: ${promise}`, reason)
+});

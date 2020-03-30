@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
+    "jest": "^25.2.3",
     "lerna": "^3.20.2",
     "pg": "^7.18.2"
   },
@@ -19,6 +20,9 @@
     "migrate:up": "node-pg-migrate up",
     "start-api": "node packages/api/server.js",
     "start-admin": "node -r dotenv/config packages/admin-panel/server.js",
+    "test": "jest --setupFiles dotenv/config",
+    "test:setup": "node -r dotenv/config scripts/setup-test-db.js",
+    "test:migrate": "node-pg-migrate -d TEST_DATABASE_URL up",
     "heroku-prebuild": "cd packages/api && yarn install --production=false && cd ../frontend && yarn install --production=false",
     "heroku-postbuild": "lerna bootstrap && lerna run build:prod"
   }

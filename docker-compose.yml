@@ -65,7 +65,7 @@ services:
       - 3002:3002
       - 9228:9228
     volumes:
-      # - "./packages/load-calculations/lib:/app/lib:rw"
+      - "./packages/load-calculations/lib:/app/lib:rw"
       - "./packages/load-calculations/worker.js:/app/worker.js:rw"
       - "./packages/load-calculations/package.json:/app/package.json:ro"
       - "./packages/shared-lib:/app/node_modules/shared-lib:ro"

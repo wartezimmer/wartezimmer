@@ -30,15 +30,15 @@ facilitiesRouter.get("/area", asyncHandler(async (req, res) => {
   const db = req.app.get('db')
   const before = Date.now();
   // TODO: If position known, order by nearest as well
-  const result = await db.query(FACILITIES_AREA_QUERY, [
+  const result = await db.raw(FACILITIES_AREA_QUERY, {
     celatf, 
     celngf, 
     nelatf, 
     nelngf, 
-    process.env.AREA_FACILITIES_LIMIT || 320
-  ]);
+    limit: process.env.AREA_FACILITIES_LIMIT || 320
+  });
   logger.info(`Area query time: ${Date.now() - before}ms`)
-
+  
   res.json({ status: 'success', result: result.rows });
 }));
 
@@ -54,14 +54,14 @@ facilitiesRouter.get("/search", asyncHandler(async (req, res) => {
   const before = Date.now();
   let result;
   if (req.query.lat && req.query.lng) {
-    result = await db.query(FACILITIES_NEAREST_QUERY, [
-      req.query.q, 
-      req.query.lat, 
-      req.query.lng, 
-      0 // offset not handled yet
-    ]);
+    result = await db.raw(FACILITIES_NEAREST_QUERY, {
+      q: req.query.q, 
+      lat: req.query.lat, 
+      lng: req.query.lng, 
+      offset: 0 // offset not handled yet
+    });
   } else {
-    result = await db.query(FACILITIES_NAME_CITY_QUERY, [req.query.q]);
+    result = await db.raw(FACILITIES_NAME_CITY_QUERY, { q: req.query.q });
   }
   logger.info(`Search query time: ${Date.now() - before}ms`)
   
@@ -87,8 +87,8 @@ export const FACILITIES_AREA_QUERY = `
 	from
 		facilities f
 	where
-    earth_box(ll_to_earth($1, $2), earth_distance(ll_to_earth($1, $2), ll_to_earth($3, $4))) @> ll_to_earth(y, x)
-	limit $5;
+    earth_box(ll_to_earth(:celatf, :celngf), earth_distance(ll_to_earth(:celatf, :celngf), ll_to_earth(:nelatf, :nelngf))) @> ll_to_earth(y, x)
+	limit :limit;
 `;
 
 export const FACILITIES_NEAREST_QUERY = `
@@ -106,14 +106,14 @@ export const FACILITIES_NEAREST_QUERY = `
     address_postcode,
     address_city,
     address_state,
-    earth_distance(ll_to_earth(y, x), ll_to_earth($2, $3)) as distance
+    earth_distance(ll_to_earth(y, x), ll_to_earth(:lat, :lng)) as distance
 	from
 		facilities
 	where
-		to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', $1)
+		to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', :q)
 	order by
 		distance
-  offset $4
+  offset :offset
 	limit 15;
 `;
 
@@ -135,5 +135,5 @@ export const FACILITIES_NAME_CITY_QUERY = `
 	from
 		facilities
 	where
-		to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', $1);
+		to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', :q);
 `;

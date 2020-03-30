@@ -19,3 +19,13 @@ When checking out another branch where migrations where changed, run `yarn migra
 
 Goto admin-panel (localhost:3003), upload a facilities CSV (/data/*).
 GOTO: `https://localhost:8080`
+
+### Tests
+
+To create the test database:
+
+```bash
+yarn test:setup
+```
+
+To run all tests, use `yarn test`from root. To run tests for a specific package, use `yarn test --testPathPattern=packages/frontend`.
