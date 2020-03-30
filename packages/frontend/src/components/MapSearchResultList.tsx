@@ -12,14 +12,20 @@ export const MapSearchResultList = () => {
     const scroll = useRef(null) as any;
     const halfWay = useRef(null) as any;
 
-    if (searchResult === null || !searchResult.length) {
-        return null;
-    }
+    
     useEffect(() => {
+        if (searchResult === null || !searchResult.length) {
+            return;
+        }
         if (halfWay != undefined) {
             scroll.current.scrollTo(0, halfWay.current.offsetTop);
         }
     });
+
+    if (searchResult === null || !searchResult.length) {
+        return null;
+    }
+
     return (
         <>
             <div ref={scroll} className="results">
