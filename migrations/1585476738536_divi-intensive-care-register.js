@@ -47,10 +47,10 @@ exports.up = pgm => {
       type: 'varchar(128)',
     },
     contact_website: { 
-      type: 'varchar(128)',
+      type: 'varchar(255)',
     },
     last_update_raw: { 
-      type: 'varchar(16)',
+      type: 'varchar(24)',
     },
     createdAt: {
       type: 'timestamp',
@@ -59,8 +59,13 @@ exports.up = pgm => {
     },
   })
 
-  pgm.createIndex('divi_icu_register', ['timestamp', 'facility_id'], {
+  pgm.createIndex('divi_icu_register', ['run_time'], {
     name: 'timestamp_index',
+  })
+
+  pgm.createIndex('divi_icu_register', ['run_time', 'name', 'address_city', 'address_postcode', 'address_station'], {
+    name: 'run_time_name_city_postcode_station_unique_index',
+    unique: true,
   })
 };
 

@@ -1,17 +1,17 @@
 const cheerio = require('cheerio')
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
+const { logger } = require('./logger')
 
-const logger = require('./logger')
-
-async function crawlIntensiveCareRegister() {
+async function crawlIntensiveCareRegister(db, url, extractionRunTime) {
     const runTimestamp = Date.now();
 
-    try {
-        // TODO: fetch
-        const data = extractDataPerClinicFromHtml();
-    } catch (err) {
-        logger.error('Could not crawl data from divi.de intensive care register', err)
-    }
+    const res = await fetch(url);
+    const html = await res.text()
+    const data = extractDataPerClinicFromHtml(html, extractionRunTime);
+    
+    await db('divi_icu_register').insert(data);
+
+    logger.info(`Updated divi icu register with ${data.length} entries`)
 }
 
 const classToStatus = {
@@ -21,11 +21,11 @@ const classToStatus = {
     'hr-icon-red': 3
 }
 
-const textToSannitizedLines = (text) => text.split('\r\n')
+const textToSanitizedLines = (text) => text.split('\r\n')
     .map((l) => l.trim())
     .filter((l) => !!l.length)
 
-function extractDataPerClinicFromHtml(html) {
+function extractDataPerClinicFromHtml(html, extractionRunTime = (new Date()).toUTCString()) {
     const $ = cheerio.load(html, {
         xml: {
             decodeEntities: true
@@ -33,21 +33,33 @@ function extractDataPerClinicFromHtml(html) {
     });
     const rows = [];
     const mapToStatus = (tdElem) => classToStatus[$(tdElem).find('span')[0].attribs.class]
+    const columnUniqueKeys = [];
     const dataTable = $('#dataList > tbody > tr').each((trIndex, trElem) => {
-        const row = {}
-        rows.push(row)
-        $(trElem).find('td').each((tdIndex, tdElem) => {
-            // console.log(tdIndex, ' ---- ', $(tdElem).html())
+        const row = {
+            run_time: extractionRunTime,
+            address_housenumber: null,
+            address_station: null,
+        }
+        const columns = $(trElem).find('td')
+        
+        if (columns.length !== 7) {
+            throw new Error('The intensive care table columns number changed. Adjust the extraction below where this error is thrown.')
+        }
+
+        columns.each((tdIndex, tdElem) => {
             switch(tdIndex) {
                 case 0: {
-                    const lines = textToSannitizedLines($(tdElem).text())
+                    const lines = textToSanitizedLines($(tdElem).text())
                     
                     row.name = lines.shift()
                     if (lines.length === 3) {
                         row.address_station = lines.shift()
                     }
                     const streetNum = lines.shift().split(" ")
-                    row.address_housenumber = streetNum.pop()
+                    const last = streetNum[streetNum.length - 1]
+                    if (/\d+/.test(last)) {
+                        row.address_housenumber = streetNum.pop()
+                    }
                     row.address_street = streetNum.join(' ').trim()
                     const cityCode = lines.shift().split(" ")
                     row.address_city = cityCode.pop()
@@ -56,7 +68,7 @@ function extractDataPerClinicFromHtml(html) {
                     break;
                 }
                 case 1: {
-                    const lines = textToSannitizedLines($(tdElem).text())
+                    const lines = textToSanitizedLines($(tdElem).text())
                     row.contact_station = lines[0] !== 'Website' ? lines[0] : null
                     const anchor = $(tdElem).find('a')[0]
                     row.contact_website = anchor ? anchor.attribs.href : null
@@ -80,15 +92,33 @@ function extractDataPerClinicFromHtml(html) {
                     break;
                 }
                 case 6: {
-                    const lines = textToSannitizedLines($(tdElem).text())
+                    const lines = textToSanitizedLines($(tdElem).text())
                     row.last_update_raw = lines.join(' ')
+                    if (row.last_update_raw.length > 16) {
+                        console.log('LAST UPDATE > 16', row.last_update_raw)
+                    }
                     break;
                 }
                 default: {
                     break;
                 }
             }
-        }   )
+        })
+
+        const uniqeKey = [
+            row.name,
+            row.address_city, 
+            row.address_postcode, 
+            row.address_station
+        ].join(' ')
+        const existingKeysCount = columnUniqueKeys.filter(k => (k === uniqeKey)).length
+        
+        if (existingKeysCount > 0) {
+            row.name = `${row.name} (${existingKeysCount + 1})`
+        }
+
+        columnUniqueKeys.push(uniqeKey)
+        rows.push(row)
     })
     
     return rows

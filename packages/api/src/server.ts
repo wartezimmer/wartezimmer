@@ -23,7 +23,7 @@ const startup = async () => {
     app.use("/api/facilities", facilitiesRouter);
     app.use("/api/current-queue", currentQueue);
 
-    // Example queue usage
+    // Note Example queue usage (example consumer in packages/load-calculations/worker.js)
     // app.get("/test1", async (req, res) => {
     //     const job = await dataQueue.add({ stuff: "valueee" });
     //     res.json({ id: job.id });
@@ -33,6 +33,7 @@ const startup = async () => {
     //     const result = await db.query("SELECT * FROM test");
     //     res.json(result.rows);
     // });
+    // 
 
     const staticFileDir = path.resolve(process.cwd(), 'packages/frontend/dist');
     app.get('/*', express.static(staticFileDir))

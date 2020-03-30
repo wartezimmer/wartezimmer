@@ -1,8 +1,8 @@
 const { Client } = require('pg')
 
-module.exports = async () => { 
+module.exports = async (databaseUrl) => { 
   const client = new Client({
-    connectionString: process.env.DATABASE_URL
+    connectionString: databaseUrl || process.env.DATABASE_URL
   })
   await client.connect()
   
