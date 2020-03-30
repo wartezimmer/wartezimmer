@@ -1437,10 +1437,6 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
 
-shared-lib@*:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/shared-lib/-/shared-lib-1.0.1.tgz#07ee266623570e11cffff6da903df0c0447b38eb"
-
 shebang-command@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/shebang-command/-/shebang-command-1.2.0.tgz#44aac65b695b03398968c39f363fee5deafdf1ea"
