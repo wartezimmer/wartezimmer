@@ -13,7 +13,7 @@ COPY package.json yarn.lock ./
 
 RUN yarn install
 
-EXPOSE 300
+EXPOSE 3003
 
 
 CMD ["node", "--inspect=0.0.0.0:9229", "server.js"]
