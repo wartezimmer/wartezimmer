@@ -21,11 +21,11 @@ export const MapSearchResultList = () => {
         if (halfWay != undefined && halfWay.current != undefined) {
             const scrollElm = scroll.current as HTMLDivElement;
             scrollElm.scrollTo(0, halfWay.current.offsetTop);
-            scrollElm.addEventListener("scroll", (e) => {
+            scrollElm.onscroll = (e) => {
                 if (scrollElm.scrollTop <= 0) {
                     dispatch(AppApi.setResultListHidden(true));
                 }
-            })
+            }
         }
     });
 
