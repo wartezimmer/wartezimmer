@@ -38,17 +38,23 @@ facilityRouter.post("/:id/enqueue", verifyJWTAuth, asyncHandler(async (req, res)
     const authData = req.authData
     const { earliestDeparture, travelTime } = req.body;
     
-    await db.query(`
+    await db.raw(`
         DELETE FROM queues
-        WHERE user_id = $1
-    `, [authData.userId])
+        WHERE user_id = :userId
+    `, { userId: authData.userId })
 
-    const result = await db.query(`
+    const result = await db.raw(`
         INSERT INTO queues
         (user_id, facility_id, earliest_departure, travel_time, state)
-        VALUES ($1, $2, to_timestamp($3), $4, $5)
+        VALUES (:userId, :facilityId, to_timestamp(:earliestDeparture), :travelTime, :state)
         RETURNING *
-    `, [authData.userId, facilityId, earliestDeparture, travelTime, QUEUE_STATE.WAITING])
+    `, {
+        userId: authData.userId, 
+        facilityId, 
+        earliestDeparture, 
+        travelTime, 
+        state: QUEUE_STATE.WAITING
+    })
     const queue = result.rows[0];
     const token = jwt.sign({
         ...authData,

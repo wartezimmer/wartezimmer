@@ -33,6 +33,7 @@
     "express": "^4.17.1",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.13",
     "pg": "^7.18.2",
     "shared-lib": "*",
     "ts-node-dev": "^1.0.0-pre.44",
