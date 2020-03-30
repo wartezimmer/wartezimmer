@@ -56,6 +56,7 @@ export interface AppState {
     history: Step[];
     travelTime: number;
     collapseSideBar: boolean;
+    resultListHidden: boolean;
 }
 
 export const defaultAppState: AppState = {
@@ -75,6 +76,7 @@ export const defaultAppState: AppState = {
     history: [],
     travelTime: 30,
     collapseSideBar: true,
+    resultListHidden: false,
 };
 
 class AppReducer extends Reducer<AppState> {
@@ -139,6 +141,10 @@ class AppReducer extends Reducer<AppState> {
     public toggleSideBar() {
         this.state.collapseSideBar = !this.state.collapseSideBar;
     }
+    public setResultListHidden(isHidden: boolean) {
+        this.state.resultListHidden = isHidden;
+    }
+
 }
 
 const AppReducerInstance = new AppReducer();

@@ -1,4 +1,4 @@
-import { List } from "antd";
+import { List, Button } from "antd";
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
@@ -9,6 +9,7 @@ import { useThunkDispatch } from "../useThunkDispatch";
 export const MapSearchResultList = () => {
     const dispatch = useThunkDispatch();
     const searchResult = useSelector((state: State) => state.app.currentSearchResult);
+    const resultListHidden = useSelector((state: State) => state.app.resultListHidden);
     const scroll = useRef(null) as any;
     const halfWay = useRef(null) as any;
 
@@ -17,13 +18,28 @@ export const MapSearchResultList = () => {
         if (searchResult === null || !searchResult.length) {
             return;
         }
-        if (halfWay != undefined) {
-            scroll.current.scrollTo(0, halfWay.current.offsetTop);
+        if (halfWay != undefined && halfWay.current != undefined) {
+            const scrollElm = scroll.current as HTMLDivElement;
+            scrollElm.scrollTo(0, halfWay.current.offsetTop);
+            scrollElm.addEventListener("scroll", (e) => {
+                if (scrollElm.scrollTop <= 0) {
+                    dispatch(AppApi.setResultListHidden(true));
+                }
+            })
         }
     });
 
+
     if (searchResult === null || !searchResult.length) {
         return null;
+    }
+
+    if (resultListHidden) {
+        return <>
+            <div className="results-hidden">
+                <Button onClick={() => {dispatch(AppApi.setResultListHidden(false))}}>Liste anzeigen</Button>
+            </div>
+        </>
     }
 
     return (
