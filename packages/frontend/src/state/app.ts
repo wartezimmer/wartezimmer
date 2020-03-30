@@ -1,4 +1,5 @@
 import { Reducer } from "./reduxHelper";
+import { Viewport } from "react-leaflet";
 
 export enum Step {
     Welcome,
@@ -46,9 +47,8 @@ export interface AppState {
     currentSearchTerm: string;
     currentSearchResult: Facility[] | null;
     userAllowedLocation: boolean;
+    viewport: Viewport;
     currentPosition: Array<number> | null;
-    center: Array<number> | null;
-    zoom: number;
     currentArea: MapArea | null;
     currentlySearchingPosition: boolean;
     currentWaitTime: number;
@@ -67,8 +67,10 @@ export const defaultAppState: AppState = {
     currentSearchResult: null,
     userAllowedLocation: true,
     currentPosition: null,
-    center: [51.65892664880053, 10.129394531250002], // Germany as start position
-    zoom: 6,
+    viewport: {
+        center: [51.65892664880053, 10.129394531250002], // Germany as start position
+        zoom: 6,
+    },
     currentArea: null,
     currentlySearchingPosition: false,
     currentWaitTime: 5,
@@ -87,10 +89,6 @@ class AppReducer extends Reducer<AppState> {
         this.state.activeStep = Step.Search;
     }
     public gotoStep(step: Step) {
-        // TODO: Still needed?
-        // if (step > Step.Imprint && this.state.currentFacility === null) {
-        //     step = Step.Search;
-        // }
         window.history.pushState({ step: step}, Step[step]);
         this.state.history.push(this.state.activeStep);
         this.state.activeStep = step;
@@ -111,11 +109,8 @@ class AppReducer extends Reducer<AppState> {
     public setCurrentPosition(position: Array<number>) {
         this.state.currentPosition = position;
     }
-    public setZoom(zoom: number) {
-        this.state.zoom = zoom;
-    }
-    public setCenter(center: Array<number>) {
-        this.state.center = center;
+    public setViewport(viewport: Viewport) {
+        this.state.viewport = viewport;
     }
     public setCurrentArea(area: MapArea) {
         this.state.currentArea = area;
