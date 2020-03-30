@@ -8,6 +8,7 @@ import knex from "knex";
 import { currentQueue } from "./lib/controllers/current_queue";
 import { facilitiesRouter } from "./lib/controllers/facilities";
 import { facilityRouter } from "./lib/controllers/facility";
+import { diviRouter } from "./lib/controllers/divi";
 import { logger } from "./lib/logger";
 
 const { dataQueue } = require("shared-lib/lib/redis-queue");
@@ -30,6 +31,7 @@ const startup = async () => {
     app.use("/api/facility", facilityRouter);
     app.use("/api/facilities", facilitiesRouter);
     app.use("/api/current-queue", currentQueue);
+    app.use("/api/divi", diviRouter)
 
     // Note Example queue usage (example consumer in packages/load-calculations/worker.js)
     // app.get("/test1", async (req, res) => {
