@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
+import helmet from "helmet"
 
 import { currentQueue } from "./lib/controllers/current_queue";
 import { facilitiesRouter } from "./lib/controllers/facilities";
@@ -11,6 +12,7 @@ import { pgClient } from "./lib/pg";
 const { dataQueue } = require("shared-lib/lib/redis-queue");
 const app = express();
 
+app.use(helmet())
 app.use(bodyParser.json())
 app.use(cookieParser())
 
