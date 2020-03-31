@@ -5,7 +5,7 @@ const { logger } = require('./lib/logger')
 const { crawlIntensiveCareRegister } = require('./lib/crawl-divi')
 
 // TODO: Trigger via exgernal cron job
-DIVI_CRAWL_INTERVAL = 60000 * 60;
+DIVI_CRAWL_INTERVAL = 60000 * 120;
 
 const startup = async () => {
   const dbConnectionString = process.env.NODE_ENV === 'production'
