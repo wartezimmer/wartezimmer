@@ -183,38 +183,55 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         closeZoomlevelNotification();
     };
 
+    const TooltipMarker = ({ facility }) => {
+        const { id, x, y, name } = facility;
+        return (
+            <Marker
+                key={id}
+                position={[y, x]}
+                title={name}
+                onClick={() => {
+                    dispatch(AppApi.setCurrentFacility(facility));
+                }}
+            >
+                <Tooltip direction="top" offset={[0, -15]} opacity={1} permanent>
+                    {name}
+                </Tooltip>
+            </Marker>
+        );
+    }
+
+    const PopupMarker = ({ facility }) => {
+        const { id, x, y, name } = facility;
+        return (
+            <Marker
+                key={id}
+                position={[y, x]}
+                title={facility.name}
+            >
+                <Popup>
+                    <div
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                            dispatch(AppApi.setCurrentFacility(facility));
+                        }}
+                    >
+                        <LinkOutlined />
+                        &nbsp;{name}
+                    </div>
+                </Popup>
+            </Marker>
+        );
+    }
+
     const ClinicMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
-        const items = facilities.map((facility: Facility) => {
-            const { id, x, y, name } = facility;
-            return (
-                <Marker
-                    key={id}
-                    position={[y, x]}
-                    title={facility.name}
-                    onClick={() => {
-                        dispatch(AppApi.setCurrentFacility(facility));
-                    }}
-                >
-                    {facilities.length <= 15 ? (
-                        <Tooltip direction="top" offset={[0, -15]} opacity={1} permanent>
-                            {facility.name}
-                        </Tooltip>
-                    ) : (
-                        <Popup>
-                            <div
-                                style={{ cursor: "pointer" }}
-                                onClick={() => {
-                                    dispatch(AppApi.setCurrentFacility(facility));
-                                }}
-                            >
-                                <LinkOutlined />
-                                &nbsp;{name}
-                            </div>
-                        </Popup>
-                    )}
-                </Marker>
-            );
-        });
+        let items
+        if (facilities.length <= 15 && stateViewport.zoom > 15) {
+            items = facilities.map((facility: Facility) => (<TooltipMarker facility={facility} />));
+        } else {
+            items = facilities.map((facility: Facility) => (<PopupMarker facility={facility} />));
+        }
+
         return <>{items}</>;
     };
 
