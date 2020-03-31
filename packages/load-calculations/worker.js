@@ -8,9 +8,12 @@ const { crawlIntensiveCareRegister } = require('./lib/crawl-divi')
 DIVI_CRAWL_INTERVAL = 60000 * 60;
 
 const startup = async () => {
+  const dbConnectionString = process.env.NODE_ENV === 'production'
+    ? process.env.DATABASE_URL + '?ssl=true' 
+    : process.env.DATABASE_URL 
   const db = knex({
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: dbConnectionString,
     acquireConnectionTimeout: 10000,
     log: logger
   })
