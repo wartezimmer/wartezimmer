@@ -56,6 +56,11 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         }
     };
 
+    const closeZoomlevelNotification = () => {
+        closeSnackbar(zoomLevelNotification);
+        zoomLevelNotification = 0;
+    }
+
     useEffect(() => {
         const map = mapRef.current;
         map.leafletElement.setMinZoom(6);
@@ -107,6 +112,10 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             } else if (!searchTerm) {
                 showZoomLevelNotification();
             }
+        }
+
+        return () => {
+            closeZoomlevelNotification()
         }
     }, []);
 
@@ -171,8 +180,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)));
             dispatch(fetchFacilitiesInArea());
         }
-        closeSnackbar(zoomLevelNotification);
-        zoomLevelNotification = 0;
+        closeZoomlevelNotification();
     };
 
     const ClinicMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
