@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/wartezimmer/wartezimmer",
-  "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",
+  "author": "Sebastian-Herrlinger <hasta84@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "node-pg-migrate": "^4.2.3"

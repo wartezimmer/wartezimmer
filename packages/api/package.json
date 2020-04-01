@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "Public API",
-  "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",
+  "author": "Sebastian-Herrlinger <hasta84@gmail.com>",
   "homepage": "https://github.com/wartezimmer/wartezimmer#readme",
   "license": "ISC",
   "main": "server.js",
