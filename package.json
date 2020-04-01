@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/wartezimmer/wartezimmer",
-  "author": "Sebastian-Herrlinger <sebastian_herrlinger@external.mckinsey.com>",
+  "author": "Sebastian-Herrlinger <hasta84@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "node-pg-migrate": "^4.2.3"
@@ -23,7 +23,7 @@
     "start-admin": "node -r dotenv/config packages/admin-panel/server.js",
     "test": "jest --setupFiles dotenv/config",
     "test:setup": "node -r dotenv/config scripts/setup-test-db.js",
-    "test:migrate": "node-pg-migrate -d TEST_DATABASE_URL up",
+    "test:migrate": "node-pg-migrate -d TEST_DATABASE_URL",
     "heroku-prebuild": "cd packages/api && yarn install --production=false && cd ../frontend && yarn install --production=false",
     "heroku-postbuild": "lerna bootstrap && lerna run build:prod"
   }

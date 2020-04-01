@@ -22,7 +22,7 @@ describe('Crawl Divi', () => {
     });
 
     afterAll(async () => {
-        db.close()
+        db.destroy()
     });
 
     it('extracts data from html', () => {
@@ -33,8 +33,9 @@ describe('Crawl Divi', () => {
     });
 
     // TODO: use jest-nock package to mock the request
-    it('crawls data from an intensive care url and writes it to db', async () => {
-        await crawlIntensiveCareRegister(db, 'https://www.divi.de/register/intensivregister?list[limit]=10', 'Mon, 30 Mar 2020 09:38:59 GMT');
+    // -> currently skipped until mocked 
+    it.skip('crawls data from an intensive care url and writes it to db', async () => {
+        await crawlIntensiveCareRegister(db, 'https://www.divi.de/register/intensivregister?list[limit]=0', 'Mon, 30 Mar 2020 09:38:59 GMT');
 
         const dbData = await db('divi_icu_register').select('*')
         const dbDataWithoutCreatedAt = dbData.map((item) => ({ ...item, createdAt: null }))

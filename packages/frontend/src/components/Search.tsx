@@ -148,10 +148,9 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         }
     }
 
-    const onViewportChanged = async (viewport: Viewport, ...othr) => {
+    const onViewportChanged = async (viewport: Viewport) => {
         const map = mapRef.current;
-        console.log('OTHR', othr)
-
+        
         dispatch(AppApi.setViewport(viewport));
         if (viewport.zoom < MIN_ZOOM_FOR_FETCH || searchTerm.length !== 0) {
             return;
@@ -228,6 +227,9 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     }
 
     const ClinicMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
+        if (stateViewport.zoom < MIN_ZOOM_FOR_FETCH) {
+            return null
+        }
         let items
         if (facilities.length <= 15 && stateViewport.zoom > 15) {
             items = facilities.map((facility: Facility) => (<TooltipMarker facility={facility} />));

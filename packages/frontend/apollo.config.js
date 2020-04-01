@@ -1,3 +1,4 @@
+// TODO: Where do we use Apollo? Delete this if not used...
 module.exports = {
     client: {
         addTypeName: true,
