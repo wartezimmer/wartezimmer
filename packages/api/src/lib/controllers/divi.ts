@@ -8,7 +8,7 @@ export const diviRouter = express.Router();
 diviRouter.get("/icu-facilities", asyncHandler(async (req, res) => {
     const db = req.app.get('db');
 
-    const { offset = 0, limit } = req.query
+    const { offset = 0, limit = 100 } = req.query
     const query = db('divi_icu_register')
         .select('*')
         .whereRaw('run_time = (SELECT MAX(run_time) FROM divi_icu_register)')
