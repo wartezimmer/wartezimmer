@@ -25,7 +25,7 @@ The application should be easily accesible by anyone, therefor we aim towards a 
 
 The [high level technical overview](https://miro.com/app/board/o9J_kuyJbZM=/) is documented in an online collaboration Flowchart.
 
-We use lerna as monorepo setup. Deployment is to separate apps on heroku using [heroku-buildpack-select-subdir](https://elements.heroku.com/buildpacks/pagedraw/heroku-buildpack-select-subdir).
+We use lerna as monorepo setup. Deployment is to separate apps on heroku using [heroku-buildpack-select-subdir](https://elements.heroku.com/buildpacks/pagedraw/heroku-buildpack-select-subdir). We use Docker currently only for local development.
 
 Copy `.env.sample` to `.env`
 
