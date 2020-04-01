@@ -116,7 +116,7 @@ module.exports = function(env) {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: "frontend",
+        title: "warte.app",
         // favicon: "path/to/favicon",  // TODO you can set a favicon here
         minify: env == "prod" ? {
           collapseWhitespace: true,
