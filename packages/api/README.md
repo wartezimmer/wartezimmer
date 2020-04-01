@@ -4,12 +4,4 @@ The backend for the application, providing facility, waiting queue and stats end
 
 ## Environent Options
 
- - `TOKEN_LIFETIME` - max age for the JWT token and cookie
-
-## Usage
-
-```
-const api = require('api');
-
-// TODO: DEMONSTRATE API
-```
+- `TOKEN_LIFETIME` - max age for the JWT token and cookie

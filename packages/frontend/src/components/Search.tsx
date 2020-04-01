@@ -41,7 +41,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const allowedLocation = useSelector((state: State) => state.app.userAllowedLocation);
     const mapRef = createRef<Map>();
     const [bounds, setBounds] = useState(null);
-
+    
     // Bound to germany for the time being
     const southWest = L.latLng(43.27103747280261, 2.3730468750000004);
     const northEast = L.latLng(56.47462805805594, 17.885742187500004);
@@ -148,14 +148,17 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         }
     }
 
-    const onViewportChanged = async (viewport: Viewport) => {
+    const onViewportChanged = async (viewport: Viewport, ...othr) => {
         const map = mapRef.current;
+        console.log('OTHR', othr)
 
         dispatch(AppApi.setViewport(viewport));
         if (viewport.zoom < MIN_ZOOM_FOR_FETCH || searchTerm.length !== 0) {
             return;
         }
-
+        
+        // TODO: do not trigger a refetch if viewport was only changed slightly (adjustable threshold),
+        // for example by clicking a marker and moving the viewport minimally,
         if (map) {
             const bounds = map.leafletElement.getBounds();
             dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)));
@@ -209,7 +212,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 position={[y, x]}
                 title={facility.name}
             >
-                <Popup>
+                <Popup autoPan={false}>
                     <div
                         style={{ cursor: "pointer" }}
                         onClick={() => {

@@ -1,3 +1,6 @@
+# Note: This API description was spawn during the hackathone where this project was created
+# and is currently not up to date or maintained.
+
 openapi: 3.0.0
 info:
   description: |
