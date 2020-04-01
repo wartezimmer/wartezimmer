@@ -61,9 +61,12 @@ function extractDataPerClinicFromHtml(html, extractionRunTime = (new Date()).toU
                         row.address_housenumber = streetNum.pop()
                     }
                     row.address_street = streetNum.join(' ').trim()
-                    const cityCode = lines.shift().split(" ")
-                    row.address_city = cityCode.pop()
-                    row.address_postcode = cityCode.join(' ')
+                    const cityCode = lines.shift()
+                    const matches = cityCode.match(/[\d]+/)
+                    if (matches[0]) {
+                        row.address_postcode = matches[0]
+                        row.address_city = cityCode.replace(matches[0], '').trim()
+                    }
                     
                     break;
                 }
