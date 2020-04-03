@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/wartezimmer/wartezimmer">
-    <img width="200" height="200" src="https://raw.githubusercontent.com/wartezimmer/wartezimmer/master/packages/frontend/static/logo.png">
+    <img width="200" height="200" src="https://raw.githubusercontent.com/wartezimmer/wartezimmer/master/packages/frontend/static/images/logo.png">
   </a>
 </div>
 
