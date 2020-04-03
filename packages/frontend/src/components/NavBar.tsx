@@ -12,7 +12,7 @@ export const NavBar = () => {
     return (
         <Header>
             <img
-                src="/images/Logo_Projekt_01_weiss.svg"
+                src="/logo.png"
                 alt="WirVsVirus Projekt"
                 style={{ height: "3rem" }}
             />
