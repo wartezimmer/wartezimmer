@@ -232,9 +232,9 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         }
         let items
         if (facilities.length <= 15 && stateViewport.zoom > 15) {
-            items = facilities.map((facility: Facility) => (<TooltipMarker facility={facility} />));
+            items = facilities.map((facility: Facility) => (<TooltipMarker key={facility.id} facility={facility} />));
         } else {
-            items = facilities.map((facility: Facility) => (<PopupMarker facility={facility} />));
+            items = facilities.map((facility: Facility) => (<PopupMarker key={facility.id} facility={facility} />));
         }
 
         return <>{items}</>;
@@ -289,12 +289,11 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     maxBounds={maxBounds}
                     bounds={bounds}
                     onZoomEnd={onZoomEnd}
-                    onClick={() => {
-                    }}
                 >
                     <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                        attribution='&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://api.maptiler.com/maps/bright/{z}/{x}/{y}.png?key=joXtRquTCPnw5ntPeKaS"
+                        maxZoom="20"
                     />
                     <UserPosition center={position} />
                     <FeatureGroup>
