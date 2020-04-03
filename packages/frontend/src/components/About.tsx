@@ -17,6 +17,25 @@ export const About = () => {
             </header>
             <main id="about">
                 <section>
+                    <p>
+                        Wir wollen mit dieser App deine Wartezeit ins eigene Wohnzimmer verlegen:
+                        Die App zeigt dir an, wann es Zeit ist, loszugehen,
+                        damit du genau rechtzeitig beim Arzt ankommst und dort unnötige Wartezeiten vermeiden kannst.
+                    </p>
+                    <p>
+                        Dies erreichen wir, indem du angibst, wann du beim Arzt angekommen bist,
+                        wann die Behandlung beginnt und wie lange diese gedauert hat. Alles komplett anonym.
+                        So schaffen wir es, übliche Wartezeiten und Auslastungen in den Arztpraxen und Krankenhäusern berechnen
+                        und an andere Nutzer*innen weiterzugeben.
+                    </p>
+                    <p>
+                        Such jetzt deine medizinische Einrichtung:
+                    </p>
+                    <p>
+                        <Button className="primary-blue" onClick={() => dispatch(AppApi.gotoStep(Step.Search))}>Karte</Button>
+                    </p>
+                </section>
+                <section>
                     <h2>Notwendigkeit</h2>
                     <p>
                         Um die Ausbreitung des neuartigen SARS CoV-2-Virus einzudämmen, müssen wir unsere Begegnungen drastisch einschränken.
@@ -25,21 +44,6 @@ export const About = () => {
                         Dabei kann es jedoch gerade in medizinischen Einrichtungen zu verstärkten Ansammlungen von Menschen kommen.
                         Es ist deshalb dringend notwendig, die Abläufe dort zu optimieren und sicherzustellen,
                         dass sich immer nur wenige Patient*innen gleichzeitig dort aufhalten.
-                    </p>
-                </section>
-                <section>
-                    <h2>So funktioniert's</h2>
-                    <p>
-                        Um dieses Ziel zu erreichen, wollen wir mit dieser App deine Wartezeit ins eigene Wohnzimmer verlegen:
-                        Die App zeigt dir an, wann es Zeit ist, loszugehen,
-                        damit du genau rechtzeitig beim Arzt ankommst und dort unnötige Wartezeiten vermeiden kannst.
-                    </p>
-                    <p>
-                        Dies erreichen wir, indem du angibst, wann du beim Arzt angekommen bist,
-                        wann die Behandling beginnt und wie lange diese gedauert hat.
-                        So schaffen wir es, übliche Wartezeiten und Auslastungen in den Arztpraxen und Krankenhäusern berechnen
-                        und an andere Nutzer*nnen weiterzugeben.
-                        Die Folge ist ein optimierter Strom von Patient*innen.
                     </p>
                 </section>
                 <section>

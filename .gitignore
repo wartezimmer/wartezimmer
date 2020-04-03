@@ -4,3 +4,4 @@
 **/tsconfig.tsbuildinfo
 **/stats.js
 *.pem
+.DS_Store
