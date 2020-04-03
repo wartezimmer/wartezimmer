@@ -30,8 +30,6 @@ module.exports = function(env) {
     // commitHashLong = execSync("git rev-parse HEAD").toString().trim();
   }
 
-  //fs.writeFileSync(path.join(__dirname, "static/version.txt"), `${packageJson.version}-${commitHash}`);
-
   if (!env) {
     console.log("No env specified. Use `--env {dev|prod}`. Using `--env dev`");
     env = "dev";
@@ -68,10 +66,6 @@ module.exports = function(env) {
           test: /\.css$/,
           use: ["style-loader", "css-loader"],
         },
-        // {
-        //   test: /\.png$/,
-        //   loader: "url-loader?limit=100000",
-        // },
         {
           test: /(pdfkit|linebreak|fontkit|unicode|brotli|png-js).*\.js$/,
           loader: "transform-loader?brfs",
@@ -116,6 +110,7 @@ module.exports = function(env) {
     },
     plugins: [
       new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, 'src/index.ejs'),
         title: "warte.app",
         // favicon: "path/to/favicon",  // TODO you can set a favicon here
         minify: env == "prod" ? {
