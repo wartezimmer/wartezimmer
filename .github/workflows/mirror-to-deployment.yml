@@ -14,4 +14,4 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.MIRROR_REPO_KEY }}
         with:
           source-repo: 'git@github.com:wartezimmer/wartezimmer.git'
-          destination-repo: 'git@bitbucket.org:kommander/warte-app.git'
+          destination-repo: 'git@github.com:kommander/warte-app.git'
