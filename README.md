@@ -1,3 +1,9 @@
+<div align="center">
+  <a href="https://github.com/wartezimmer/wartezimmer">
+    <img width="200" height="200" src="https://raw.githubusercontent.com/wartezimmer/wartezimmer/master/packages/frontend/static/logo.png">
+  </a>
+</div>
+
 # [warte.app](https://warte.app)
 
 Especially in a crisis like the _COVID-19 outbreak_, it is important to avoid unnecessary human gatherings,

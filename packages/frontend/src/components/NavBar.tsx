@@ -12,9 +12,9 @@ export const NavBar = () => {
     return (
         <Header>
             <img
-                src="/logo.png"
+                src="/images/logo.png"
                 alt="WirVsVirus Projekt"
-                style={{ height: "3rem" }}
+                style={{ height: "2.5rem" }}
             />
             <Button
                 ghost
