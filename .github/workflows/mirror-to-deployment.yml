@@ -1,0 +1,19 @@
+name: Mirror to Production Deployment
+
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [closed]
+
+jobs:
+  git-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wearerequired/git-mirror-action@v1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.MIRROR_REPO_KEY }}
+        with:
+          source-repo: 'git@github.com:wartezimmer/wartezimmer.git'
+          destination-repo: 'git@bitbucket.org:kommander/warte-app.git'
