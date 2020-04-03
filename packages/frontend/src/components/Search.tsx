@@ -280,7 +280,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     <Button className="primary-red" onClick={onSearch} icon={<SearchOutlined />} />
                 </div>
                 {/* <SearchResultList /> */}
-
+                {/* TODO: Use map->whenReady to act on mapRef */}
                 <Map
                     center={stateViewport.center}
                     zoom={stateViewport.zoom}
