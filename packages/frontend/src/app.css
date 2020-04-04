@@ -433,6 +433,23 @@ header .space {
   background-color: #e93535;
 }
 
+#search .below-head {
+  z-index: 1000;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  margin-top: 10px;
+}
+
+#search .results-hidden {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }

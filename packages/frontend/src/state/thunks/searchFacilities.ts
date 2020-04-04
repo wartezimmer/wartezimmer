@@ -1,13 +1,7 @@
 import { ReduxDispatch } from "../../useThunkDispatch";
 import { AppApi, backend_url } from "../app";
 
-// interface FacilityParams extends Object {
-//     q: string;
-//     lat: number;
-//     lng: number;
-// }
-
-export function fetchFacilities() {
+export function searchFacilities() {
     return async (dispatch: ReduxDispatch, getState) => {
         const { currentSearchTerm, currentPosition } = getState().app;
         const params = {

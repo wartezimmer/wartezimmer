@@ -4,7 +4,8 @@ import { withSnackbar } from "notistack";
 import { SearchOutlined, LinkOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
-import { fetchFacilities } from "state/thunks/fetchFacilities";
+import { searchFacilities } from "state/thunks/searchFacilities";
+import { searchFacilitiesInArea } from "state/thunks/searchFacilitiesInArea";
 import { fetchFacilitiesInArea } from "state/thunks/fetchFacilitiesInArea";
 import { State } from "../state";
 import { AppApi, MapArea, Facility } from "../state/app";
@@ -66,7 +67,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
 
     useEffect(() => {
         const map = mapRef.current;
-        map.leafletElement.setMinZoom(6);
+        map.leafletElement.setMinZoom(5);
         const bounds = map.leafletElement.getBounds();
         dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)));
         dispatch(fetchLoadPerState());
@@ -88,7 +89,6 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     });
                     const crd = pos.coords;
                     dispatch(AppApi.setCurrentPosition([crd.latitude, crd.longitude]));
-                    // TODO: consolidate zoom and center to viewport in state
                     await dispatch(AppApi.setViewport({
                         center: [crd.latitude, crd.longitude],
                         zoom: 11,
@@ -99,15 +99,19 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                 },
                 (err) => {
                     closeSnackbar(positionPendingSnackbar);
+                    // TODO: Handle err.code === 1, user denied location
+                    if (err.code === 1) {
+                        dispatch(AppApi.setUserAllowedLocation(false));
+                        enqueueSnackbar("Leider können wir dir keine Ergebnisse direkt in deiner Nähe anzeigen.", {
+                            variant: "info",
+                            autoHideDuration: 5000,
+                        });
+                        return;
+                    }
                     enqueueSnackbar(`Position Fehler: ${err.message} (${err.code})`, {
                         variant: "error",
                         autoHideDuration: 7000,
                     });
-
-                    // TODO: Handle err.code === 1, user denied location
-                    if (err.code === 1) {
-                        dispatch(AppApi.setUserAllowedLocation(false));
-                    }
                 },
             );
         } else {
@@ -123,7 +127,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         }
     }, []);
 
-    async function onSearch() {
+    async function onSearch(searchInArea) {
         if (searchTerm.length < 3) {
             enqueueSnackbar("Bitte geben Sie mindestens 3 Zeichen ein", {
                 variant: "info",
@@ -131,7 +135,12 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
             return;
         }
 
-        const response = await dispatch(fetchFacilities());
+        let response;
+        if (searchInArea || !position) {
+            response = await dispatch(searchFacilitiesInArea());
+        } else {
+            response = await dispatch(searchFacilities());
+        }
 
         if (response.status === "error" && response.code === "no_query") {
             dispatch(AppApi.setCurrentSearchResult([]));
@@ -154,7 +163,10 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
 
     const onViewportChanged = async (viewport: Viewport) => {
         const map = mapRef.current;
-        
+        if (map) {
+            const bounds = map.leafletElement.getBounds();
+            dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)));
+        }
         dispatch(AppApi.setViewport(viewport));
         if (viewport.zoom < MIN_ZOOM_FOR_FETCH || searchTerm.length !== 0) {
             return;
@@ -162,11 +174,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         
         // TODO: do not trigger a refetch if viewport was only changed slightly (adjustable threshold),
         // for example by clicking a marker and moving the viewport minimally,
-        if (map) {
-            const bounds = map.leafletElement.getBounds();
-            dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)));
-            dispatch(fetchFacilitiesInArea());
-        }
+        dispatch(fetchFacilitiesInArea());
     };
 
     const onZoomEnd = (e) => {
@@ -231,7 +239,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     }
 
     const ClinicMarkersList = ({ facilities }: { facilities: Array<Facility> }) => {
-        if (stateViewport.zoom < MIN_ZOOM_FOR_FETCH) {
+        if (!searchTerm && stateViewport.zoom < MIN_ZOOM_FOR_FETCH) {
             return null
         }
         let items
@@ -286,6 +294,19 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
 
         return <>{items}</>;
     };
+
+
+    const SearchInAreaButton = () => {
+        if(!searchTerm) { 
+            return null
+        }
+
+        return (
+            <div className="below-head">
+                <Button onClick={() => onSearch(true)}>In diesem Gebiet Suchen</Button>
+            </div>
+        )
+    }
 
     const UserPosition = ({ center }) => (center ? <CircleMarker center={center}></CircleMarker> : null);
 
@@ -342,6 +363,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                         url="https://api.maptiler.com/maps/bright/{z}/{x}/{y}.png?key=joXtRquTCPnw5ntPeKaS"
                         maxZoom="20"
                     />
+                    <SearchInAreaButton />
                     <UserPosition center={position} />
                     <FeatureGroup>
                         <ClinicMarkersList facilities={searchResult?.length ? searchResult : facilities} />

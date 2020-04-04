@@ -60,6 +60,25 @@ facilitiesRouter.get("/search", asyncHandler(async (req, res) => {
       lng: req.query.lng, 
       offset: 0 // offset not handled yet
     });
+  } else if (req.query.celat && req.query.celng) {
+    const {
+      celat,
+      celng,
+      nelat,
+      nelng,
+    } = req.query;
+    const celatf = parseFloat(celat);
+    const celngf = parseFloat(celng);
+    const nelatf = parseFloat(nelat);
+    const nelngf = parseFloat(nelng);
+
+    result = await db.raw(FACILITIES_AREA_SEARCH_QUERY, {
+      q: req.query.q,
+      celatf, 
+      celngf, 
+      nelatf, 
+      nelngf
+    });
   } else {
     result = await db.raw(FACILITIES_NAME_CITY_QUERY, { q: req.query.q });
   }
@@ -136,4 +155,27 @@ export const FACILITIES_NAME_CITY_QUERY = `
 		facilities
 	where
 		to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', :q);
+`;
+
+export const FACILITIES_AREA_SEARCH_QUERY = `
+	select
+    id,
+    x,
+    y,
+		name,
+		global_id,
+		contact_phone,
+		contact_website,
+		contact_email,
+		address_street,
+		address_housenumber,
+		address_postcode,
+		address_city,
+		address_state
+	from
+		facilities
+	where
+    to_tsvector('german', name || ' ' || address_city || ' ' || address_postcode) @@ plainto_tsquery('german', :q)
+  and
+    earth_box(ll_to_earth(:celatf, :celngf), earth_distance(ll_to_earth(:celatf, :celngf), ll_to_earth(:nelatf, :nelngf))) @> ll_to_earth(y, x);
 `;
