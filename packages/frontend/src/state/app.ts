@@ -48,6 +48,7 @@ export interface AppState {
     currentSearchResult: Facility[] | null;
     userAllowedLocation: boolean;
     viewport: Viewport;
+    loadPerState: Array<Object> | null;
     currentPosition: Array<number> | null;
     currentArea: MapArea | null;
     currentlySearchingPosition: boolean;
@@ -67,6 +68,7 @@ export const defaultAppState: AppState = {
     currentSearchResult: null,
     userAllowedLocation: true,
     currentPosition: null,
+    loadPerState: null,
     viewport: {
         center: [51.65892664880053, 10.129394531250002], // Germany as start position
         zoom: 6,
@@ -105,6 +107,9 @@ class AppReducer extends Reducer<AppState> {
     }
     public setUserAllowedLocation(allowed: boolean) {
         this.state.userAllowedLocation = allowed;
+    }
+    public setLoadPerState(load: Array<Object>) {
+        this.state.loadPerState = load;
     }
     public setCurrentPosition(position: Array<number>) {
         this.state.currentPosition = position;

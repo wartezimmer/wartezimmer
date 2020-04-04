@@ -10,10 +10,12 @@ import { State } from "../state";
 import { AppApi, MapArea, Facility } from "../state/app";
 import { useThunkDispatch } from "../useThunkDispatch";
 import L, { latLngBounds } from "leaflet";
-import { Map, TileLayer, Marker, Tooltip, CircleMarker, Viewport, FeatureGroup, Popup } from "react-leaflet";
+import { Map, TileLayer, Marker, Tooltip, CircleMarker, Viewport, FeatureGroup, Popup, DivOverlay } from "react-leaflet";
 // import { SearchResultList } from "./SearchResultList";
 import { MapSearchResultList } from "./MapSearchResultList";
 import { hasGeolocation, getCurrentPosition } from "../geolocation";
+import { states as geoCountryStates } from "../data/geo_de";
+import { fetchLoadPerState } from '../state/thunks/fetchLoadPerState';
 
 function areaQueryFromBounds(bounds): MapArea {
     const center = bounds.getCenter();
@@ -39,6 +41,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
     const searchResult = useSelector((state: State) => state.app.currentSearchResult);
     const stateViewport = useSelector((state: State) => state.app.viewport);
     const allowedLocation = useSelector((state: State) => state.app.userAllowedLocation);
+    const loadPerState = useSelector((state: State) => state.app.loadPerState);
     const mapRef = createRef<Map>();
     const [bounds, setBounds] = useState(null);
     
@@ -66,6 +69,7 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         map.leafletElement.setMinZoom(6);
         const bounds = map.leafletElement.getBounds();
         dispatch(AppApi.setCurrentArea(areaQueryFromBounds(bounds)));
+        dispatch(fetchLoadPerState());
 
         // TODO: setup position watcher for periodic updates
         if (hasGeolocation && allowedLocation && !hasInitialPosition) {
@@ -240,6 +244,49 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
         return <>{items}</>;
     };
 
+    const statusForValue = (value) => {
+        let status = 'green';
+
+        if (value > 1.5) {
+            status = 'yellow';
+        } else if (value > 2.75) {
+            status = 'red';
+        }
+
+        return status;
+    }
+
+    const StateLoadInfo = ({ load }) => {
+        const { position, name } = geoCountryStates[load.address_state]
+        const text = L.divIcon({html: `
+            <div class="state-overlay">
+                <span class="status ${statusForValue(load.avg_icu_low)}"></span>
+                <span class="status ${statusForValue(load.avg_icu_high)}"></span>
+                <span class="status ${statusForValue(load.avg_ecmo)}"></span>
+            </div>
+        `});
+        
+        return (
+            <Marker position={position} icon={text}>
+                <Popup autoPan={false}>
+                    <div>
+                        <strong>Auslastung in {name}</strong>
+                        <div>(ICU Low Care / ICU High Care / ECMO)</div>
+                    </div>
+                </Popup>
+            </Marker>
+        );
+    }
+
+    const LoadPerState = ({ loads }: { loads: Array<Object> }) => {
+        if (stateViewport.zoom >= MIN_ZOOM_FOR_FETCH) {
+            return null
+        }
+        const items = loads.map((load: Object, index) => (<StateLoadInfo key={index} load={load} />));
+
+        return <>{items}</>;
+    };
+
     const UserPosition = ({ center }) => (center ? <CircleMarker center={center}></CircleMarker> : null);
 
     return (
@@ -298,6 +345,9 @@ export const Search = withSnackbar(({ enqueueSnackbar, closeSnackbar }) => {
                     <UserPosition center={position} />
                     <FeatureGroup>
                         <ClinicMarkersList facilities={searchResult?.length ? searchResult : facilities} />
+                    </FeatureGroup>
+                    <FeatureGroup>
+                        <LoadPerState loads={loadPerState || []} />
                     </FeatureGroup>
                 </Map>
 
