@@ -406,6 +406,33 @@ header .space {
   padding-bottom: 16px;
 }
 
+#search .state-overlay {
+  position: absolute;
+  width: 75px;
+}
+
+#search .state-overlay .status {
+  border-radius: 50%;
+  height: 18px;
+  width: 18px;
+  display: inline-block;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(51,51,51,.6);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(51,51,51,.6);
+  box-shadow: 0px 0px 3px 0px rgba(51,51,51,.6);
+}
+
+#search .state-overlay .status.green {
+  background-color: #a8d14e;
+}
+
+#search .state-overlay .status.yellow {
+  background-color: #f5ce23;
+}
+
+#search .state-overlay .status.red {
+  background-color: #e93535;
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }

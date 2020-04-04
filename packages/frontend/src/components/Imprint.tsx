@@ -15,7 +15,11 @@ export const Imprint = () => {
                 <div className="space"></div>
             </header>
             <main>
-                <h2>Notwendigkeit</h2>
+                <h2>gGmbH i.G.</h2>
+                <div>
+                    <h4>Auslastungsdaten ICU/ECMO</h4>
+                    <a href="https://www.divi.de/register/intensivregister">Divi.de</a>
+                </div>
             </main>
         </>
     );
