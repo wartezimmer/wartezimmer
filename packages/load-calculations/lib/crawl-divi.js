@@ -1,4 +1,3 @@
-const cheerio = require('cheerio')
 const fetch = require('node-fetch')
 const { logger } = require('./logger')
 
@@ -6,24 +5,24 @@ async function crawlIntensiveCareRegister(db, url, extractionRunTime) {
     const runTimestamp = Date.now();
 
     const res = await fetch(url);
-    const html = await res.text()
-    const data = extractDataPerClinicFromHtml(html, extractionRunTime);
+    const json = await res.json()
+    const data = extractDataPerClinicFromJson(json, extractionRunTime);
     
     await db('divi_icu_register').insert(data);
 
     logger.info(`Updated divi icu register with ${data.length} entries`)
 }
 
-const classToStatus = {
-    'hr-icon-unavailable': 0,
-    'hr-icon-green': 1,
+const stringToStatus = {
+    [null]: 0,
+    'VERFUEGBAR': 1,
     'hr-icon-yellow': 2,
     'hr-icon-red': 3
 }
 
-const textToSanitizedLines = (text) => text.split('\r\n')
-    .map((l) => l.trim())
-    .filter((l) => !!l.length)
+function extractDataPerClinicFromJson(json, , extractionRunTime = (new Date()).toUTCString()) {
+    
+}
 
 function extractDataPerClinicFromHtml(html, extractionRunTime = (new Date()).toUTCString()) {
     const $ = cheerio.load(html, {
@@ -128,6 +127,6 @@ function extractDataPerClinicFromHtml(html, extractionRunTime = (new Date()).toU
 }
 
 module.exports = {
-    extractDataPerClinicFromHtml,
+    extractDataPerClinicFromJson,
     crawlIntensiveCareRegister
 }
