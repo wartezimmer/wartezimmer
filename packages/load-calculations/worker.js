@@ -24,8 +24,8 @@ const startup = async () => {
   // });
 
   // DIVI CRAWLING
-  runIntensiveCareCrawl(db) // one initial run on startup until there is an externally timed trigger
-  setInterval(() => runIntensiveCareCrawl(db), DIVI_CRAWL_INTERVAL)
+  // runIntensiveCareCrawl(db) // one initial run on startup until there is an externally timed trigger
+  // setInterval(() => runIntensiveCareCrawl(db), DIVI_CRAWL_INTERVAL)
   //
 }
 startup()
