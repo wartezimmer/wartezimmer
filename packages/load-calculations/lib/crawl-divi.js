@@ -6,9 +6,9 @@ async function crawlIntensiveCareRegister(db, url, extractionRunTime) {
 
     const res = await fetch(url);
     const json = await res.json()
-    const data = extractDataPerClinicFromJson(json, extractionRunTime);
+    // const data = extractDataPerClinicFromJson(json, extractionRunTime);
     
-    await db('divi_icu_register').insert(data);
+    // await db('divi_icu_register').insert(data);
 
     logger.info(`Updated divi icu register with ${data.length} entries`)
 }
@@ -18,10 +18,6 @@ const stringToStatus = {
     'VERFUEGBAR': 1,
     'hr-icon-yellow': 2,
     'hr-icon-red': 3
-}
-
-function extractDataPerClinicFromJson(json, , extractionRunTime = (new Date()).toUTCString()) {
-    
 }
 
 function extractDataPerClinicFromHtml(html, extractionRunTime = (new Date()).toUTCString()) {
@@ -127,6 +123,6 @@ function extractDataPerClinicFromHtml(html, extractionRunTime = (new Date()).toU
 }
 
 module.exports = {
-    extractDataPerClinicFromJson,
+    // extractDataPerClinicFromJson,
     crawlIntensiveCareRegister
 }
