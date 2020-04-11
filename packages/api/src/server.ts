@@ -3,18 +3,21 @@ import path from "path";
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 import helmet from "helmet"
+import cors from "cors"
 import knex from "knex";
 
 import { currentQueue } from "./lib/controllers/current_queue";
 import { facilitiesRouter } from "./lib/controllers/facilities";
 import { facilityRouter } from "./lib/controllers/facility";
 import { diviRouter } from "./lib/controllers/divi";
+import { rkiRouter } from "./lib/controllers/rki";
 import { logger } from "./lib/logger";
 
 const { dataQueue } = require("shared-lib/lib/redis-queue");
 const app = express();
 
 app.use(helmet())
+app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
 
@@ -35,6 +38,7 @@ const startup = async () => {
     app.use("/api/facilities", facilitiesRouter);
     app.use("/api/current-queue", currentQueue);
     app.use("/api/divi", diviRouter)
+    app.use("/api/rki", rkiRouter)
 
     // Note Example queue usage (example consumer in packages/load-calculations/worker.js)
     // app.get("/test1", async (req, res) => {
@@ -54,7 +58,7 @@ const startup = async () => {
     app.use((err, req, res, next) => {
         logger.error('Request error: ', err)
         res.status(500)
-        res.end('Error, sooooorry.')
+        res.json({ status: "error", message: "Server Error" })
     })
     app.use((req, res, next) => {
         res.end('Not found.')
