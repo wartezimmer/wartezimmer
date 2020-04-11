@@ -1,7 +1,7 @@
 import express from "express";
 import { asyncHandler } from '../async-handler'
 import { logger } from "../logger"
-import { formatNowMinusDays } from "../formatUTCDate.js"
+import { formatNowMinusDays } from "../formatUTCDate"
 
 export const rkiRouter = express.Router();
 
