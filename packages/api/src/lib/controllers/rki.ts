@@ -82,6 +82,7 @@ const validFields = [
     "Shape__Length",
     "death_rate",
     "cases",
+    "new_cases",
     "deaths",
     "cases_per_100k",
     "cases_per_population",
