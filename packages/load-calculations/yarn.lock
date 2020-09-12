@@ -1074,8 +1074,9 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 node-fetch@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 nodemon@^2.0.2:
   version "2.0.2"
@@ -1436,6 +1437,11 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-extendable "^0.1.1"
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
+
+shared-lib@*:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shared-lib/-/shared-lib-1.0.1.tgz#07ee266623570e11cffff6da903df0c0447b38eb"
+  integrity sha1-B+4mZiNXDhHP//bakD3wwER7OOs=
 
 shebang-command@^1.2.0:
   version "1.2.0"
