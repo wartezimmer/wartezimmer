@@ -962,8 +962,9 @@ liftoff@3.1.0:
     resolve "^1.1.7"
 
 lodash@^4.15.0, lodash@^4.17.14, lodash@^4.17.15:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 logform@^2.1.1:
   version "2.1.2"
@@ -1436,6 +1437,11 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-extendable "^0.1.1"
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
+
+shared-lib@*:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shared-lib/-/shared-lib-1.0.1.tgz#07ee266623570e11cffff6da903df0c0447b38eb"
+  integrity sha1-B+4mZiNXDhHP//bakD3wwER7OOs=
 
 shebang-command@^1.2.0:
   version "1.2.0"
