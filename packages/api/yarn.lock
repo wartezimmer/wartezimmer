@@ -384,8 +384,9 @@ decamelize@^1.1.2:
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 define-property@^0.2.5:
   version "0.2.5"
@@ -1724,6 +1725,11 @@ set-value@^2.0.0, set-value@^2.0.1:
 setprototypeof@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.1.tgz#7e95acb24aa92f5885e0abef5ba131330d4ae683"
+
+shared-lib@*:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shared-lib/-/shared-lib-1.0.1.tgz#07ee266623570e11cffff6da903df0c0447b38eb"
+  integrity sha512-e3mE8fZ1Jym/xsoBMWgn/Ko4UjJFZWWMj6fiaLjiAN6prGCHs4MDVmW4xL7h93FiPI8y+8V1jpQE0uTq3A7UYw==
 
 shellwords@^0.1.1:
   version "0.1.1"
